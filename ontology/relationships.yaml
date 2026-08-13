@@ -1,0 +1,38 @@
+version: "0.1"
+relationships:
+  PARTNERS_WITH: {from: Party, to: Party}
+  OWNS: {from: Party, to: Site}
+  LOCATED_AT: {from: Site, to: Location}
+  CONNECTED_TO: {from: Site, to: Site}
+  SUPPLIES: {from: Party, to: Product, properties: [leadTimeDays, moq, unitCost, validFrom, validTo]}
+  SUPPLIES_TO: {from: Party, to: Site}
+  PRODUCES: {from: Site, to: Product}
+  STOCKS: {from: Site, to: Product}
+  HAS_BOM: {from: Product, to: BOM}
+  HAS_LINE: {from: BOM, to: BOMLine}
+  REQUIRES: {from: BOMLine, to: Material}
+  SOLD_TO: {from: Product, to: Party}
+  CREATES: {from: Party, to: Demand}
+  FOR_PRODUCT: {from: Demand, to: Product}
+  FORECASTS: {from: Forecast, to: Demand}
+  PLANS: {from: Plan, to: Product}
+  FOR_SITE: {from: Plan, to: Site}
+  BASED_ON: {from: Plan, to: Forecast}
+  CONSTRAINED_BY: {from: Plan, to: Constraint}
+  FROM: {from: Order, to: Party}
+  TO: {from: Order, to: Site}
+  PRODUCES_ORDER: {from: ProductionOrder, to: Product}
+  SHIPS: {from: Shipment, to: Product}
+  CARRIED_BY: {from: Shipment, to: Party}
+  HAS_CAPACITY: {from: Site, to: Capacity}
+  HAS_POLICY: {from: Product, to: Policy}
+  AFFECTS: {from: Event, to: "*"}
+  CHANGES: {from: Event, to: State}
+  CAUSES: {from: Event, to: Event}
+  IMPACTS: {from: Event, to: KPI}
+  MAKES_DECISION: {from: Party, to: Decision}
+  CONSIDERS: {from: Decision, to: "*"}
+  SELECTS: {from: Decision, to: DecisionOption}
+  MEASURES: {from: KPI, to: "*"}
+  EXPOSES: {from: Risk, to: "*"}
+  HAS_COST: {from: "*", to: Cost}
