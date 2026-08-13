@@ -1,0 +1,32 @@
+version: "0.1"
+scenario:
+  id: AUTO-SUPPLY-RISK-001
+  name: Synthetic supplier delay risk scenario
+  asOf: "2026-08-13T09:00:00Z"
+
+nodes:
+  - type: Party
+    id: SUP-001
+    properties: {name: Supplier A, partyType: SUPPLIER}
+  - type: Material
+    id: MAT-001
+    properties: {name: Seat Frame A, productType: RAW_MATERIAL, uom: EA}
+  - type: ProductLocation
+    id: PL-SEAT-WH
+    properties: {productId: SEAT-001, siteId: WH-001, planningStatus: ACTIVE, sourcingType: BUY, available: 60, inTransit: 20, asOf: "2026-08-13"}
+  - type: Event
+    id: EVT-001
+    properties: {eventType: SUPPLIER_DELAY, occurredAt: "2026-08-13T09:00:00Z", sourceSystem: DEMO, sourceId: SUP-001}
+  - type: Event
+    id: EVT-002
+    properties: {eventType: MATERIAL_SHORTAGE_RISK, occurredAt: "2026-08-13T09:01:00Z", sourceSystem: SCM_ONTOLOGY_DEMO, sourceId: MAT-001}
+  - type: Risk
+    id: RISK-001
+    properties: {riskType: SUPPLY_SHORTAGE, severity: HIGH, probability: 0.8}
+
+edges:
+  - {type: AFFECTS, from: EVT-001, to: SUP-001}
+  - {type: AFFECTS, from: EVT-001, to: MAT-001}
+  - {type: CAUSES, from: EVT-001, to: EVT-002}
+  - {type: EXPOSES, from: RISK-001, to: MAT-001}
+  - {type: EXPOSES, from: RISK-001, to: PL-SEAT-WH}
