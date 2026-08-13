@@ -25,10 +25,6 @@ def test_automotive_demand_supply_gap():
     inventory = inventory_by_location[location]["properties"]
     available = inventory["available"]
     inbound = inventory["inTransit"]
-
     gap = max(demand - available - inbound, 0)
 
-    assert demand == 100
-    assert available == 60
-    assert inbound == 20
-    assert gap == 20
+    assert (demand, available, inbound, gap) == (100, 60, 20, 20)
