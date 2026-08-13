@@ -33,6 +33,9 @@ entities:
   Demand:
     description: Demand signal for a product at a location
     properties: [id, quantity, uom, demandDate, demandType]
+  SupplyGap:
+    description: Derived shortage or surplus between demand and relevant available supply
+    properties: [id, demandQuantity, availableQuantity, inboundQuantity, relevantSupplyQuantity, gapQuantity, uom, asOf]
   Forecast:
     description: Forecasted demand
     properties: [id, quantity, uom, forecastDate, horizon]
