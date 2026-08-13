@@ -1,0 +1,41 @@
+version: "0.1"
+source:
+  name: APICS-ASCM / SCOR-aligned conceptual mapping
+  note: "Conceptual mapping only; terminology is normalized into the canonical SCM Ontology and is not a reproduction of proprietary course material."
+
+mappings:
+  - sourceConcept: Plan
+    ontology: [Plan, Demand, Forecast, Decision, Constraint]
+  - sourceConcept: Source
+    ontology: [Party, Product, Site, PurchaseOrder, Constraint]
+  - sourceConcept: Make
+    ontology: [ProductionOrder, Product, BOM, Capacity, Event]
+  - sourceConcept: Deliver
+    ontology: [Order, Shipment, Carrier, Site, Event]
+  - sourceConcept: Return
+    ontology: [Order, Shipment, InventoryPosition, Event]
+  - sourceConcept: Orchestrate
+    ontology: [Policy, Decision, KPI, Risk]
+  - sourceConcept: Demand Management
+    ontology: [Demand, Forecast, Plan, Decision]
+  - sourceConcept: Master Production Scheduling
+    ontology: [Plan, Product, Capacity, Constraint]
+  - sourceConcept: Material Requirements Planning
+    ontology: [Plan, BOM, Material, Demand, InventoryPosition, Constraint]
+  - sourceConcept: Distribution Requirements Planning
+    ontology: [Plan, Demand, InventoryPosition, Site, Shipment]
+  - sourceConcept: Safety Stock
+    ontology: [InventoryPosition, Policy, Constraint, KPI]
+  - sourceConcept: Sourcing
+    ontology: [Party, Product, Policy, Decision, Risk]
+  - sourceConcept: Supply Network
+    ontology: [Party, Site, Location, Product, Shipment]
+  - sourceConcept: Transportation
+    ontology: [Shipment, Carrier, Site, Constraint, Cost]
+  - sourceConcept: Inventory Management
+    ontology: [InventoryPosition, Product, Site, Policy, KPI]
+
+principles:
+  - "Framework concepts are mappings into the canonical ontology, not ontology entities themselves."
+  - "One framework concept may map to multiple ontology concepts."
+  - "Ontology concepts remain framework-independent."
