@@ -1,10 +1,12 @@
 from pathlib import Path
 
-from scm_ontology.graph import load_yaml, build_statements
+from scm_ontology.graph import load_yaml
+from scm_ontology.neo4j_loader import build_statements
 
 
-DATASET = Path("examples/automotive/data.yaml")
-QUERY = Path("queries/impact_analysis.cypher")
+ROOT = Path(__file__).resolve().parents[1]
+DATASET = ROOT / "examples" / "automotive" / "data.yaml"
+QUERY = ROOT / "queries" / "impact_analysis.cypher"
 
 
 def test_impact_analysis_query_exists_and_traverses_causal_chain():
