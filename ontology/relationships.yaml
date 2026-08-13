@@ -14,6 +14,7 @@ relationships:
   HAS_PRODUCT_LOCATION: {from: Site, to: ProductLocation}
   FOR_PRODUCT_LOCATION: {from: ProductLocation, to: Product}
   FOR_SITE_LOCATION: {from: ProductLocation, to: Site}
+  HAS_INVENTORY_POSITION: {from: ProductLocation, to: InventoryPosition}
   HAS_BOM: {from: Product, to: BOM}
   HAS_LINE: {from: BOM, to: BOMLine}
   REQUIRES: {from: BOMLine, to: Material}
