@@ -12,9 +12,22 @@ def test_supply_risk_dataset_loads_and_builds_causal_graph():
     statements = build_statements(dataset)
 
     assert statements
-    assert any("SUPPLIER_DELAY" in statement for statement in statements)
-    assert any("MATERIAL_SHORTAGE_RISK" in statement for statement in statements)
-    assert any("CAUSES" in statement for statement in statements)
+    assert {node["id"] for node in dataset["nodes"]} >= {
+        "EVT-001",
+        "EVT-002",
+        "RISK-001",
+    }
+    assert next(
+        node["properties"]["eventType"]
+        for node in dataset["nodes"]
+        if node["id"] == "EVT-001"
+    ) == "SUPPLIER_DELAY"
+    assert next(
+        node["properties"]["eventType"]
+        for node in dataset["nodes"]
+        if node["id"] == "EVT-002"
+    ) == "MATERIAL_SHORTAGE_RISK"
+    assert any("MERGE (a)-[r:CAUSES]->(b)" in statement for statement in statements)
 
 
 def test_supply_risk_preserves_stable_ids():
