@@ -1,0 +1,13 @@
+version: "0.1"
+kpis:
+  PERFECT_ORDER: {attribute: RELIABILITY, unit: percent}
+  ON_TIME_DELIVERY: {attribute: RELIABILITY, unit: percent}
+  COMPLETE_DELIVERY: {attribute: RELIABILITY, unit: percent}
+  ORDER_FULFILLMENT_CYCLE_TIME: {attribute: RESPONSIVENESS, unit: days}
+  UPSIDE_SUPPLY_CHAIN_FLEXIBILITY: {attribute: AGILITY, unit: days}
+  SUPPLY_CHAIN_COST: {attribute: COST, unit: currency}
+  CASH_TO_CASH_CYCLE_TIME: {attribute: ASSET_MANAGEMENT, unit: days}
+  INVENTORY_DAYS_OF_SUPPLY: {attribute: ASSET_MANAGEMENT, unit: days}
+  SERVICE_LEVEL: {attribute: RELIABILITY, unit: percent}
+  STOCKOUT_RATE: {attribute: RELIABILITY, unit: percent}
+  FORECAST_ACCURACY: {attribute: PLANNING, unit: percent}
