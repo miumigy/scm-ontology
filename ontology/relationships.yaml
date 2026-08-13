@@ -4,19 +4,25 @@ relationships:
   OWNS: {from: Party, to: Site}
   LOCATED_AT: {from: Site, to: Location}
   CONNECTED_TO: {from: Site, to: Site}
+  ORIGINATES_AT: {from: Lane, to: Site}
+  DESTINATES_AT: {from: Lane, to: Site}
+  VIA_LANE: {from: Shipment, to: Lane}
   SUPPLIES: {from: Party, to: Product, properties: [leadTimeDays, moq, unitCost, validFrom, validTo]}
   SUPPLIES_TO: {from: Party, to: Site}
   PRODUCES: {from: Site, to: Product}
   STOCKS: {from: Site, to: Product}
+  HAS_PRODUCT_LOCATION: {from: Site, to: ProductLocation}
+  FOR_PRODUCT_LOCATION: {from: ProductLocation, to: Product}
+  FOR_SITE_LOCATION: {from: ProductLocation, to: Site}
   HAS_BOM: {from: Product, to: BOM}
   HAS_LINE: {from: BOM, to: BOMLine}
   REQUIRES: {from: BOMLine, to: Material}
   SOLD_TO: {from: Product, to: Party}
   CREATES: {from: Party, to: Demand}
-  FOR_PRODUCT: {from: Demand, to: Product}
+  DEMANDS: {from: ProductLocation, to: Demand}
   FORECASTS: {from: Forecast, to: Demand}
   PLANS: {from: Plan, to: Product}
-  FOR_SITE: {from: Plan, to: Site}
+  FOR_PLAN_SITE: {from: Plan, to: Site}
   BASED_ON: {from: Plan, to: Forecast}
   CONSTRAINED_BY: {from: Plan, to: Constraint}
   FROM: {from: Order, to: Party}
