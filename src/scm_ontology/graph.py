@@ -103,28 +103,33 @@ def _cypher_value(value):
 
 
 def generate_cypher(dataset_path: Path) -> str:
+    """Generate idempotent Cypher using node IDs as stable identity."""
     dataset = load_yaml(dataset_path)
     lines = ["// Generated from canonical SCM Ontology dataset; do not edit manually."]
+
     for node in dataset.get("nodes", []):
         label = node["type"]
-props = node.get("properties", {})
-lines.append(f"MERGE (n:{label} {{id: {_cypher_value(node['id'])}}})")
-if props:
-    rendered = ", ".join(
-        f"{key}: {_cypher_value(value)}"
-        for key, value in props.items()
-    )
-    lines.append(f"SET n += {{{rendered}}}")
-lines.append(";")
+        props = node.get("properties", {})
+        lines.append(f"MERGE (n:{label} {{id: {_cypher_value(node['id'])}}})")
+        if props:
+            rendered = ", ".join(
+                f"{key}: {_cypher_value(value)}" for key, value in props.items()
+            )
+            lines.append(f"SET n += {{{rendered}}}")
+        lines.append(";")
+
     for edge in dataset.get("edges", []):
         props = edge.get("properties", {})
-        suffix = ""
-        if props:
-            rendered = ", ".join(f"{k}: {_cypher_value(v)}" for k, v in props.items())
-            suffix = f" SET r += {{{rendered}}}"
         lines.append(
             f"MATCH (a {{id: {_cypher_value(edge['from'])}}}), "
             f"(b {{id: {_cypher_value(edge['to'])}}}) "
-            f"MERGE (a)-[r:{edge['type']}]->(b){suffix};"
+            f"MERGE (a)-[r:{edge['type']}]->(b)"
         )
+        if props:
+            rendered = ", ".join(
+                f"{key}: {_cypher_value(value)}" for key, value in props.items()
+            )
+            lines.append(f"SET r += {{{rendered}}}")
+        lines.append(";")
+
     return "\n".join(lines) + "\n"
