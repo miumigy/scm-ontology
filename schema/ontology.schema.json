@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/miumigy/scm-ontology/schema/ontology.schema.json",
+  "title": "SCM Ontology Definition",
+  "type": "object",
+  "required": ["version"],
+  "properties": {
+    "version": {"type": "string", "pattern": "^0\\.1$"},
+    "entities": {"type": "object", "additionalProperties": {"$ref": "#/$defs/entity"}},
+    "relationships": {"type": "object", "additionalProperties": {"$ref": "#/$defs/relationship"}},
+    "states": {"type": "object"},
+    "constraints": {"type": "object"},
+    "policies": {"type": "object"},
+    "decision_types": {"type": "array", "items": {"type": "string"}},
+    "kpis": {"type": "object"}
+  },
+  "$defs": {
+    "entity": {
+      "type": "object",
+      "required": ["description", "properties"],
+      "properties": {
+        "description": {"type": "string", "minLength": 1},
+        "extends": {"type": "string"},
+        "properties": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "relationship": {
+      "type": "object",
+      "required": ["from", "to"],
+      "properties": {
+        "from": {"type": "string", "minLength": 1},
+        "to": {"type": "string", "minLength": 1},
+        "properties": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  }
+}
