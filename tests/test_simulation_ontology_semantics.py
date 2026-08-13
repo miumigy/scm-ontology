@@ -25,6 +25,12 @@ def product_location_state():
                 "available": 60,
                 "inTransit": 20,
             },
+            "SUP-A": {
+                "id": "SUP-A",
+                "entityType": "Party",
+                "partyType": "SUPPLIER",
+                "leadTimeDays": 5,
+            },
         },
     )
 
@@ -56,12 +62,6 @@ def test_simulation_state_matches_canonical_demand_supply_semantics():
 
 def test_supplier_delay_does_not_mutate_unrelated_demand_supply_state():
     state = product_location_state()
-    state.entities["SUP-A"] = {
-        "id": "SUP-A",
-        "entityType": "Party",
-        "partyType": "SUPPLIER",
-        "leadTimeDays": 5,
-    }
     event = Event("E-001", "SUPPLIER_DELAY", 7, "SUP-A", {"magnitudeDays": 7})
 
     next_state, _ = SimulationKernel().apply_event(state, event)
