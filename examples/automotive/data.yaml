@@ -55,7 +55,7 @@ nodes:
     properties: {quantity: 5, uom: EA, scrapRate: 0.01}
   - type: ProductLocation
     id: PL-VEHICLE-PLANT
-    properties: {productId: VEHICLE-001, siteId: PLANT-001, planningStatus: ACTIVE, sourcingType: MAKE, safetyStock: 20, reorderPoint: 50, onHand: 60, available: 60, inTransit: 0, asOf: "2026-08-13"}
+    properties: {productId: VEHICLE-001, siteId: PLANT-001, planningStatus: ACTIVE, sourcingType: MAKE, safetyStock: 20, reorderPoint: 50, onHand: 60, available: 60, inTransit: 20, asOf: "2026-08-13"}
   - type: ProductLocation
     id: PL-SEAT-WH
     properties: {productId: SEAT-001, siteId: WH-001, planningStatus: ACTIVE, sourcingType: BUY, leadTimeDays: 2, lotSize: 20, lotSizeUom: EA, safetyStock: 40, reorderPoint: 80, onHand: 70, available: 70, inTransit: 20, asOf: "2026-08-13"}
@@ -65,6 +65,9 @@ nodes:
   - type: Demand
     id: DEM-001
     properties: {quantity: 100, uom: EA, demandDate: "2026-08-20", demandType: CUSTOMER_ORDER}
+  - type: InventoryPosition
+    id: INV-VEHICLE-PLANT
+    properties: {onHand: 60, allocated: 0, available: 60, onOrder: 20, inTransit: 20, backOrder: 0, safetyStock: 20, asOf: "2026-08-13"}
   - type: InventoryPosition
     id: INV-SEAT-WH
     properties: {onHand: 70, allocated: 10, available: 60, onOrder: 20, inTransit: 20, backOrder: 0, safetyStock: 40, asOf: "2026-08-13"}
@@ -98,6 +101,8 @@ edges:
   - {type: HAS_PRODUCT_LOCATION, from: PLANT-001, to: PL-VEHICLE-PLANT}
   - {type: HAS_PRODUCT_LOCATION, from: WH-001, to: PL-SEAT-WH}
   - {type: HAS_PRODUCT_LOCATION, from: SUPPLIER-SITE-001, to: PL-FRAME-SUPPLIER}
+  - {type: HAS_INVENTORY_POSITION, from: PL-VEHICLE-PLANT, to: INV-VEHICLE-PLANT}
+  - {type: HAS_INVENTORY_POSITION, from: PL-SEAT-WH, to: INV-SEAT-WH}
   - {type: FOR_PRODUCT_LOCATION, from: PL-VEHICLE-PLANT, to: VEHICLE-001}
   - {type: FOR_SITE_LOCATION, from: PL-VEHICLE-PLANT, to: PLANT-001}
   - {type: FOR_PRODUCT_LOCATION, from: PL-SEAT-WH, to: SEAT-001}
