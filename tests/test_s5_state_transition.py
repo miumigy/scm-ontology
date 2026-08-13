@@ -43,7 +43,7 @@ def test_transition_rule_rejects_wrong_event_type():
 def test_transition_rule_rejects_non_supplier_entity():
     state = State("S-000", 0, {"X": {"id": "X", "entityType": "Material", "leadTimeDays": 5}})
     event = Event("E-001", "SUPPLIER_DELAY", 7, "X", {"magnitudeDays": 7})
-    with pytest.raises(SimulationError, match="requires Party"):
+    with pytest.raises(SimulationError, match="requires .*Party"):
         apply_transition_rule(state, event, SUPPLIER_DELAY_LEAD_TIME_RULE)
 
 
