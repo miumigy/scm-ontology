@@ -2,9 +2,10 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Mapping
+from typing import TYPE_CHECKING, Any, Mapping
 
-from scm_ontology.simulation import Event, SimulationError, State
+if TYPE_CHECKING:
+    from scm_ontology.simulation import Event, State
 
 
 @dataclass(frozen=True)
@@ -19,9 +20,11 @@ class StateTransitionRule:
 
 
 def apply_transition_rule(
-    state: State, event: Event, rule: StateTransitionRule
-) -> tuple[State, Mapping[str, Mapping[str, Any]]]:
+    state: "State", event: "Event", rule: StateTransitionRule
+) -> tuple["State", Mapping[str, Mapping[str, Any]]]:
     """Apply a validated numeric increment without mutating the input state."""
+    from scm_ontology.simulation import SimulationError, State
+
     if event.event_type != rule.event_type:
         raise SimulationError(
             f"rule {rule.rule_id} cannot consume event type {event.event_type}"
@@ -31,9 +34,7 @@ def apply_transition_rule(
 
     entity = dict(state.entities[event.entity_id])
     if entity.get("entityType") != rule.entity_type:
-        raise SimulationError(
-            f"{rule.event_type} requires {rule.entity_type} entity"
-        )
+        raise SimulationError(f"{rule.event_type} requires {rule.entity_type} entity")
 
     magnitude = event.attributes.get(rule.attribute_name)
     before = entity.get(rule.property_name)
@@ -42,9 +43,7 @@ def apply_transition_rule(
             f"{rule.event_type} {rule.attribute_name} must be a non-negative integer"
         )
     if not isinstance(before, int) or before < 0:
-        raise SimulationError(
-            f"{rule.property_name} must be a non-negative integer"
-        )
+        raise SimulationError(f"{rule.property_name} must be a non-negative integer")
 
     after = before + magnitude
     next_entities = dict(state.entities)
