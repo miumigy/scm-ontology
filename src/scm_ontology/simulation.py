@@ -1,4 +1,9 @@
-"""Minimal deterministic SCM simulation kernel."""
+"""Minimal deterministic SCM simulation kernel.
+
+Simulation state is a runtime projection of canonical ontology entities. It does
+not introduce new canonical entity types; state properties such as
+``leadTimeDays`` represent mutable simulation state for an existing entity.
+"""
 from __future__ import annotations
 from dataclasses import dataclass, field
 from hashlib import sha256
