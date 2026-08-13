@@ -1,0 +1,38 @@
+version: "0.1"
+constraints:
+  CAPACITY:
+    description: Resource or process capacity limit
+    unitRequired: true
+  MATERIAL:
+    description: Material availability limitation
+    unitRequired: true
+  INVENTORY:
+    description: Inventory level or storage limitation
+    unitRequired: true
+  LEAD_TIME:
+    description: Time required between supply-chain activities
+    unitRequired: false
+  MOQ:
+    description: Minimum order quantity
+    unitRequired: true
+  LOT_SIZE:
+    description: Order or production lot-size restriction
+    unitRequired: true
+  STORAGE:
+    description: Physical storage capacity limitation
+    unitRequired: true
+  TRANSPORT:
+    description: Transportation capacity limitation
+    unitRequired: true
+  SUPPLIER:
+    description: Supplier qualification, source or availability restriction
+    unitRequired: false
+  QUALITY:
+    description: Quality or specification constraint
+    unitRequired: false
+  REGULATORY:
+    description: Legal or regulatory constraint
+    unitRequired: false
+  BUDGET:
+    description: Financial budget constraint
+    unitRequired: true
