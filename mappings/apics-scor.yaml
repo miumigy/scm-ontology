@@ -1,41 +1,78 @@
-version: "0.1"
+version: "0.2"
 source:
   name: APICS-ASCM / SCOR-aligned conceptual mapping
   note: "Conceptual mapping only; terminology is normalized into the canonical SCM Ontology and is not a reproduction of proprietary course material."
 
+mappingSemantics:
+  sourceConcept: external framework concept
+  ontology: canonical SCM Ontology types
+  rationale: why the concept maps to the canonical types
+  status: conceptual
+
 mappings:
   - sourceConcept: Plan
     ontology: [Plan, Demand, Forecast, Decision, Constraint]
+    rationale: Planning coordinates demand, supply decisions, and constraints.
+    status: conceptual
   - sourceConcept: Source
     ontology: [Party, Product, Site, PurchaseOrder, Constraint]
+    rationale: Sourcing connects suppliers, purchased products, receiving sites, and constraints.
+    status: conceptual
   - sourceConcept: Make
     ontology: [ProductionOrder, Product, BOM, Capacity, Event]
+    rationale: Manufacturing execution is represented by production orders, product structure, capacity, and events.
+    status: conceptual
   - sourceConcept: Deliver
-    ontology: [Order, Shipment, Carrier, Site, Event]
+    ontology: [Order, Shipment, Site, Event]
+    rationale: Delivery connects customer orders, physical shipments, sites, and execution events.
+    status: conceptual
   - sourceConcept: Return
     ontology: [Order, Shipment, InventoryPosition, Event]
+    rationale: Returns affect order fulfillment, reverse movement, inventory, and events.
+    status: conceptual
   - sourceConcept: Orchestrate
     ontology: [Policy, Decision, KPI, Risk]
+    rationale: Orchestration is represented through policies, decisions, measures, and risk.
+    status: conceptual
   - sourceConcept: Demand Management
     ontology: [Demand, Forecast, Plan, Decision]
+    rationale: Demand management links demand signals, forecasts, plans, and decisions.
+    status: conceptual
   - sourceConcept: Master Production Scheduling
     ontology: [Plan, Product, Capacity, Constraint]
+    rationale: MPS translates product requirements into constrained production plans.
+    status: conceptual
   - sourceConcept: Material Requirements Planning
     ontology: [Plan, BOM, Material, Demand, InventoryPosition, Constraint]
+    rationale: MRP derives material requirements from demand, product structure, inventory, and constraints.
+    status: conceptual
   - sourceConcept: Distribution Requirements Planning
     ontology: [Plan, Demand, InventoryPosition, Site, Shipment]
+    rationale: DRP coordinates replenishment across sites using demand, inventory, and shipment flows.
+    status: conceptual
   - sourceConcept: Safety Stock
     ontology: [InventoryPosition, Policy, Constraint, KPI]
+    rationale: Safety stock is a policy-driven inventory target evaluated against constraints and service outcomes.
+    status: conceptual
   - sourceConcept: Sourcing
     ontology: [Party, Product, Policy, Decision, Risk]
+    rationale: Sourcing decisions select supply parties and products under policy and risk considerations.
+    status: conceptual
   - sourceConcept: Supply Network
     ontology: [Party, Site, Location, Product, Shipment]
+    rationale: A supply network is represented by parties, physical nodes, products, and movements.
+    status: conceptual
   - sourceConcept: Transportation
-    ontology: [Shipment, Carrier, Site, Constraint, Cost]
+    ontology: [Shipment, Site, Constraint, Cost]
+    rationale: Transportation represents shipment movement, network endpoints, constraints, and cost.
+    status: conceptual
   - sourceConcept: Inventory Management
     ontology: [InventoryPosition, Product, Site, Policy, KPI]
+    rationale: Inventory management controls product-site positions through policies and service measures.
+    status: conceptual
 
 principles:
   - "Framework concepts are mappings into the canonical ontology, not ontology entities themselves."
   - "One framework concept may map to multiple ontology concepts."
   - "Ontology concepts remain framework-independent."
+  - "Mapping rationale documents semantic intent without reproducing source-framework material."
