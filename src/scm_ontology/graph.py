@@ -107,9 +107,15 @@ def generate_cypher(dataset_path: Path) -> str:
     lines = ["// Generated from canonical SCM Ontology dataset; do not edit manually."]
     for node in dataset.get("nodes", []):
         label = node["type"]
-        props = {"id": node["id"], **node.get("properties", {})}
-        rendered = ", ".join(f"{k}: {_cypher_value(v)}" for k, v in props.items())
-        lines.append(f"MERGE (n:{label} {{{rendered}}});")
+props = node.get("properties", {})
+lines.append(f"MERGE (n:{label} {{id: {_cypher_value(node['id'])}}})")
+if props:
+    rendered = ", ".join(
+        f"{key}: {_cypher_value(value)}"
+        for key, value in props.items()
+    )
+    lines.append(f"SET n += {{{rendered}}}")
+lines.append(";")
     for edge in dataset.get("edges", []):
         props = edge.get("properties", {})
         suffix = ""
