@@ -1,8 +1,10 @@
 from pathlib import Path
 
+import pytest
 import yaml
 
 from scm_ontology.ontology_adapter import (
+    OntologyAdapterError,
     find_relationship_state,
     project_canonical_state,
     relationship_state_id,
@@ -41,3 +43,28 @@ def test_projection_is_deterministic():
     state_a = project_canonical_state(dataset, state_id="AUTO-S3:t0")
     state_b = project_canonical_state(dataset, state_id="AUTO-S3:t0")
     assert state_a.snapshot() == state_b.snapshot()
+
+
+def test_duplicate_node_id_is_rejected():
+    dataset = load_fixture()
+    dataset["nodes"].append({"id": "SUP-001", "type": "Party", "properties": {}})
+    with pytest.raises(OntologyAdapterError, match="duplicate canonical node id"):
+        project_canonical_state(dataset, state_id="AUTO-S3-DUP-NODE:t0")
+
+
+def test_missing_relationship_endpoint_is_rejected():
+    dataset = load_fixture()
+    dataset["edges"].append(
+        {"type": "SUPPLIES", "from": "SUP-001", "to": "UNKNOWN", "properties": {"leadTimeDays": 3}}
+    )
+    with pytest.raises(OntologyAdapterError, match="relationship endpoint not found"):
+        project_canonical_state(dataset, state_id="AUTO-S3-MISSING-ENDPOINT:t0")
+
+
+def test_duplicate_relationship_projection_is_rejected():
+    dataset = load_fixture()
+    dataset["edges"].append(
+        {"type": "SUPPLIES", "from": "SUP-001", "to": "MAT-001", "properties": {"leadTimeDays": 9}}
+    )
+    with pytest.raises(OntologyAdapterError, match="duplicate relationship projection"):
+        project_canonical_state(dataset, state_id="AUTO-S3-DUP-REL:t0")
