@@ -56,7 +56,7 @@ def test_duplicate_node_id_is_rejected(tmp_path):
         encoding="utf-8",
     )
     errors = validate_graph_dataset(dataset, RELATIONSHIPS, ENTITIES)
-    assert any("duplicate node id" in error for error in errors)
+    assert any("Duplicate node id" in error for error in errors)
 
 
 def test_unknown_edge_endpoint_is_rejected(tmp_path):
