@@ -1,0 +1,20 @@
+version: "0.1"
+policies:
+  SAFETY_STOCK:
+    description: Target buffer inventory policy
+    parameters: [serviceLevel, leadTime, demandVariability]
+  REORDER_POINT:
+    description: Replenishment trigger policy
+    parameters: [reorderPoint, lotSize]
+  MIN_MAX:
+    description: Minimum and maximum inventory policy
+    parameters: [minLevel, maxLevel]
+  BASE_STOCK:
+    description: Base-stock replenishment policy
+    parameters: [baseStockLevel]
+  SOURCING:
+    description: Supplier selection and allocation policy
+    parameters: [supplierSet, allocationRule]
+  ALLOCATION:
+    description: Supply allocation policy under constrained supply
+    parameters: [priorityRule, customerPriority]
