@@ -1,0 +1,23 @@
+// Minimal automotive-like vertical slice
+MERGE (customer:Party {id:'CUST-001'}) SET customer.name='Customer A', customer.partyType='CUSTOMER';
+MERGE (supplier:Party {id:'SUP-001'}) SET supplier.name='Supplier A', supplier.partyType='SUPPLIER';
+MERGE (carrier:Party {id:'CAR-001'}) SET carrier.name='Carrier A', carrier.partyType='CARRIER';
+MERGE (factory:Site {id:'SITE-001'}) SET factory.name='Factory A', factory.siteType='PLANT';
+MERGE (warehouse:Site {id:'SITE-002'}) SET warehouse.name='Warehouse A', warehouse.siteType='WAREHOUSE';
+MERGE (product:Product {id:'SKU-001'}) SET product.name='Product X', product.productType='FINISHED_GOOD', product.uom='EA';
+MERGE (material:Material {id:'MAT-001'}) SET material.name='Material Y', material.productType='RAW_MATERIAL', material.uom='EA';
+MERGE (bom:BOM {id:'BOM-001'}) SET bom.productId='SKU-001', bom.version='1';
+MERGE (line:BOMLine {id:'BOMLINE-001'}) SET line.quantity=2, line.uom='EA', line.scrapRate=0.02;
+MERGE (demand:Demand {id:'DEM-001'}) SET demand.quantity=100, demand.uom='EA', demand.demandDate=date('2026-08-20'), demand.demandType='ACTUAL';
+MERGE (event:Event {id:'EVT-001'}) SET event.eventType='SUPPLIER_DELAY', event.occurredAt=datetime('2026-08-13T09:00:00');
+MERGE (supplier)-[sr:SUPPLIES]->(material) SET sr.leadTimeDays=14, sr.moq=100, sr.unitCost=120, sr.validFrom=date('2026-01-01');
+MERGE (supplier)-[:SUPPLIES_TO]->(factory);
+MERGE (factory)-[:PRODUCES]->(product);
+MERGE (warehouse)-[:STOCKS]->(product);
+MERGE (product)-[:HAS_BOM]->(bom);
+MERGE (bom)-[:HAS_LINE]->(line);
+MERGE (line)-[:REQUIRES]->(material);
+MERGE (customer)-[:CREATES]->(demand);
+MERGE (demand)-[:FOR_PRODUCT]->(product);
+MERGE (event)-[:AFFECTS]->(supplier);
+MERGE (event)-[:AFFECTS]->(material);
