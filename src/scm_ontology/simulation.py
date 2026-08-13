@@ -127,6 +127,22 @@ class SimulationRun:
             ],
         }
 
+    def validate_transition_chain(self) -> None:
+        """Validate that every transition consumes the preceding state."""
+        if len(self.events) != len(self.transitions):
+            raise SimulationError("Transition chain length must match event count")
+
+        previous_state_id = self.initial_state.state_id
+        for event, transition in zip(self.events, self.transitions):
+            if transition.event_id != event.event_id:
+                raise SimulationError("Transition event order does not match event order")
+            if transition.from_state_id != previous_state_id:
+                raise SimulationError("Transition chain is disconnected")
+            previous_state_id = transition.to_state_id
+
+        if previous_state_id != self.final_state.state_id:
+            raise SimulationError("Final state does not terminate the transition chain")
+
 
 class SimulationKernel:
     """Deterministic event -> transition -> state runtime."""
@@ -164,11 +180,16 @@ class SimulationKernel:
         ordered_events = tuple(
             sorted(scenario.events, key=lambda e: (e.occurred_at, e.event_id))
         )
+        event_ids = [event.event_id for event in ordered_events]
+        if len(event_ids) != len(set(event_ids)):
+            raise SimulationError("Scenario event ids must be unique")
+
         state = scenario.baseline_state
         transitions: list[Transition] = []
         for event in ordered_events:
             state, transition = self.apply_event(state, event)
             transitions.append(transition)
+
         run_id = _stable_id(
             {
                 "scenario": scenario.scenario_id,
@@ -177,7 +198,7 @@ class SimulationKernel:
                 "events": [_event_dict(e) for e in ordered_events],
             }
         )
-        return SimulationRun(
+        run = SimulationRun(
             run_id,
             scenario.scenario_id,
             scenario.seed,
@@ -186,6 +207,8 @@ class SimulationKernel:
             tuple(transitions),
             state,
         )
+        run.validate_transition_chain()
+        return run
 
 
 def _event_dict(event: Event) -> dict[str, Any]:
