@@ -34,7 +34,7 @@ def apply_transition_rule(
 
     entity = dict(state.entities[event.entity_id])
     if entity.get("entityType") != rule.entity_type:
-        raise SimulationError(f"{rule.event_type} requires Party entity")
+        raise SimulationError(f"{rule.event_type} requires supplier Party entity")
 
     magnitude = event.attributes.get(rule.attribute_name)
     before = entity.get(rule.property_name)
