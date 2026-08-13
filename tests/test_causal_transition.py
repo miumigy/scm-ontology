@@ -18,7 +18,6 @@ def delay_rule():
         "CAUSE-SUPPLIER-DELAY",
         "SUPPLIER_DELAY",
         "SUPPLIER_DELAY",
-        "propagate supplier delay",
     )
 
 
@@ -47,6 +46,6 @@ def test_causal_bridge_does_not_mutate_input_state():
 
 def test_causal_bridge_wraps_transition_failure():
     source = Event("E-001", "SUPPLIER_DELAY", 7, "SUP-A", {"magnitudeDays": 7})
-    rule = CausalRule("CAUSE-UNKNOWN", "SUPPLIER_DELAY", "DEMAND_SPIKE", "bad")
+    rule = CausalRule("CAUSE-UNKNOWN", "SUPPLIER_DELAY", "DEMAND_SPIKE")
     with pytest.raises(CausalTransitionError, match="cannot transition state"):
         derive_and_transition(supplier_state(), source, rule, "E-002", SimulationKernel())
