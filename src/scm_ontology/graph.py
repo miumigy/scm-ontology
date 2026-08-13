@@ -47,45 +47,82 @@ def validate_graph_dataset(
     entities_path: Path | None = None,
 ):
     """Validate a graph dataset against ontology-driven entity inheritance and relationships."""
-    dataset = load_yaml(dataset_path)
+    dataset = load_yaml(dataset_path) or {}
     relationships = load_yaml(relationships_path)["relationships"]
     entities_path = entities_path or ROOT / "ontology" / "entities.yaml"
     entities = _entity_definitions(entities_path)
     closure = _inheritance_closure(entities)
-    nodes = {node["id"]: node for node in dataset.get("nodes", [])}
     errors = []
 
-    for node in dataset.get("nodes", []):
+    raw_nodes = dataset.get("nodes", [])
+    raw_edges = dataset.get("edges", [])
+    if not isinstance(raw_nodes, list):
+        errors.append("Dataset nodes must be a list")
+        raw_nodes = []
+    if not isinstance(raw_edges, list):
+        errors.append("Dataset edges must be a list")
+        raw_edges = []
+
+    nodes = {}
+    for node in raw_nodes:
+        if not isinstance(node, dict):
+            errors.append("Node definition must be an object")
+            continue
+        node_id = node.get("id")
+        if not node_id:
+            errors.append("Node is missing id")
+            continue
+        if node_id in nodes:
+            errors.append(f"Duplicate node id {node_id}")
+            continue
+        nodes[node_id] = node
+
         node_type = node.get("type")
         if node_type not in entities:
-            errors.append(f"Node {node.get('id')}: unknown type {node_type}")
+            errors.append(f"Node {node_id}: unknown type {node_type}")
             continue
-        if not node.get("id"):
-            errors.append("Node is missing id")
+        properties = node.get("properties", {})
+        if not isinstance(properties, dict):
+            errors.append(f"Node {node_id}: properties must be an object")
+            continue
         allowed = set()
         for ancestor in closure[node_type]:
             allowed.update(entities[ancestor].get("properties", []))
-        unknown = set(node.get("properties", {})) - allowed
+        unknown = set(properties) - allowed
         if unknown:
-            errors.append(
-                f"Node {node.get('id')}: unknown properties {sorted(unknown)}"
-            )
+            errors.append(f"Node {node_id}: unknown properties {sorted(unknown)}")
 
-    for edge in dataset.get("edges", []):
+    for edge in raw_edges:
+        if not isinstance(edge, dict):
+            errors.append("Edge definition must be an object")
+            continue
         rel = edge.get("type")
+        source_id = edge.get("from")
+        target_id = edge.get("to")
+        if not rel:
+            errors.append("Edge is missing relationship type")
+            continue
         if rel not in relationships:
             errors.append(f"Edge {rel}: relationship is not defined")
             continue
-        source = nodes.get(edge.get("from"))
-        target = nodes.get(edge.get("to"))
+        source = nodes.get(source_id)
+        target = nodes.get(target_id)
         if source is None or target is None:
-            errors.append(f"Edge {rel}: unknown endpoint {edge.get('from')} -> {edge.get('to')}")
+            errors.append(f"Edge {rel}: unknown endpoint {source_id} -> {target_id}")
             continue
         spec = relationships[rel]
         if not _is_compatible(source["type"], spec["from"], closure):
             errors.append(f"Edge {rel}: expected from {spec['from']}, got {source['type']}")
         if not _is_compatible(target["type"], spec["to"], closure):
             errors.append(f"Edge {rel}: expected to {spec['to']}, got {target['type']}")
+        properties = edge.get("properties", {})
+        if not isinstance(properties, dict):
+            errors.append(f"Edge {rel}: properties must be an object")
+            continue
+        allowed = set(spec.get("properties", []))
+        unknown = set(properties) - allowed
+        if unknown:
+            errors.append(f"Edge {rel}: unknown properties {sorted(unknown)}")
     return errors
 
 
