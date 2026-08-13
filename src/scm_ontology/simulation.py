@@ -1,8 +1,7 @@
-"""Minimal deterministic SCM simulation kernel.
+"""Deterministic SCM simulation kernel and state projections.
 
-Simulation state is a runtime projection of canonical ontology entities. It does
-not introduce new canonical entity types; state properties such as
-``leadTimeDays`` represent mutable simulation state for an existing entity.
+Simulation state is a runtime projection of canonical ontology entities and
+relationships. It does not introduce new canonical entity types.
 """
 from __future__ import annotations
 from dataclasses import dataclass, field
@@ -18,8 +17,14 @@ class State:
     state_id: str
     effective_at: int
     entities: Mapping[str, Mapping[str, Any]]
+    relationship_states: Mapping[str, Mapping[str, Any]] = field(default_factory=dict)
     def snapshot(self) -> dict[str, Any]:
-        return copy.deepcopy({"id": self.state_id, "effectiveAt": self.effective_at, "entities": dict(self.entities)})
+        return copy.deepcopy({
+            "id": self.state_id,
+            "effectiveAt": self.effective_at,
+            "entities": dict(self.entities),
+            "relationshipStates": dict(self.relationship_states),
+        })
 
 @dataclass(frozen=True)
 class Event:
@@ -71,7 +76,7 @@ class SimulationRun:
                 "transitions": [{"id": t.transition_id, "eventId": t.event_id, "fromStateId": t.from_state_id, "toStateId": t.to_state_id, "entityId": t.entity_id} for t in self.transitions]}
 
 class SimulationKernel:
-    """Deterministic event -> transition -> state runtime for S1."""
+    """Deterministic event -> transition -> state runtime for S1/S3."""
     def apply_event(self, state: State, event: Event) -> tuple[State, Transition]:
         if event.entity_id not in state.entities:
             raise SimulationError(f"Unknown entity: {event.entity_id}")
@@ -95,7 +100,7 @@ class SimulationKernel:
             raise SimulationError(f"Unsupported event type: {event.event_type}")
         next_entities = copy.deepcopy(dict(state.entities)); next_entities[event.entity_id] = entity
         next_state_id = f"{state.state_id}@{event.occurred_at}:{event.event_id}"
-        next_state = State(next_state_id, event.occurred_at, next_entities)
+        next_state = State(next_state_id, event.occurred_at, next_entities, copy.deepcopy(dict(state.relationship_states)))
         transition_id = _stable_id({"event": event.event_id, "from": state.state_id, "to": next_state_id})
         return next_state, Transition(transition_id, event.event_id, event.event_type, state.state_id, next_state_id, event.entity_id, changes)
 
