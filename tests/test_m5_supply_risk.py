@@ -1,6 +1,7 @@
 from pathlib import Path
 
-from scm_ontology.graph import load_yaml, build_statements
+from scm_ontology.graph import load_yaml
+from scm_ontology.neo4j_loader import build_statements
 
 ROOT = Path(__file__).resolve().parents[1]
 DATASET = ROOT / "examples" / "automotive" / "supply_risk.yaml"
