@@ -4,7 +4,7 @@ from __future__ import annotations
 from dataclasses import dataclass, replace
 from typing import Mapping
 
-from scm_ontology.simulation import Event
+from scm_ontology.simulation import Event, EventProvenance
 
 
 @dataclass(frozen=True)
@@ -14,15 +14,6 @@ class CausalRule:
     rule_id: str
     source_event_type: str
     target_event_type: str
-
-
-@dataclass(frozen=True)
-class EventProvenance:
-    """Lineage metadata for a derived event."""
-
-    caused_by_event_id: str | None = None
-    rule_id: str | None = None
-    causal_depth: int = 0
 
 
 class CausalPropagationError(ValueError):
@@ -53,9 +44,13 @@ def derive_event(source: Event, rule: CausalRule, *, event_id: str) -> Event:
     )
 
 
-def propagate_event(source: Event, rules: Mapping[str, CausalRule], *, event_id: str) -> Event | None:
+def propagate_event(
+    source: Event, rules: Mapping[str, CausalRule], *, event_id: str
+) -> Event | None:
     """Apply the matching causal rule deterministically, if exactly one exists."""
-    matches = [rule for rule in rules.values() if rule.source_event_type == source.event_type]
+    matches = [
+        rule for rule in rules.values() if rule.source_event_type == source.event_type
+    ]
     if len(matches) > 1:
         raise CausalPropagationError(
             f"ambiguous causal rules for event type {source.event_type}"
