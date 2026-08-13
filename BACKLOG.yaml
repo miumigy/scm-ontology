@@ -1,0 +1,24 @@
+version: "0.1"
+project: scm-ontology
+milestones:
+  - id: semantic-integrity
+    status: in_progress
+    priority: P0
+  - id: neo4j-loader
+    status: planned
+    priority: P1
+  - id: inventory-position
+    status: planned
+    priority: P1
+  - id: demand-supply-gap
+    status: planned
+    priority: P1
+  - id: impact-analysis
+    status: planned
+    priority: P1
+  - id: supplier-delay-scenario
+    status: planned
+    priority: P1
+  - id: scsim-integration
+    status: planned
+    priority: P2
