@@ -1,7 +1,6 @@
 from pathlib import Path
 
 from scm_ontology.graph import load_yaml
-from scm_ontology.neo4j_loader import build_statements
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -21,7 +20,14 @@ def test_impact_analysis_query_exists_and_traverses_causal_chain():
 
 def test_automotive_supply_risk_fixture_contains_causal_trigger():
     dataset = load_yaml(DATASET)
-    statements = build_statements(dataset)
+    nodes = {node["id"]: node for node in dataset["nodes"]}
+    edges = dataset["edges"]
 
-    assert any("EVT-001" in statement and "SUPPLIER_DELAY" in statement for statement in statements)
-    assert any("EVT-001" in statement and "EVT-002" in statement and "CAUSES" in statement for statement in statements)
+    assert nodes["EVT-001"]["properties"]["eventType"] == "SUPPLIER_DELAY"
+    assert nodes["EVT-002"]["properties"]["eventType"] == "MATERIAL_SHORTAGE_RISK"
+    assert any(
+        edge["type"] == "CAUSES"
+        and edge["from"] == "EVT-001"
+        and edge["to"] == "EVT-002"
+        for edge in edges
+    )
