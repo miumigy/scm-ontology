@@ -1,0 +1,118 @@
+version: "0.1"
+scenario:
+  id: AUTO-DEMO-001
+  name: Synthetic automotive supply-chain vertical slice
+  asOf: "2026-08-13T09:00:00Z"
+
+nodes:
+  - type: Party
+    id: CUST-001
+    properties: {name: Customer A, partyType: CUSTOMER}
+  - type: Party
+    id: SUP-001
+    properties: {name: Supplier A, partyType: SUPPLIER}
+  - type: Party
+    id: CAR-001
+    properties: {name: Carrier A, partyType: CARRIER}
+  - type: Site
+    id: PLANT-001
+    properties: {name: Assembly Plant A, siteType: PLANT, locationId: LOC-001}
+  - type: Site
+    id: WH-001
+    properties: {name: Parts Warehouse A, siteType: WAREHOUSE, locationId: LOC-002}
+  - type: Site
+    id: SUPPLIER-SITE-001
+    properties: {name: Supplier Plant A, siteType: SUPPLIER_SITE, locationId: LOC-003}
+  - type: Location
+    id: LOC-001
+    properties: {name: Nagoya Plant Area, locationType: CITY, countryCode: JP}
+  - type: Location
+    id: LOC-002
+    properties: {name: Nagoya Logistics Area, locationType: CITY, countryCode: JP}
+  - type: Location
+    id: LOC-003
+    properties: {name: Toyota City Supplier Area, locationType: CITY, countryCode: JP}
+  - type: Lane
+    id: LANE-001
+    properties: {name: Supplier to Warehouse, laneType: INBOUND, transportMode: TRUCK, distance: 55, distanceUom: KM, leadTimeDays: 1, capacity: 40, capacityUom: PALLET}
+  - type: Lane
+    id: LANE-002
+    properties: {name: Warehouse to Plant, laneType: MILKRUN, transportMode: TRUCK, distance: 20, distanceUom: KM, leadTimeDays: 1, capacity: 30, capacityUom: PALLET}
+  - type: Product
+    id: VEHICLE-001
+    properties: {name: Vehicle Model A, productType: FINISHED_GOOD, uom: EA}
+  - type: Product
+    id: SEAT-001
+    properties: {name: Seat Assembly A, productType: COMPONENT, uom: EA}
+  - type: Material
+    id: MAT-001
+    properties: {name: Seat Frame A, productType: RAW_MATERIAL, uom: EA}
+  - type: BOM
+    id: BOM-VEHICLE-001
+    properties: {productId: VEHICLE-001, version: "1"}
+  - type: BOMLine
+    id: BOMLINE-001
+    properties: {quantity: 5, uom: EA, scrapRate: 0.01}
+  - type: ProductLocation
+    id: PL-VEHICLE-PLANT
+    properties: {productId: VEHICLE-001, siteId: PLANT-001, planningStatus: ACTIVE, sourcingType: MAKE, safetyStock: 20, reorderPoint: 50, onHand: 60, available: 60, inTransit: 0, asOf: "2026-08-13"}
+  - type: ProductLocation
+    id: PL-SEAT-WH
+    properties: {productId: SEAT-001, siteId: WH-001, planningStatus: ACTIVE, sourcingType: BUY, leadTimeDays: 2, lotSize: 20, lotSizeUom: EA, safetyStock: 40, reorderPoint: 80, onHand: 70, available: 70, inTransit: 20, asOf: "2026-08-13"}
+  - type: ProductLocation
+    id: PL-FRAME-SUPPLIER
+    properties: {productId: MAT-001, siteId: SUPPLIER-SITE-001, planningStatus: ACTIVE, sourcingType: MAKE, asOf: "2026-08-13"}
+  - type: Demand
+    id: DEM-001
+    properties: {quantity: 100, uom: EA, demandDate: "2026-08-20", demandType: CUSTOMER_ORDER}
+  - type: InventoryPosition
+    id: INV-SEAT-WH
+    properties: {onHand: 70, allocated: 10, available: 60, onOrder: 20, inTransit: 20, backOrder: 0, safetyStock: 40, asOf: "2026-08-13"}
+  - type: Shipment
+    id: SHP-001
+    properties: {shipmentNumber: SHP-001, plannedDeparture: "2026-08-13T06:00:00Z", plannedArrival: "2026-08-14T06:00:00Z", status: IN_TRANSIT}
+  - type: Event
+    id: EVT-001
+    properties: {eventType: SUPPLIER_DELAY, occurredAt: "2026-08-13T09:00:00Z", sourceSystem: DEMO, sourceId: SUP-001}
+  - type: Event
+    id: EVT-002
+    properties: {eventType: MATERIAL_SHORTAGE_RISK, occurredAt: "2026-08-13T09:01:00Z", sourceSystem: SCM_ONTOLOGY_DEMO, sourceId: INV-SEAT-WH}
+  - type: KPI
+    id: KPI-001
+    properties: {metricType: SERVICE_LEVEL, value: 0.95, uom: RATIO, measuredAt: "2026-08-13T09:00:00Z"}
+
+edges:
+  - {type: OWNS, from: CUST-001, to: PLANT-001}
+  - {type: OWNS, from: SUP-001, to: SUPPLIER-SITE-001}
+  - {type: LOCATED_AT, from: PLANT-001, to: LOC-001}
+  - {type: LOCATED_AT, from: WH-001, to: LOC-002}
+  - {type: LOCATED_AT, from: SUPPLIER-SITE-001, to: LOC-003}
+  - {type: ORIGINATES_AT, from: LANE-001, to: SUPPLIER-SITE-001}
+  - {type: DESTINATES_AT, from: LANE-001, to: WH-001}
+  - {type: ORIGINATES_AT, from: LANE-002, to: WH-001}
+  - {type: DESTINATES_AT, from: LANE-002, to: PLANT-001}
+  - {type: SUPPLIES, from: SUP-001, to: MAT-001, properties: {leadTimeDays: 7, moq: 100, unitCost: 120, validFrom: "2026-01-01"}}
+  - {type: SUPPLIES_TO, from: SUP-001, to: PLANT-001}
+  - {type: PRODUCES, from: PLANT-001, to: VEHICLE-001}
+  - {type: STOCKS, from: WH-001, to: SEAT-001}
+  - {type: HAS_PRODUCT_LOCATION, from: PLANT-001, to: PL-VEHICLE-PLANT}
+  - {type: HAS_PRODUCT_LOCATION, from: WH-001, to: PL-SEAT-WH}
+  - {type: HAS_PRODUCT_LOCATION, from: SUPPLIER-SITE-001, to: PL-FRAME-SUPPLIER}
+  - {type: FOR_PRODUCT, from: PL-VEHICLE-PLANT, to: VEHICLE-001}
+  - {type: FOR_SITE, from: PL-VEHICLE-PLANT, to: PLANT-001}
+  - {type: FOR_PRODUCT, from: PL-SEAT-WH, to: SEAT-001}
+  - {type: FOR_SITE, from: PL-SEAT-WH, to: WH-001}
+  - {type: FOR_PRODUCT, from: PL-FRAME-SUPPLIER, to: MAT-001}
+  - {type: FOR_SITE, from: PL-FRAME-SUPPLIER, to: SUPPLIER-SITE-001}
+  - {type: HAS_BOM, from: VEHICLE-001, to: BOM-VEHICLE-001}
+  - {type: HAS_LINE, from: BOM-VEHICLE-001, to: BOMLINE-001}
+  - {type: REQUIRES, from: BOMLINE-001, to: MAT-001}
+  - {type: CREATES, from: CUST-001, to: DEM-001}
+  - {type: DEMANDS, from: PL-VEHICLE-PLANT, to: DEM-001}
+  - {type: SHIPS, from: SHP-001, to: SEAT-001}
+  - {type: CARRIED_BY, from: SHP-001, to: CAR-001}
+  - {type: VIA_LANE, from: SHP-001, to: LANE-001}
+  - {type: AFFECTS, from: EVT-001, to: SUP-001}
+  - {type: AFFECTS, from: EVT-001, to: MAT-001}
+  - {type: CAUSES, from: EVT-001, to: EVT-002}
+  - {type: IMPACTS, from: EVT-002, to: KPI-001}
