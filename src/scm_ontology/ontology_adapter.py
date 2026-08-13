@@ -11,31 +11,38 @@ from typing import Any, Mapping
 from scm_ontology.simulation import State
 
 
-def project_canonical_state(dataset: Mapping[str, Any], *, state_id: str, effective_at: int = 0) -> State:
-    """Project a canonical YAML-like dataset into a simulation State.
+class OntologyAdapterError(ValueError):
+    """Raised when canonical data cannot be projected unambiguously."""
 
-    Node properties become entity state. Relationship properties remain scoped
-'to the canonical relationship and are keyed by a stable runtime relationship
-identifier. This prevents a property such as SUPPLIES.leadTimeDays from being
-incorrectly treated as a supplier-wide attribute when multiple supply links
-exist.
-    """
+
+def project_canonical_state(dataset: Mapping[str, Any], *, state_id: str, effective_at: int = 0) -> State:
+    """Project a canonical YAML-like dataset into a simulation State."""
     entities: dict[str, dict[str, Any]] = {}
     for node in dataset.get("nodes", []):
         node_id = node["id"]
+        if node_id in entities:
+            raise OntologyAdapterError(f"duplicate canonical node id: {node_id}")
         properties = dict(node.get("properties", {}))
         entities[node_id] = {"entityType": node["type"], **properties}
 
     relationship_states: dict[str, dict[str, Any]] = {}
     for edge in dataset.get("edges", []):
+        from_id = edge["from"]
+        to_id = edge["to"]
+        if from_id not in entities or to_id not in entities:
+            raise OntologyAdapterError(
+                f"relationship endpoint not found: {edge['type']} {from_id} -> {to_id}"
+            )
         properties = dict(edge.get("properties", {}))
         if not properties:
             continue
-        relationship_id = relationship_state_id(edge["type"], edge["from"], edge["to"])
+        relationship_id = relationship_state_id(edge["type"], from_id, to_id)
+        if relationship_id in relationship_states:
+            raise OntologyAdapterError(f"duplicate relationship projection: {relationship_id}")
         relationship_states[relationship_id] = {
             "relationshipType": edge["type"],
-            "from": edge["from"],
-            "to": edge["to"],
+            "from": from_id,
+            "to": to_id,
             **properties,
         }
 
