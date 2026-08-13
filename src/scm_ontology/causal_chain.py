@@ -4,7 +4,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Mapping
 
-from .causal import CausalRule, CausalRuleSet, derive_event
+from .causal import CausalRule, derive_event
 from .simulation import Event, SimulationError
 
 
@@ -30,7 +30,7 @@ class CausalChain:
 
 def propagate_chain(
     source_event: Event,
-    rules: CausalRuleSet,
+    rules: Mapping[str, CausalRule],
     event_ids: Mapping[int, str],
     max_depth: int = 10,
 ) -> CausalChain:
@@ -44,7 +44,10 @@ def propagate_chain(
     seen_signatures: set[tuple[str, str]] = set()
 
     for depth in range(1, max_depth + 1):
-        matches = rules.matching(current)
+        matches = [
+            rule for rule in rules.values()
+            if rule.source_event_type == current.event_type
+        ]
         if not matches:
             break
         if len(matches) > 1:
@@ -52,7 +55,7 @@ def propagate_chain(
                 f"ambiguous causal rules for event type {current.event_type}"
             )
 
-        rule: CausalRule = matches[0]
+        rule = matches[0]
         signature = (current.event_type, rule.rule_id)
         if signature in seen_signatures:
             raise CausalChainError(f"causal cycle detected at rule {rule.rule_id}")
@@ -61,7 +64,10 @@ def propagate_chain(
         event_id = event_ids.get(depth)
         if not event_id:
             raise CausalChainError(f"missing deterministic event id for depth {depth}")
-        current = derive_event(current, rule, event_id=event_id)
+        try:
+            current = derive_event(current, rule, event_id=event_id)
+        except ValueError as exc:
+            raise CausalChainError(str(exc)) from exc
         events.append(current)
         applied_rules.append(rule.rule_id)
 
