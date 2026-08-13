@@ -9,12 +9,18 @@ entities:
   Location:
     description: Geographic or logical location
     properties: [id, name, locationType, countryCode]
+  Lane:
+    description: Directed logistics connection between supply-chain nodes
+    properties: [id, name, laneType, transportMode, distance, distanceUom, leadTimeDays, capacity, capacityUom, validFrom, validTo]
   Product:
     description: Item that can be demanded, supplied, stocked or transformed
     properties: [id, name, productType, uom]
   Material:
     description: Input material or component
     extends: Product
+  ProductLocation:
+    description: Product-specific supply-chain context at a site or location
+    properties: [id, productId, siteId, locationId, planningStatus, sourcingType, leadTimeDays, lotSize, lotSizeUom, safetyStock, reorderPoint, onHand, available, inTransit, asOf]
   BOM:
     description: Bill of material
     properties: [id, productId, version]
