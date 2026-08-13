@@ -31,10 +31,11 @@ def test_propagate_event_returns_none_without_matching_rule():
 
 
 def test_duplicate_rule_in_same_lineage_is_rejected():
-    source = supplier_delay()
-    derived = derive_event(source, rule(), event_id="EVT-002")
+    source = Event("EVT-001", "SUPPLIER_DELAY", 10, "SUP-001")
+    loop_rule = CausalRule("RULE-LOOP", "SUPPLIER_DELAY", "SUPPLIER_DELAY")
+    derived = derive_event(source, loop_rule, event_id="EVT-002")
     with pytest.raises(CausalPropagationError, match="already applied"):
-        derive_event(derived, rule(), event_id="EVT-003")
+        derive_event(derived, loop_rule, event_id="EVT-003")
 
 
 def test_ambiguous_matching_rules_are_rejected():
