@@ -1,9 +1,14 @@
+from pathlib import Path
+
 from scm_ontology.graph import load_yaml
 from scm_ontology.neo4j_loader import build_statements
 
 
+ROOT = Path(__file__).resolve().parents[1]
+
+
 def test_automotive_dataset_builds_idempotent_node_and_relationship_merges():
-    dataset = load_yaml("examples/automotive/data.yaml")
+    dataset = load_yaml(ROOT / "examples" / "automotive" / "data.yaml")
     statements = build_statements(dataset)
 
     node_count = len(dataset["nodes"])
