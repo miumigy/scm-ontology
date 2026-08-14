@@ -24,6 +24,8 @@ S101–S112 establish the semantic contracts for:
 
 S113 consolidates those contracts into a canonical concept and relationship registry. It explicitly separates primitive, core, derived, and contextual concepts and distinguishes physical, information, decision, and semantic dimensions.
 
+S114 establishes canonical type, attribute, value-kind, scalar, reference, quantity, role, and cardinality semantics without coupling the model to a storage or serialization technology.
+
 ## Development status
 
 **v0.1 experimental — semantic consolidation in progress.**
