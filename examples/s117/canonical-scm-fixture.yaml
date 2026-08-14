@@ -1,0 +1,125 @@
+ontology: scm-ontology
+version: "0.1"
+fixture: s117-canonical-scm
+concepts:
+  - name: Material
+    layer: core
+    dimension: physical
+    attributes:
+      - name: material_id
+        value_type: CanonicalReference
+        role: identity
+        cardinality: "1"
+      - name: description
+        value_type: String
+        role: descriptive
+        cardinality: "0..1"
+
+  - name: Inventory
+    layer: core
+    dimension: physical
+    attributes:
+      - name: item
+        value_type: CanonicalReference
+        role: reference
+        cardinality: "1"
+      - name: quantity
+        value_type: Quantity
+        role: measure
+        cardinality: "1"
+      - name: observed_at
+        value_type: DateTime
+        role: temporal
+        cardinality: "1"
+
+  - name: Demand
+    layer: core
+    dimension: information
+    attributes:
+      - name: quantity
+        value_type: Quantity
+        role: measure
+        cardinality: "1"
+      - name: status
+        value_type: DemandStatus
+        role: qualifier
+        cardinality: "1"
+
+  - name: Plan
+    layer: core
+    dimension: decision
+    attributes:
+      - name: planning_horizon
+        value_type: TimeInterval
+        role: temporal
+        cardinality: "1"
+
+  - name: Measurement
+    layer: core
+    dimension: information
+    attributes:
+      - name: value
+        value_type: Quantity
+        role: measure
+        cardinality: "1"
+      - name: observation_status
+        value_type: ObservationStatus
+        role: epistemic
+        cardinality: "1"
+
+  - name: ServiceLevel
+    layer: derived
+    dimension: semantic
+    attributes:
+      - name: value
+        value_type: Decimal
+        role: measure
+        cardinality: "1"
+
+relationships:
+  - predicate: contains
+    source: Location
+    target: Inventory
+    category: physical
+  - predicate: references
+    source: Inventory
+    target: Material
+    category: informational
+  - predicate: measures
+    source: Measurement
+    target: Inventory
+    category: informational
+  - predicate: fulfills
+    source: Supply
+    target: Demand
+    category: operational
+  - predicate: planned_for
+    source: Plan
+    target: Demand
+    category: temporal
+  - predicate: derived_from
+    source: ServiceLevel
+    target: Measurement
+    category: semantic
+
+identifiers:
+  - namespace: erp.material
+    identifier: MAT-001
+    canonical_reference: material-001
+  - namespace: wms.inventory
+    identifier: INV-2026-0001
+    canonical_reference: inventory-001
+
+provenance:
+  - assertion: inventory-001.quantity
+    source: wms.inventory
+    evidence: stock-count-2026-08-14
+    epistemic_status: observed
+
+state_examples:
+  - subject: inventory-001
+    status: actual
+  - subject: demand-001
+    status: inferred
+  - subject: plan-001
+    status: planned
