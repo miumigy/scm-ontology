@@ -1,0 +1,24 @@
+ontology: scm-ontology
+version: "0.1"
+concepts:
+  - name: Inventory
+    layer: core
+    dimension: physical
+    attributes:
+      - name: quantity
+        value_type: Quantity
+        role: measure
+        cardinality: "1"
+      - name: item
+        value_type: Reference
+        role: reference
+        cardinality: "1"
+relationships:
+  - predicate: contains
+    source: Location
+    target: Inventory
+    category: physical
+  - predicate: measured_by
+    source: Inventory
+    target: Measurement
+    category: informational
