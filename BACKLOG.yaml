@@ -4,6 +4,24 @@ milestones:
   - id: semantic-integrity
     status: in_progress
     priority: P0
+  - id: s113-canonical-model
+    status: implemented
+    priority: P0
+  - id: s114-type-attribute-value-semantics
+    status: planned
+    priority: P0
+  - id: s115-canonical-identifier-reference
+    status: planned
+    priority: P0
+  - id: s116-machine-readable-ontology
+    status: planned
+    priority: P0
+  - id: s117-examples-fixtures
+    status: planned
+    priority: P0
+  - id: s118-validation-consistency
+    status: planned
+    priority: P0
   - id: neo4j-loader
     status: planned
     priority: P1
