@@ -8,7 +8,7 @@ milestones:
     status: implemented
     priority: P0
   - id: s114-type-attribute-value-semantics
-    status: planned
+    status: implemented
     priority: P0
   - id: s115-canonical-identifier-reference
     status: planned
