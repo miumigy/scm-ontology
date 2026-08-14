@@ -1,0 +1,22 @@
+scenario: actual
+nodes:
+  - id: inventory-001
+    type: Inventory
+    valid_from: "2026-08-01T00:00:00+09:00"
+    valid_to: "2026-08-03T00:00:00+09:00"
+    transaction_time: "2026-08-01T10:00:00+09:00"
+  - id: inventory-002
+    type: Inventory
+    valid_from: "2026-08-03T00:00:00+09:00"
+    transaction_time: "2026-08-03T09:00:00+09:00"
+events:
+  - id: receipt-001
+    type: Event
+    event_kind: goods_receipt
+    actual_time: "2026-08-03T08:30:00+09:00"
+    observation_time: "2026-08-03T08:35:00+09:00"
+edges:
+  - source: receipt-001
+    predicate: results_in
+    target: inventory-002
+    temporal_basis: actual_time
