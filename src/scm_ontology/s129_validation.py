@@ -47,7 +47,10 @@ class SemanticModelValidator:
             source = relationship.get("source")
             target = relationship.get("target")
             predicate = relationship.get("predicate")
-            if (source, target) in self._FORBIDDEN_CONFLATIONS:
+            if (
+                (source, target) in self._FORBIDDEN_CONFLATIONS
+                and predicate in {"equals", "equivalent_to", "same_as"}
+            ):
                 issues.append(
                     ValidationIssue(
                         "SEMANTIC_CONFLATION",
@@ -55,7 +58,7 @@ class SemanticModelValidator:
                         f"relationships[{index}]",
                     )
                 )
-            if source == target and predicate in {"equals", "equivalent_to"}:
+            if source == target and predicate in {"equals", "equivalent_to", "same_as"}:
                 issues.append(
                     ValidationIssue(
                         "SELF_EQUIVALENCE",
