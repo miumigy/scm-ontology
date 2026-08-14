@@ -1,0 +1,71 @@
+version: "0.1"
+scenario: baseline
+mappings:
+  - source:
+      system: APS
+      concept: Forecast
+      field: forecast_qty
+      namespace: aps.forecast
+    target:
+      concept: Demand
+      attribute: quantity
+    transformations:
+      - kind: derivation
+        expression: "forecast_qty -> expected_demand_quantity"
+    epistemic:
+      status: prediction
+    planning:
+      issue_time: "2026-08-01T09:00:00+09:00"
+      planning_period: "2026-09"
+      version: "F2026-08"
+
+  - source:
+      system: APS
+      concept: SupplyPlan
+      field: planned_qty
+      namespace: aps.supply_plan
+    target:
+      concept: Supply
+      attribute: planned_quantity
+    planning:
+      issue_time: "2026-08-01T09:00:00+09:00"
+      planning_period: "2026-09"
+      version: "S2026-08"
+
+  - source:
+      system: S&OP
+      concept: Decision
+      field: approved_supply_plan
+      namespace: sop.decision
+    target:
+      concept: Plan
+    transformations:
+      - kind: code_translation
+        expression: "approved_supply_plan -> canonical_plan_reference"
+    status: approved
+    provenance_ref: sop-minutes-2026-08
+
+  - source:
+      system: ERP
+      concept: ActualProduction
+      field: produced_qty
+      namespace: erp.production
+    target:
+      concept: Transformation
+      attribute: actual_output_quantity
+    epistemic:
+      status: observation
+    planning:
+      observation_time: "2026-08-31T18:00:00+09:00"
+
+  - source:
+      system: BI
+      concept: PlanAdherence
+      field: adherence_pct
+      namespace: bi.kpi
+    target:
+      concept: Metric
+      attribute: value
+    transformations:
+      - kind: derivation
+        expression: "actual / planned -> adherence"
