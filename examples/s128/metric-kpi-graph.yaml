@@ -1,0 +1,73 @@
+version: "1.0"
+example: s128_metric_kpi_graph
+nodes:
+  - id: obs_delivery_001
+    type: Observation
+    epistemic_status: observed
+    provenance_ref: prov_wms_001
+  - id: meas_delivery_001
+    type: Measurement
+    unit: percent
+    value: 94.0
+    observation_ref: obs_delivery_001
+  - id: metric_ontime_delivery
+    type: Metric
+    definition: on_time_delivery_rate
+    version: "2"
+  - id: metric_value_001
+    type: MetricValue
+    metric_ref: metric_ontime_delivery
+    value: 94.0
+    period: 2026-08
+    scope: network_001
+    actual: true
+  - id: kpi_otd
+    type: KPI
+    metric_ref: metric_ontime_delivery
+    owner_ref: actor_supply_chain
+  - id: target_otd
+    type: Target
+    value: 97.0
+    effective_from: 2026-07-01
+  - id: assessment_001
+    type: PerformanceAssessment
+    status: below_target
+    metric_value_ref: metric_value_001
+    target_ref: target_otd
+  - id: recommendation_001
+    type: Recommendation
+    assessment_ref: assessment_001
+  - id: decision_001
+    type: Decision
+    recommendation_ref: recommendation_001
+  - id: action_001
+    type: Action
+    decision_ref: decision_001
+edges:
+  - from: obs_delivery_001
+    predicate: measured_as
+    to: meas_delivery_001
+  - from: meas_delivery_001
+    predicate: contributes_to
+    to: metric_value_001
+  - from: metric_value_001
+    predicate: instance_of
+    to: metric_ontime_delivery
+  - from: metric_ontime_delivery
+    predicate: governed_by
+    to: kpi_otd
+  - from: kpi_otd
+    predicate: evaluated_against
+    to: target_otd
+  - from: metric_value_001
+    predicate: assessed_as
+    to: assessment_001
+  - from: assessment_001
+    predicate: informs
+    to: recommendation_001
+  - from: recommendation_001
+    predicate: considered_by
+    to: decision_001
+  - from: decision_001
+    predicate: results_in
+    to: action_001
