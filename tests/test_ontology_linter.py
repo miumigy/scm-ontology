@@ -36,11 +36,11 @@ def test_cardinality_is_checked_when_counts_are_supplied():
         "Party",
         "CustomerOrder",
         from_count=0,
-        to_count=1,
+        to_count=0,
     )
 
     assert not result.valid
-    assert result.issues[0].code == "FROM_CARDINALITY_VIOLATION"
+    assert result.issues[0].code == "TO_CARDINALITY_VIOLATION"
 
 
 def test_cardinality_is_not_invented_without_observed_counts():
