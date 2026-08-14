@@ -1,0 +1,44 @@
+ontology: scm-ontology
+scenario: s125-provenance-example
+nodes:
+  - id: source.wms_stock_001
+    type: Source
+  - id: evidence.stock_snapshot_001
+    type: Evidence
+  - id: observation.inventory_001
+    type: Observation
+    epistemic_status: observed
+  - id: transformation.uom_001
+    type: Transformation
+    kind: unit_conversion
+  - id: measurement.inventory_qty_001
+    type: Measurement
+  - id: metric.service_level_001
+    type: Metric
+    epistemic_status: derived
+  - id: assessment.service_level_001
+    type: PerformanceAssessment
+  - id: decision.replenishment_001
+    type: Decision
+edges:
+  - source: evidence.stock_snapshot_001
+    predicate: supported_by
+    target: source.wms_stock_001
+  - source: observation.inventory_001
+    predicate: supported_by
+    target: evidence.stock_snapshot_001
+  - source: measurement.inventory_qty_001
+    predicate: measured_from
+    target: observation.inventory_001
+  - source: measurement.inventory_qty_001
+    predicate: transformed_from
+    target: transformation.uom_001
+  - source: metric.service_level_001
+    predicate: derived_from
+    target: measurement.inventory_qty_001
+  - source: assessment.service_level_001
+    predicate: evaluated_from
+    target: metric.service_level_001
+  - source: decision.replenishment_001
+    predicate: decided_from
+    target: assessment.service_level_001
