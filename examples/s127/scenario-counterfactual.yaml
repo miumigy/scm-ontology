@@ -1,0 +1,44 @@
+scenario:
+  id: scenario-capacity-reduction
+  type: scenario
+  reference_world: actual-world
+  basis:
+    - entity: factory-001
+    - entity: demand-001
+  intervention:
+    type: capacity_change
+    target: factory-001
+    from: 100
+    to: 80
+    unit: unit_per_day
+
+actual:
+  factory_capacity:
+    value: 100
+    epistemic_status: observed
+  demand:
+    value: 90
+    epistemic_status: observed
+  service_level:
+    value: 0.98
+    epistemic_status: measured
+
+counterfactual:
+  id: cf-capacity-reduction
+  reference_world: actual-world
+  scenario: scenario-capacity-reduction
+  assumption:
+    type: intervention
+    expression: "factory-001.capacity = 80"
+  outcome:
+    metric: service_level
+    value: 0.91
+    epistemic_status: counterfactual
+    derived_from:
+      - scenario-capacity-reduction
+      - cf-capacity-reduction
+
+invariants:
+  - actual.service_level != counterfactual.outcome.value
+  - counterfactual.reference_world == actual-world
+  - scenario-capacity-reduction is not actual-world
