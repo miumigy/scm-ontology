@@ -1,0 +1,41 @@
+version: "0.1"
+mappings:
+  - framework: SCOR
+    framework_version: "reference"
+    source_id: plan
+    source_label: Plan
+    canonical_target: Plan
+    mapping_type: exact
+    status: proposed
+    confidence: 0.95
+    rationale: "The reference concept can be aligned with the canonical Plan semantics, subject to source-version review."
+
+  - framework: APICS-ASCM
+    framework_version: "reference"
+    source_id: demand-management
+    source_label: Demand Management
+    canonical_target: Demand
+    mapping_type: broader
+    status: proposed
+    confidence: 0.8
+    rationale: "The framework concept may cover multiple canonical demand-related concepts and processes."
+
+  - framework: APICS-ASCM
+    framework_version: "reference"
+    source_id: inventory-management
+    source_label: Inventory Management
+    canonical_target: Inventory
+    mapping_type: contextual
+    status: proposed
+    confidence: 0.85
+    rationale: "The framework label describes a management domain; Inventory is the canonical object."
+
+  - framework: APICS-ASCM
+    framework_version: "reference"
+    source_id: framework-specific-method
+    source_label: Framework-specific practice
+    canonical_target: null
+    mapping_type: unmapped
+    status: proposed
+    confidence: 0.0
+    rationale: "No canonical correspondence should be invented without sufficient semantic evidence."
