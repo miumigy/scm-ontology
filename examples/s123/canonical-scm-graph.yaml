@@ -1,0 +1,36 @@
+graph:
+  nodes:
+    - id: material:MAT-001
+      kind: entity
+      concept: Material
+      canonical_identifier: MAT-001
+    - id: inventory:INV-001
+      kind: entity
+      concept: Inventory
+      valid_from: "2026-01-01"
+      observed_at: "2026-08-01T09:00:00+09:00"
+    - id: measurement:MEAS-001
+      kind: measurement
+      concept: Measurement
+      observed_at: "2026-08-01T09:00:00+09:00"
+    - id: plan:PLAN-001
+      kind: entity
+      concept: Plan
+      scenario: actual
+    - id: scenario:WHATIF-001
+      kind: scenario
+      concept: Scenario
+      scenario_type: counterfactual
+  edges:
+    - source: inventory:INV-001
+      predicate: contains
+      target: material:MAT-001
+    - source: measurement:MEAS-001
+      predicate: measured_by
+      target: inventory:INV-001
+    - source: plan:PLAN-001
+      predicate: planned_for
+      target: inventory:INV-001
+    - source: scenario:WHATIF-001
+      predicate: alternative_to
+      target: plan:PLAN-001
