@@ -1,0 +1,40 @@
+ontology: scm-ontology
+version: "0.1"
+fixture: s117-plan-actual-epistemic
+assertions:
+  - id: forecast-001
+    subject: demand-001
+    value_kind: prediction
+    status: predicted
+    source: planning-model-v1
+
+  - id: demand-observation-001
+    subject: demand-001
+    value_kind: observation
+    status: observed
+    source: order-system
+
+  - id: shipment-plan-001
+    subject: shipment-001
+    value_kind: plan
+    status: planned
+    source: planning-system
+
+  - id: shipment-actual-001
+    subject: shipment-001
+    value_kind: actual
+    status: actual
+    source: transport-execution-system
+
+  - id: disruption-hypothesis-001
+    subject: shipment-001
+    value_kind: hypothesis
+    status: inferred
+    source: analyst
+    confidence: 0.72
+
+non_equivalences:
+  - [predicted, actual]
+  - [planned, actual]
+  - [observed, inferred]
+  - [inferred, fact]
