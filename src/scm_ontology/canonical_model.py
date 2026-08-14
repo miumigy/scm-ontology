@@ -1,8 +1,7 @@
-"""Canonical SCM entity and relationship model established by S113.
+"""Canonical SCM entity and relationship registry.
 
-This module is intentionally a semantic registry, not the final serialized ontology
-schema. S114+ will define richer attribute/value semantics and machine-readable
-serialization on top of these contracts.
+S143 reconciles the registry with the semantic contracts established through S142.
+This remains a semantic registry, not a storage schema or graph implementation.
 """
 from __future__ import annotations
 
@@ -35,6 +34,7 @@ class RelationshipCategory(StrEnum):
     LIFECYCLE = "lifecycle"
     GOVERNANCE = "governance"
     DECISION = "decision"
+    EXECUTION = "execution"
     EPISTEMIC = "epistemic"
     MEASUREMENT = "measurement"
     DERIVATION = "derivation"
@@ -42,6 +42,7 @@ class RelationshipCategory(StrEnum):
     PROVENANCE = "provenance"
     CAUSAL = "causal"
     DEPENDENCY = "dependency"
+    LEARNING = "learning"
 
 
 @dataclass(frozen=True)
@@ -62,11 +63,13 @@ class RelationshipSignature:
 
 
 CANONICAL_CONCEPTS: tuple[CanonicalConcept, ...] = (
+    # Semantic primitives
     CanonicalConcept("Entity", ConceptLayer.PRIMITIVE, (WorldLayer.SEMANTIC,), "Canonical identifiable thing.", True),
     CanonicalConcept("Event", ConceptLayer.PRIMITIVE, (WorldLayer.SEMANTIC,), "Occurrence associated with a context."),
     CanonicalConcept("State", ConceptLayer.PRIMITIVE, (WorldLayer.SEMANTIC,), "Condition or configuration that holds."),
-    CanonicalConcept("Observation", ConceptLayer.PRIMITIVE, (WorldLayer.INFORMATION,), "Assertion about something observed."),
+    CanonicalConcept("Observation", ConceptLayer.PRIMITIVE, (WorldLayer.INFORMATION,), "Representation of something observed; not an inference."),
     CanonicalConcept("Time", ConceptLayer.PRIMITIVE, (WorldLayer.SEMANTIC,), "Temporal semantics; not a required entity for an instant."),
+    # Physical / information / decision core
     CanonicalConcept("Actor", ConceptLayer.CORE, (WorldLayer.PHYSICAL, WorldLayer.DECISION), "Participant capable of roles or decisions."),
     CanonicalConcept("Organization", ConceptLayer.CORE, (WorldLayer.PHYSICAL, WorldLayer.DECISION), "Organizational actor."),
     CanonicalConcept("Location", ConceptLayer.CORE, (WorldLayer.PHYSICAL,), "Geographic or logical place."),
@@ -81,22 +84,28 @@ CANONICAL_CONCEPTS: tuple[CanonicalConcept, ...] = (
     CanonicalConcept("Capacity", ConceptLayer.CORE, (WorldLayer.PHYSICAL,), "Available or usable capability over a scope and period."),
     CanonicalConcept("Flow", ConceptLayer.CORE, (WorldLayer.PHYSICAL,), "Movement or transformation through the supply chain."),
     CanonicalConcept("Fulfillment", ConceptLayer.CORE, (WorldLayer.PHYSICAL, WorldLayer.INFORMATION), "Satisfaction of demand or order requirements."),
-    CanonicalConcept("Plan", ConceptLayer.CORE, (WorldLayer.DECISION,), "Intended future configuration or action set."),
-    CanonicalConcept("Schedule", ConceptLayer.CORE, (WorldLayer.DECISION,), "Time-positioned plan or activity commitment."),
-    CanonicalConcept("Commitment", ConceptLayer.CORE, (WorldLayer.DECISION,), "Explicit promise or obligation."),
+    # Decision lifecycle
     CanonicalConcept("Objective", ConceptLayer.CORE, (WorldLayer.DECISION,), "Desired outcome or optimization direction."),
     CanonicalConcept("Constraint", ConceptLayer.CORE, (WorldLayer.DECISION,), "Boundary limiting feasible decisions or actions."),
     CanonicalConcept("Policy", ConceptLayer.CORE, (WorldLayer.DECISION,), "Governing decision rule or preference structure."),
-    CanonicalConcept("Decision", ConceptLayer.CORE, (WorldLayer.DECISION,), "Selected course of action."),
-    CanonicalConcept("Action", ConceptLayer.CORE, (WorldLayer.PHYSICAL, WorldLayer.DECISION), "Executed intervention intended to change the world."),
-    CanonicalConcept("Outcome", ConceptLayer.CORE, (WorldLayer.SEMANTIC,), "Result associated with action, decision, or context."),
+    CanonicalConcept("Rule", ConceptLayer.CORE, (WorldLayer.DECISION,), "Explicit conditional or prescriptive logic."),
+    CanonicalConcept("Plan", ConceptLayer.CORE, (WorldLayer.DECISION,), "Intended future configuration or action set."),
+    CanonicalConcept("Schedule", ConceptLayer.CORE, (WorldLayer.DECISION,), "Time-positioned plan or activity arrangement."),
+    CanonicalConcept("Commitment", ConceptLayer.CORE, (WorldLayer.DECISION,), "Explicit promise or obligation."),
+    CanonicalConcept("Recommendation", ConceptLayer.CORE, (WorldLayer.DECISION,), "Suggested course of action or alternative; not a decision."),
+    CanonicalConcept("Decision", ConceptLayer.CORE, (WorldLayer.DECISION,), "Selected or authorized course of action."),
+    CanonicalConcept("Action", ConceptLayer.CORE, (WorldLayer.DECISION, WorldLayer.PHYSICAL), "Intended operational intervention; not the execution record."),
+    CanonicalConcept("Execution", ConceptLayer.CORE, (WorldLayer.PHYSICAL, WorldLayer.INFORMATION), "Record of carrying out an Action; not itself an outcome."),
+    CanonicalConcept("Outcome", ConceptLayer.CORE, (WorldLayer.SEMANTIC,), "Result associated with action, decision, execution, or context."),
+    # Measurement / performance
     CanonicalConcept("Measurement", ConceptLayer.CORE, (WorldLayer.INFORMATION,), "Measured value with unit, method, and context."),
     CanonicalConcept("MetricDefinition", ConceptLayer.CORE, (WorldLayer.INFORMATION,), "Meaning and calculation definition of a metric."),
     CanonicalConcept("MetricValue", ConceptLayer.CORE, (WorldLayer.INFORMATION,), "Evaluated value of a MetricDefinition in context."),
     CanonicalConcept("KPI", ConceptLayer.DERIVED, (WorldLayer.INFORMATION, WorldLayer.DECISION), "Governed selection of one or more metrics for an objective or decision context."),
-    CanonicalConcept("PerformanceAssessment", ConceptLayer.DERIVED, (WorldLayer.INFORMATION, WorldLayer.DECISION), "Contextual assessment against a reference."),
+    CanonicalConcept("PerformanceAssessment", ConceptLayer.DERIVED, (WorldLayer.INFORMATION, WorldLayer.DECISION), "Contextual assessment against an explicit reference basis."),
     CanonicalConcept("Variance", ConceptLayer.DERIVED, (WorldLayer.INFORMATION,), "Defined difference between comparable values."),
     CanonicalConcept("RiskScore", ConceptLayer.DERIVED, (WorldLayer.INFORMATION, WorldLayer.DECISION), "Derived risk representation."),
+    # Semantic context / evidence
     CanonicalConcept("Identity", ConceptLayer.CONTEXTUAL, (WorldLayer.SEMANTIC,), "Canonical identity and source-reference context."),
     CanonicalConcept("Provenance", ConceptLayer.CONTEXTUAL, (WorldLayer.SEMANTIC,), "Origin and derivation context."),
     CanonicalConcept("Evidence", ConceptLayer.CONTEXTUAL, (WorldLayer.SEMANTIC,), "Evidence supporting an assertion, derivation, or assessment."),
@@ -104,10 +113,12 @@ CANONICAL_CONCEPTS: tuple[CanonicalConcept, ...] = (
     CanonicalConcept("UnitOfMeasure", ConceptLayer.CONTEXTUAL, (WorldLayer.SEMANTIC,), "Measurement dimensional context."),
     CanonicalConcept("Target", ConceptLayer.CONTEXTUAL, (WorldLayer.DECISION,), "Desired or governed reference value/range."),
     CanonicalConcept("Threshold", ConceptLayer.CONTEXTUAL, (WorldLayer.DECISION,), "Boundary affecting status or rule evaluation."),
+    CanonicalConcept("LearningResult", ConceptLayer.CONTEXTUAL, (WorldLayer.INFORMATION, WorldLayer.DECISION), "Explicit incorporation of evidence into future knowledge or decision context."),
 )
 
 
 CANONICAL_RELATIONSHIPS: tuple[RelationshipSignature, ...] = (
+    # Structure / participation
     RelationshipSignature("contains", "Entity", "Entity", RelationshipCategory.STRUCTURAL),
     RelationshipSignature("part_of", "Entity", "Entity", RelationshipCategory.STRUCTURAL),
     RelationshipSignature("located_at", "Entity", "Location", RelationshipCategory.STRUCTURAL),
@@ -115,31 +126,47 @@ CANONICAL_RELATIONSHIPS: tuple[RelationshipSignature, ...] = (
     RelationshipSignature("places", "Actor", "Order", RelationshipCategory.PARTICIPATION),
     RelationshipSignature("receives", "Actor", "Entity", RelationshipCategory.PARTICIPATION),
     RelationshipSignature("executes", "Actor", "Action", RelationshipCategory.PARTICIPATION),
+    # Network / flow / transformation
     RelationshipSignature("moves_through", "Flow", "Node", RelationshipCategory.FLOW),
     RelationshipSignature("flows_to", "Flow", "Node", RelationshipCategory.FLOW),
     RelationshipSignature("supplies", "Actor", "Supply", RelationshipCategory.FLOW),
     RelationshipSignature("consumes", "Flow", "Material", RelationshipCategory.FLOW),
     RelationshipSignature("produces", "Flow", "Product", RelationshipCategory.TRANSFORMATION),
     RelationshipSignature("transforms", "Flow", "Product", RelationshipCategory.TRANSFORMATION),
+    # Fulfillment / planning / commitment
     RelationshipSignature("fulfills", "Fulfillment", "Demand", RelationshipCategory.FULFILLMENT),
     RelationshipSignature("allocated_to", "Supply", "Demand", RelationshipCategory.FULFILLMENT),
     RelationshipSignature("reserved_for", "Supply", "Demand", RelationshipCategory.FULFILLMENT),
     RelationshipSignature("planned_for", "Plan", "Entity", RelationshipCategory.PLANNING),
     RelationshipSignature("scheduled_for", "Schedule", "Entity", RelationshipCategory.PLANNING),
     RelationshipSignature("committed_to", "Commitment", "Entity", RelationshipCategory.COMMITMENT),
-    RelationshipSignature("results_in", "Action", "Outcome", RelationshipCategory.LIFECYCLE),
+    # Decision / execution lifecycle
+    RelationshipSignature("informs", "Recommendation", "Decision", RelationshipCategory.DECISION),
+    RelationshipSignature("considers", "Decision", "Entity", RelationshipCategory.DECISION),
+    RelationshipSignature("selects", "Decision", "Entity", RelationshipCategory.DECISION),
     RelationshipSignature("has_objective", "Decision", "Objective", RelationshipCategory.GOVERNANCE),
     RelationshipSignature("constrained_by", "Decision", "Constraint", RelationshipCategory.GOVERNANCE),
     RelationshipSignature("governed_by", "Decision", "Policy", RelationshipCategory.GOVERNANCE),
-    RelationshipSignature("considers", "Decision", "Entity", RelationshipCategory.DECISION),
-    RelationshipSignature("selects", "Decision", "Entity", RelationshipCategory.DECISION),
+    RelationshipSignature("authorized_by", "Action", "Decision", RelationshipCategory.GOVERNANCE),
+    RelationshipSignature("execution_of", "Execution", "Action", RelationshipCategory.EXECUTION),
+    RelationshipSignature("executed_by", "Execution", "Actor", RelationshipCategory.EXECUTION),
+    RelationshipSignature("results_in", "Execution", "Outcome", RelationshipCategory.LIFECYCLE),
+    # Epistemic / measurement / evaluation
     RelationshipSignature("observes", "Observation", "Entity", RelationshipCategory.EPISTEMIC),
-    RelationshipSignature("derived_from", "Entity", "Entity", RelationshipCategory.DERIVATION),
+    RelationshipSignature("measures", "Measurement", "Entity", RelationshipCategory.MEASUREMENT),
+    RelationshipSignature("defines", "MetricDefinition", "Entity", RelationshipCategory.MEASUREMENT),
     RelationshipSignature("evaluated_by", "PerformanceAssessment", "MetricDefinition", RelationshipCategory.EVALUATION),
     RelationshipSignature("supported_by", "Entity", "Evidence", RelationshipCategory.PROVENANCE),
+    RelationshipSignature("derived_from", "Entity", "Entity", RelationshipCategory.DERIVATION),
+    # Causal / dependency
     RelationshipSignature("causes", "Entity", "Entity", RelationshipCategory.CAUSAL),
     RelationshipSignature("affects", "Entity", "Entity", RelationshipCategory.CAUSAL),
     RelationshipSignature("depends_on", "Entity", "Entity", RelationshipCategory.DEPENDENCY),
+    # Learning / temporal lineage
+    RelationshipSignature("learns_from", "LearningResult", "Evidence", RelationshipCategory.LEARNING),
+    RelationshipSignature("updates", "LearningResult", "Entity", RelationshipCategory.LEARNING),
+    RelationshipSignature("supersedes", "Entity", "Entity", RelationshipCategory.LIFECYCLE),
+    RelationshipSignature("scoped_to", "Entity", "Scenario", RelationshipCategory.STRUCTURAL),
 )
 
 
