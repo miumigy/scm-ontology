@@ -1,0 +1,1 @@
+S116 is represented by the canonical ontology schema, serialization example, semantic contract, and structural tests on the corresponding feature branch.
