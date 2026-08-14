@@ -1,4 +1,4 @@
-# SCM Ontology
+# scm-ontology
 
 Canonical Semantic Model for Supply Chain Management.
 
