@@ -1,0 +1,66 @@
+version: "0.1"
+source_examples:
+  - source:
+      system: ERP
+      concept: Material
+      field: material_code
+      namespace: erp.material
+    target:
+      concept: Material
+      attribute: identifier
+    transformations:
+      - kind: normalization
+      - kind: identity_resolution
+        expression: s115:resolve
+    status: approved
+    provenance_ref: example:erp-material
+
+  - source:
+      system: WMS
+      concept: Stock
+      field: quantity
+      namespace: wms.stock
+    target:
+      concept: Inventory
+      attribute: quantity
+    transformations:
+      - kind: unit_conversion
+    status: reviewed
+    provenance_ref: example:wms-stock
+
+  - source:
+      system: TMS
+      concept: Shipment
+      field: shipment_id
+      namespace: tms.shipment
+    target:
+      concept: Shipment
+      attribute: identifier
+    transformations:
+      - kind: identity_resolution
+        expression: s115:resolve
+    status: reviewed
+    provenance_ref: example:tms-shipment
+
+  - source:
+      system: TMS
+      concept: Shipment
+      field: actual_delivery_time
+      namespace: tms.shipment
+    target:
+      concept: Fulfillment
+      attribute: actual_time
+    transformations:
+      - kind: type_conversion
+    status: approved
+    provenance_ref: example:tms-delivery
+
+planned_actual_separation:
+  - source_field: planned_departure
+    semantic_status: planned
+  - source_field: actual_departure
+    semantic_status: actual
+  - source_field: promised_delivery
+    semantic_status: committed
+  - source_field: actual_delivery_time
+    semantic_status: actual
