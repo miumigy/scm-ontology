@@ -3,7 +3,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from enum import Enum
-from typing import Any
 
 from .relationship_cardinality import get_relationship_cardinality
 from .relationship_constraints import get_relationship_constraint
@@ -97,6 +96,8 @@ def lint_relationship(
             )
 
     if version is not None:
+        # RelationshipVersion already enforces these structural invariants.
+        # This branch deliberately does not add temporal interval semantics.
         if not version.valid_from.strip():
             issues.append(
                 ValidationIssue(
@@ -111,16 +112,6 @@ def lint_relationship(
                     "INVALID_VALID_TO",
                     ValidationSeverity.ERROR,
                     "valid_to must be non-empty when provided",
-                )
-            )
-        if version.qualifiers is not None and not isinstance(version.qualifiers, dict):
-            # RelationshipVersion already requires Mapping; this finding is
-            # reserved for defensive validation of foreign implementations.
-            issues.append(
-                ValidationIssue(
-                    "INVALID_QUALIFIERS",
-                    ValidationSeverity.ERROR,
-                    "qualifiers must be a mapping when provided",
                 )
             )
 
