@@ -8,15 +8,22 @@ from .relationship_identity import RelationshipInstance
 
 
 @dataclass(frozen=True)
+class SemanticNode:
+    """A minimal semantic node reference used for cross-entity validation."""
+
+    node_id: str
+    node_type: str
+
+
+@dataclass(frozen=True)
 class SemanticGraph:
     """Minimal cross-entity semantic context.
 
-    ``node_types`` maps canonical entity identifiers to their semantic type.
     The model deliberately does not define persistence, graph storage, or a
     closed-world entity registry.
     """
 
-    node_types: dict[str, str]
+    nodes: tuple[SemanticNode, ...]
     relationships: tuple[RelationshipInstance, ...] = ()
 
 
@@ -34,6 +41,40 @@ def validate_cross_entity(graph: SemanticGraph) -> ValidationResult:
 
     issues: list[ValidationIssue] = []
 
+    node_types: dict[str, str] = {}
+    for node in graph.nodes:
+        if not node.node_id.strip():
+            issues.append(
+                ValidationIssue(
+                    "INVALID_NODE_ID",
+                    ValidationSeverity.ERROR,
+                    "node identifier must be non-empty",
+                )
+            )
+            continue
+        if not node.node_type.strip():
+            issues.append(
+                ValidationIssue(
+                    "INVALID_NODE_TYPE",
+                    ValidationSeverity.ERROR,
+                    f"node {node.node_id!r} has an empty semantic type",
+                )
+            )
+            continue
+
+        previous_type = node_types.get(node.node_id)
+        if previous_type is not None and previous_type != node.node_type:
+            issues.append(
+                ValidationIssue(
+                    "ENTITY_TYPE_CONFLICT",
+                    ValidationSeverity.ERROR,
+                    f"node {node.node_id!r} has conflicting semantic types: "
+                    f"{previous_type} vs {node.node_type}",
+                )
+            )
+        else:
+            node_types[node.node_id] = node.node_type
+
     seen_relationships: dict[str, RelationshipInstance] = {}
     for relationship in graph.relationships:
         previous = seen_relationships.get(relationship.relationship_id)
@@ -49,7 +90,7 @@ def validate_cross_entity(graph: SemanticGraph) -> ValidationResult:
             seen_relationships[relationship.relationship_id] = relationship
 
         for endpoint_id in relationship.endpoints():
-            if endpoint_id not in graph.node_types:
+            if endpoint_id not in node_types:
                 issues.append(
                     ValidationIssue(
                         "UNRESOLVED_ENDPOINT",
@@ -57,24 +98,6 @@ def validate_cross_entity(graph: SemanticGraph) -> ValidationResult:
                         f"relationship endpoint is not resolved in this graph: {endpoint_id}",
                     )
                 )
-
-    for node_id, node_type in graph.node_types.items():
-        if not node_id.strip():
-            issues.append(
-                ValidationIssue(
-                    "INVALID_NODE_ID",
-                    ValidationSeverity.ERROR,
-                    "node identifier must be non-empty",
-                )
-            )
-        if not node_type.strip():
-            issues.append(
-                ValidationIssue(
-                    "INVALID_NODE_TYPE",
-                    ValidationSeverity.ERROR,
-                    f"node {node_id!r} has an empty semantic type",
-                )
-            )
 
     return ValidationResult(tuple(issues))
 
