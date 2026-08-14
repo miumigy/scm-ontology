@@ -1,0 +1,43 @@
+worlds:
+  - id: actual-world
+    type: actual
+  - id: scenario-delay
+    type: counterfactual
+    parent: actual-world
+
+nodes:
+  - id: port-delay
+    type: Event
+    world: actual-world
+    properties:
+      name: Port congestion
+  - id: shipment-delay
+    type: Outcome
+    world: actual-world
+    properties:
+      name: Shipment delay
+  - id: alternative-routing
+    type: Decision
+    world: scenario-delay
+    properties:
+      name: Alternative routing
+  - id: hypothetical-delay
+    type: Outcome
+    world: scenario-delay
+    properties:
+      name: Hypothetical shipment delay
+
+edges:
+  - from: port-delay
+    to: shipment-delay
+    type: causes
+    properties:
+      causal_status: asserted
+      uncertainty: medium
+      provenance_ref: evidence-port-001
+  - from: alternative-routing
+    to: hypothetical-delay
+    type: results_in
+    properties:
+      causal_status: hypothetical
+      scenario_ref: scenario-delay
