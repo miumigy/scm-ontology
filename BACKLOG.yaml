@@ -11,7 +11,7 @@ milestones:
     status: implemented
     priority: P0
   - id: s115-canonical-identifier-reference
-    status: planned
+    status: implemented
     priority: P0
   - id: s116-machine-readable-ontology
     status: planned

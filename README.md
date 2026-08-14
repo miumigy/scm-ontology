@@ -26,6 +26,8 @@ S113 consolidates those contracts into a canonical concept and relationship regi
 
 S114 establishes canonical type, attribute, value-kind, scalar, reference, quantity, role, and cardinality semantics without coupling the model to a storage or serialization technology.
 
+S115 establishes canonical identifier and reference semantics: identifiers are contextual tokens interpreted through namespace, issuer, and time; identifier assignments are distinct from entity identity; references preserve resolution status; and historical mappings remain reconstructable.
+
 ## Development status
 
 **v0.1 experimental — semantic consolidation in progress.**
