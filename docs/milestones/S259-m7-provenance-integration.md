@@ -88,9 +88,11 @@ Provenance integration is metadata preservation, not graph mutation. S259 MUST N
 - rewrite provenance to conceal an ambiguous or rejected mapping;
 - replace an existing source lineage merely because another source appears more convenient.
 
-For regression compatibility, the contract explicitly states: **MUST NOT create a new canonical entity, attribute, or predicate**.
+The contract explicitly states: **MUST NOT create a new canonical entity, attribute, or predicate**.
 
 The contract explicitly states: **MUST NOT mutate canonical facts**.
+
+The contract explicitly states: **MUST NOT infer a canonical fact from provenance alone**.
 
 ## Semantic gaps
 
