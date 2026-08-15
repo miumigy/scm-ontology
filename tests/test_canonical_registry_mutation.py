@@ -20,7 +20,7 @@ def _guard(predicate_ref: str = "supports", inverse_ref: str | None = "supported
     preflight = run_registry_application_preflight(
         validate_registry_application_gate(plan_registry_application(proposal))
     )
-    refs = frozenset({"supports", "supported_by"})
+    refs = frozenset({predicate_ref, inverse_ref}) if inverse_ref else frozenset({predicate_ref})
     return build_registry_mutation_guard(
         preflight,
         predicate_refs=refs,
