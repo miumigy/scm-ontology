@@ -12,16 +12,16 @@ class RegistryIntegrityError(ValueError):
 def validate_relation_registry(
     relations: Iterable[CanonicalRelationType],
 ) -> None:
-    """Validate predicate uniqueness and complete inverse namespace coverage."""
+    """Validate predicate uniqueness and reciprocal integrity for registered inverses."""
     items = tuple(relations)
-    predicates = {item.predicate_ref for item in items}
-    if len(predicates) != len(items):
+    by_predicate = {item.predicate_ref: item for item in items}
+    if len(by_predicate) != len(items):
         raise RegistryIntegrityError("predicate refs must be unique")
 
-    inverse_refs = {item.inverse_ref for item in items if item.inverse_ref}
-    undeclared = inverse_refs - predicates
-    if undeclared:
-        raise RegistryIntegrityError(
-            "inverse refs must be declared predicate refs: "
-            + ", ".join(sorted(undeclared))
-        )
+    for item in items:
+        if item.inverse_ref in by_predicate:
+            inverse = by_predicate[item.inverse_ref]
+            if inverse.inverse_ref != item.predicate_ref:
+                raise RegistryIntegrityError(
+                    f"inverse relation must be reciprocal: {item.predicate_ref} ↔ {item.inverse_ref}"
+                )
