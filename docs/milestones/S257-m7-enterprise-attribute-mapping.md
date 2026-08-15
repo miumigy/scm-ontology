@@ -91,10 +91,10 @@ Attribute mapping is read-only with respect to canonical ontology structure and 
 - create canonical entity types;
 - create canonical attributes;
 - create canonical predicates;
-- mutate canonical facts;
+- **MUST NOT mutate canonical facts**;
 - infer facts from mapping confidence alone.
 
-In particular, the adapter MUST NOT create or mutate canonical facts as a side effect of attribute mapping. Attribute mapping alone is never sufficient evidence for a canonical fact assertion.
+The adapter MUST NOT create or mutate canonical facts as a side effect of attribute mapping. Attribute mapping alone is never sufficient evidence for a canonical fact assertion.
 
 ## Non-goals
 
