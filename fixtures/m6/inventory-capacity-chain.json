@@ -1,0 +1,22 @@
+{
+  "fixture_id": "M6-FX-002",
+  "name": "inventory-capacity-chain",
+  "nodes": [
+    {"id": "MAT-001", "type": "material"},
+    {"id": "INV-001", "type": "inventory_position", "quantity": 80, "unit": "unit"},
+    {"id": "SITE-001", "type": "site"},
+    {"id": "CAP-001", "type": "capacity_resource", "capacity": 100, "unit": "unit_per_day"},
+    {"id": "ACT-001", "type": "activity"}
+  ],
+  "edges": [
+    {"from": "MAT-001", "predicate": "stocked_at", "to": "INV-001", "evidence": "E-FX002-01"},
+    {"from": "INV-001", "predicate": "located_at", "to": "SITE-001", "evidence": "E-FX002-02"},
+    {"from": "ACT-001", "predicate": "requires_capacity", "to": "CAP-001", "evidence": "E-FX002-03"},
+    {"from": "CAP-001", "predicate": "provided_by", "to": "SITE-001", "evidence": "E-FX002-04"}
+  ],
+  "business_questions": [
+    {"id": "Q-003", "question": "Where is Material MAT-001 stocked?", "expected_path": ["MAT-001", "stocked_at", "INV-001", "located_at", "SITE-001"]},
+    {"id": "Q-004", "question": "Which site provides the capacity required by ACT-001?", "expected_path": ["ACT-001", "requires_capacity", "CAP-001", "provided_by", "SITE-001"]}
+  ],
+  "m6_invariants": {"read_only": true, "inference_creates_canonical_fact": false, "enterprise_specific_semantics": false}
+}
