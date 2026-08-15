@@ -16,6 +16,10 @@ class RelationValidationResult:
     predicate_ref: str
     status: ValidationStatus
     reason: str = ""
+    subject_type: str | None = None
+    object_type: str | None = None
+    domain_ok: bool | None = None
+    range_ok: bool | None = None
 
     @property
     def valid(self) -> bool:
@@ -28,9 +32,34 @@ def validation_result(
     domain_ok: bool,
     range_ok: bool,
     known_predicate: bool = True,
+    subject_type: str | None = None,
+    object_type: str | None = None,
 ) -> RelationValidationResult:
     if not known_predicate:
-        return RelationValidationResult(predicate_ref, ValidationStatus.EXTENSION, "unknown canonical predicate")
+        return RelationValidationResult(
+            predicate_ref,
+            ValidationStatus.EXTENSION,
+            "unknown canonical predicate",
+            subject_type,
+            object_type,
+            domain_ok,
+            range_ok,
+        )
     if domain_ok and range_ok:
-        return RelationValidationResult(predicate_ref, ValidationStatus.PASS)
-    return RelationValidationResult(predicate_ref, ValidationStatus.REVIEW, "domain/range constraint requires review")
+        return RelationValidationResult(
+            predicate_ref,
+            ValidationStatus.PASS,
+            subject_type=subject_type,
+            object_type=object_type,
+            domain_ok=domain_ok,
+            range_ok=range_ok,
+        )
+    return RelationValidationResult(
+        predicate_ref,
+        ValidationStatus.REVIEW,
+        "domain/range constraint requires review",
+        subject_type,
+        object_type,
+        domain_ok,
+        range_ok,
+    )
