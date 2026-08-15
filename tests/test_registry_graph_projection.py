@@ -9,3 +9,9 @@ def test_registry_projection_preserves_relation_semantics() -> None:
     assert {edge.predicate_ref for edge in edges} == {
         relation.predicate_ref for relation in CANONICAL_RELATION_TYPES
     }
+    assert {edge.kind for edge in edges} == {
+        relation.kind for relation in CANONICAL_RELATION_TYPES
+    }
+    assert {edge.inverse_ref for edge in edges} == {
+        relation.inverse_ref for relation in CANONICAL_RELATION_TYPES
+    }
