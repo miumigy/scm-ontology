@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any, Mapping
 
 from .assertion_context import AssertionContext
@@ -50,7 +50,7 @@ class CanonicalAssertionSet:
 
     entity_assertions: tuple[EntityAssertion, ...] = ()
     relation_assertions: tuple[RelationAssertion, ...] = ()
-    metadata: Mapping[str, Any] = ()
+    metadata: Mapping[str, Any] = field(default_factory=dict)
 
     def __post_init__(self) -> None:
         assertion_ids = [a.assertion_ref for a in self.entity_assertions]
