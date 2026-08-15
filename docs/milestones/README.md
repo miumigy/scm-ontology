@@ -7,10 +7,11 @@
 | M3 | Evidence / Provenance Foundation | Complete |
 | M4 | Reasoning Runtime Foundation | Complete |
 | v0.2 RC | Semantic / Reasoning Foundation Release Candidate | Complete |
-| **M5** | **SCM Use-Case Validation** | **Active** |
+| M5 | SCM Use-Case Validation | Complete |
+| **M6** | **SCM Graph Integration** | **Active** |
 
 ## Current phase
 
-M5 validates the v0.2 foundation against representative SCM business questions while preserving canonical, enterprise-independent semantics.
+M6 moves from validated semantic/reasoning contracts to executable canonical SCM Graph fixtures and end-to-end business-question validation.
 
-See [`M5-scm-use-case-validation.md`](./M5-scm-use-case-validation.md) for the formal milestone definition.
+See [`M6-scm-graph-integration.md`](./M6-scm-graph-integration.md) for the formal milestone definition.
