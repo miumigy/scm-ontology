@@ -3,6 +3,11 @@ import pytest
 from scm_ontology.evidence_provenance import EvidenceProvenanceError, EvidenceRef, EvidenceSet
 
 
+def test_evidence_ref_defaults_to_empty_metadata() -> None:
+    evidence = EvidenceRef("erp:order:123")
+    assert dict(evidence.metadata) == {}
+
+
 def test_evidence_set_preserves_distinct_source_refs() -> None:
     evidence = EvidenceSet(
         refs=(
