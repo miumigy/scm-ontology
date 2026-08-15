@@ -83,4 +83,4 @@ With M7 complete, the project can move from semantic safety of enterprise canoni
 4. graph-level business-question execution at enterprise scale;
 5. operational interfaces required for SCM OS.
 
-These are **not** reasons to weaken the M7 boundary. All future work must continue to treat the Adapter Boundary, Provenance, Evidence, Semantic Gap, and governed graph mutation as first-class controls.
+These are **not** reasons to weaken the M7 boundary. They are also not reasons to weaken the M7 boundary through convenience-driven mappings, autonomous ontology extension, or implicit Canonical Fact mutation. All future work must continue to treat the Adapter Boundary, Provenance, Evidence, Semantic Gap, and governed graph mutation as first-class controls.
