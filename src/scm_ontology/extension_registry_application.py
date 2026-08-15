@@ -20,9 +20,8 @@ class RegistryApplicationPlan:
 
 
 @dataclass(frozen=True)
-class RegistryApplicationResult:
+class RegistryApplicationIntent:
     preflight: RegistryApplicationPreflight
-    applied: bool
 
 
 def plan_registry_application(proposal: ExtensionProposal) -> RegistryApplicationPlan:
@@ -36,8 +35,8 @@ def plan_registry_application(proposal: ExtensionProposal) -> RegistryApplicatio
 
 def apply_registry_application(
     preflight: RegistryApplicationPreflight,
-) -> RegistryApplicationResult:
-    """Record application intent without mutating the canonical registry yet."""
+) -> RegistryApplicationIntent:
+    """Create an immutable application intent; canonical mutation is a later step."""
     if not preflight.ready:
         raise RegistryApplicationNotReady("registry application preflight is not ready")
-    return RegistryApplicationResult(preflight=preflight, applied=True)
+    return RegistryApplicationIntent(preflight=preflight)
