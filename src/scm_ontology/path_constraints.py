@@ -46,7 +46,7 @@ def evaluate_path_contains_node(graph: CanonicalGraph, query: RelationPathQuery,
 
 
 def evaluate_path_contains_predicate(graph: CanonicalGraph, query: RelationPathQuery, constraint: PathContainsPredicate) -> tuple[RelationPathMatch, ...]:
-    predicates = {relationship.instance.relationship_id: relationship.instance.predicate_ref for relationship in graph.relationships}
+    predicates = {relationship.instance.relationship_id: relationship.instance.predicate for relationship in graph.relationships}
     return tuple(
         match for match in query_relation_paths(graph, query)
         if any(predicates.get(relationship_id) == constraint.predicate_ref for relationship_id in match.relationship_ids)
