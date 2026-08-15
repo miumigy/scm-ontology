@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any, Mapping
 
 from .evidence_provenance import EvidenceSet
@@ -15,9 +15,9 @@ class ReasoningResult:
     result_ref: str
     status: str
     matches: tuple[str, ...] = ()
-    evidence: EvidenceSet = EvidenceSet()
+    evidence: EvidenceSet = field(default_factory=EvidenceSet)
     explanation: str | None = None
-    metadata: Mapping[str, Any] = ()
+    metadata: Mapping[str, Any] = field(default_factory=dict)
 
     def __post_init__(self) -> None:
         if not self.result_ref.strip():
