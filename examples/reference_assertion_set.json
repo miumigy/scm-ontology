@@ -1,0 +1,26 @@
+{
+  "entity_assertions": [
+    {
+      "assertion_ref": "assertion:inventory-001-quantity",
+      "subject_ref": "inventory:001",
+      "attribute_ref": "quantity_on_hand",
+      "value": 100,
+      "context": {
+        "assertion_ref": "assertion:inventory-001-quantity",
+        "semantic_context": {
+          "assertion_ref": "assertion:inventory-001-quantity",
+          "subject_ref": "inventory:001",
+          "epistemic_kind": "observation",
+          "temporal_assertions": [],
+          "provenance": null
+        },
+        "qualifiers": {}
+      }
+    }
+  ],
+  "relation_assertions": [],
+  "metadata": {
+    "fixture": "reference-scm",
+    "purpose": "canonical-assertion-example"
+  }
+}
