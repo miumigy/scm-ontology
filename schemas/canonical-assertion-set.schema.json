@@ -11,6 +11,17 @@
     "metadata": {"type": "object", "additionalProperties": true}
   },
   "$defs": {
+    "relationPredicate": {
+      "type": "string",
+      "enum": [
+        "causes", "affects", "depends_on", "derived_from", "located_at",
+        "contains", "part_of", "transforms", "consumes", "produces",
+        "supplies", "fulfills", "allocated_to", "reserved_for", "committed_to",
+        "planned_for", "scheduled_for", "executes", "flows_through", "uses",
+        "constrained_by", "governed_by", "measured_by", "evaluated_by",
+        "decided_by", "results_in"
+      ]
+    },
     "semanticContext": {
       "type": "object",
       "required": ["assertion_ref", "subject_ref"],
@@ -51,7 +62,7 @@
       "properties": {
         "assertion_ref": {"type": "string", "minLength": 1},
         "subject_ref": {"type": "string", "minLength": 1},
-        "predicate_ref": {"type": "string", "minLength": 1},
+        "predicate_ref": {"$ref": "#/$defs/relationPredicate"},
         "object_ref": {"type": "string", "minLength": 1},
         "qualifiers": {"type": "object", "additionalProperties": true},
         "context": {"$ref": "#/$defs/context"}
