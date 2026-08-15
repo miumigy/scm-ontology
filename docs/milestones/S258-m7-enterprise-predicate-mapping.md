@@ -73,6 +73,8 @@ Predicate mapping is read-only with respect to canonical ontology structure and 
 - mutate canonical facts;
 - infer relationship facts from mapping confidence alone.
 
+The contract explicitly states: **MUST NOT mutate canonical facts**.
+
 In particular, predicate mapping establishes a mapping decision, not a canonical relationship fact.
 
 ## Non-goals
