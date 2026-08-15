@@ -6,7 +6,7 @@ from .canonical_graph import CanonicalGraph
 from .path_constraints import PathEndsAt, evaluate_path_ends_at
 from .path_evidence import PathEvidence, evidence_from_sources
 from .path_reasoning_result import PathReasoningResult
-from .relation_path_query import RelationPathQuery
+from .relation_path_query import RelationPathQuery, query_relation_paths
 
 
 class MultiHopReasoningError(ValueError):
@@ -28,9 +28,11 @@ def reason_over_paths(
     matches = (
         evaluate_path_ends_at(graph, request.query, PathEndsAt(request.end_node_id))
         if request.end_node_id is not None
-        else __import__("scm_ontology.relation_path_query", fromlist=["query_relation_paths"]).query_relation_paths(graph, request.query)
+        else query_relation_paths(graph, request.query)
     )
-    evidenced: list[PathEvidence] = [evidence_from_sources(match, request.source_refs) for match in matches]
+    evidenced: list[PathEvidence] = [
+        evidence_from_sources(match, request.source_refs) for match in matches
+    ]
     status = "matched" if evidenced else "no_match"
     return PathReasoningResult(
         result_ref=f"path-reasoning:{request.query.start_node_id}",
