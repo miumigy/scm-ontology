@@ -1,9 +1,12 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import TYPE_CHECKING
 
 from .extension_proposal import ExtensionProposal
-from .extension_registry_application_preflight import RegistryApplicationPreflight
+
+if TYPE_CHECKING:
+    from .extension_registry_application_preflight import RegistryApplicationPreflight
 
 
 class InvalidRegistryApplicationPlan(ValueError):
