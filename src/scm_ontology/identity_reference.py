@@ -1,4 +1,4 @@
-"""Canonical identifier and reference semantics for S115.
+"""Canonical identifier and reference semantics for S105/S147.
 
 Identifiers are contextual reference tokens, not identities. The model keeps
 namespace, issuer, validity, resolution status, and epistemic/provenance hooks
@@ -18,6 +18,13 @@ class ResolutionStatus(StrEnum):
     CONTRADICTED = "contradicted"
 
 
+class IdentifierRole(StrEnum):
+    CANONICAL = "canonical"
+    SOURCE = "source"
+    ALIAS = "alias"
+    EXTERNAL_REFERENCE = "external_reference"
+
+
 @dataclass(frozen=True)
 class IdentifierNamespace:
     name: str
@@ -30,6 +37,8 @@ class Identifier:
     value: str
     namespace: IdentifierNamespace
     issuer: str | None = None
+    role: IdentifierRole = IdentifierRole.SOURCE
+    entity_type_ref: str | None = None
 
     def __post_init__(self) -> None:
         if not self.value:
@@ -73,10 +82,6 @@ class CanonicalReference:
             raise ValueError("reference requires a target reference")
         if self.confidence is not None and not 0.0 <= self.confidence <= 1.0:
             raise ValueError("confidence must be between 0 and 1")
-        if self.resolution_status == ResolutionStatus.UNRESOLVED and self.target_ref:
-            # An unresolved reference may point to a candidate target, but the
-            # target must never be interpreted as confirmed identity.
-            return
 
 
 @dataclass(frozen=True)
@@ -97,6 +102,55 @@ class IdentityResolutionAssertion:
             raise ValueError("resolution validity interval is reversed")
 
 
+@dataclass(frozen=True)
+class EntityReference:
+    """A typed reference whose identity resolution remains explicit."""
+
+    ref: str
+    entity_type_ref: str
+    identifier: Identifier
+    resolution_status: ResolutionStatus = ResolutionStatus.UNRESOLVED
+    canonical_entity_ref: str | None = None
+    confidence: float | None = None
+    provenance_refs: tuple[str, ...] = ()
+
+    def __post_init__(self) -> None:
+        if not self.ref or not self.entity_type_ref:
+            raise ValueError("ref and entity_type_ref are required")
+        if self.identifier.entity_type_ref and self.identifier.entity_type_ref != self.entity_type_ref:
+            raise ValueError("identifier entity type does not match reference")
+        if self.resolution_status is ResolutionStatus.CONFIRMED and not self.canonical_entity_ref:
+            raise ValueError("confirmed references require canonical_entity_ref")
+        if self.confidence is not None and not 0.0 <= self.confidence <= 1.0:
+            raise ValueError("confidence must be between 0 and 1")
+
+    @property
+    def is_resolved(self) -> bool:
+        return self.resolution_status in {
+            ResolutionStatus.CONFIRMED,
+            ResolutionStatus.PROBABLE,
+        }
+
+
 def identifier_key(identifier: Identifier) -> tuple[str, str, str | None]:
     """Return the contextual key used to interpret an identifier."""
     return (identifier.namespace.name, identifier.value, identifier.issuer)
+
+
+def resolve_reference(
+    reference: EntityReference,
+    canonical_entity_ref: str,
+    *,
+    confidence: float | None = None,
+    provenance_refs: tuple[str, ...] = (),
+) -> EntityReference:
+    """Create an explicitly confirmed canonical resolution."""
+    return EntityReference(
+        ref=reference.ref,
+        entity_type_ref=reference.entity_type_ref,
+        identifier=reference.identifier,
+        resolution_status=ResolutionStatus.CONFIRMED,
+        canonical_entity_ref=canonical_entity_ref,
+        confidence=confidence,
+        provenance_refs=provenance_refs or reference.provenance_refs,
+    )
