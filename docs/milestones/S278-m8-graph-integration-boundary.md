@@ -25,7 +25,7 @@ Only Canonicalization Results that satisfy the M7 contract may enter this stage.
 2. Integration MUST NOT create a new canonical entity, attribute, or predicate automatically.
 3. Integration MUST NOT mutate canonical facts implicitly as a side effect of identity matching or graph merge.
 4. Source identity and provenance MUST remain attached to every integrated result.
-5. Conflicting source representations MUST remain observable; conflict resolution MUST be explicit and governed.
+5. Conflicts MUST remain observable; conflicting source representations MUST remain observable; conflict resolution MUST be explicit and governed.
 6. Identity similarity MUST NOT by itself establish Canonical Identity.
 7. A shared graph MUST NOT erase enterprise-specific source distinctions needed for provenance or audit.
 8. Graph merge MUST be replayable from recorded inputs and governed decisions.
