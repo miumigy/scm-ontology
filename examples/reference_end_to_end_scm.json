@@ -1,0 +1,34 @@
+{
+  "entity_assertions": [
+    {
+      "assertion_ref": "a:demand-001",
+      "subject_ref": "demand:001",
+      "attribute_ref": "requested_quantity",
+      "value": 100,
+      "context": {"assertion_ref": "a:demand-001", "semantic_context": {"assertion_ref": "a:demand-001", "subject_ref": "demand:001", "epistemic_kind": "observation", "temporal_assertions": [], "provenance": null}, "qualifiers": {}}
+    },
+    {
+      "assertion_ref": "a:order-001",
+      "subject_ref": "order:001",
+      "attribute_ref": "requested_quantity",
+      "value": 100,
+      "context": {"assertion_ref": "a:order-001", "semantic_context": {"assertion_ref": "a:order-001", "subject_ref": "order:001", "epistemic_kind": "observation", "temporal_assertions": [], "provenance": null}, "qualifiers": {}}
+    },
+    {
+      "assertion_ref": "a:supply-001",
+      "subject_ref": "supply:001",
+      "attribute_ref": "quantity",
+      "value": 100,
+      "context": {"assertion_ref": "a:supply-001", "semantic_context": {"assertion_ref": "a:supply-001", "subject_ref": "supply:001", "epistemic_kind": "observation", "temporal_assertions": [], "provenance": null}, "qualifiers": {}}
+    },
+    {
+      "assertion_ref": "a:inventory-001",
+      "subject_ref": "inventory:001",
+      "attribute_ref": "quantity_on_hand",
+      "value": 100,
+      "context": {"assertion_ref": "a:inventory-001", "semantic_context": {"assertion_ref": "a:inventory-001", "subject_ref": "inventory:001", "epistemic_kind": "observation", "temporal_assertions": [], "provenance": null}, "qualifiers": {}}
+    }
+  ],
+  "relation_assertions": [],
+  "metadata": {"fixture": "reference-scm-e2e", "purpose": "cross-domain-canonical-example"}
+}
