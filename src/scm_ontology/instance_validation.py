@@ -21,13 +21,12 @@ def validate_core_instances(
 ) -> tuple[InstanceIssue, ...]:
     """Validate instance references against the canonical semantic registry.
 
-    `concept_types` maps an entity id to its canonical concept name. It is kept
-    outside CoreInstanceModel so the instance contract stays transport-neutral.
+    `concept_types` is an optional override for ingestion adapters. When absent,
+    the entity's own canonical `concept_ref` is authoritative.
     """
     issues: list[InstanceIssue] = []
     concept_types = concept_types or {
-        entity.entity_id: entity.attributes.get("_concept_ref", "")
-        for entity in model.entities
+        entity.entity_id: entity.concept_ref for entity in model.entities
     }
 
     for entity in model.entities:
