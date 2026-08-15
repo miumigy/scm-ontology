@@ -40,6 +40,6 @@ def test_s283_separates_governance_from_canonical_mutation() -> None:
 
 def test_s283_is_auditable_and_not_canonical_truth() -> None:
     text = DOC.read_text(encoding="utf-8")
-    assert "decision rationale MUST be auditable and replayable" in text.lower()
+    assert "Decision rationale MUST be auditable and replayable" in text
     assert "It is not a Canonical Fact" in text
     assert "Vendor-specific governance rules MUST remain outside the Canonical Ontology" in text
