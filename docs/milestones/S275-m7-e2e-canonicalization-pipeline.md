@@ -41,15 +41,19 @@ An execution MUST:
 
 ## Canonical boundary
 
-The pipeline MUST NOT:
+The pipeline MUST NOT create a new canonical entity, attribute, or predicate automatically.
 
-- create a new canonical entity, attribute, or predicate automatically;
-- mutate canonical facts without an explicit governed application step;
-- infer Canonical Truth from mapping success alone;
-- silently resolve ambiguous mappings;
-- silently discard unmappable data or provenance;
-- import vendor-specific semantics into the Canonical Ontology;
-- rewrite historical Canonicalization Results.
+The pipeline MUST NOT mutate canonical facts without an explicit governed application step.
+
+The pipeline MUST NOT infer Canonical Truth from mapping success alone.
+
+The pipeline MUST NOT silently resolve ambiguous mappings.
+
+The pipeline MUST NOT silently discard unmappable data or provenance.
+
+The pipeline MUST NOT import vendor-specific semantics into the Canonical Ontology.
+
+The pipeline MUST NOT rewrite historical Canonicalization Results.
 
 A mapping failure, ambiguity, or Semantic Gap is an explicit execution outcome and MUST NOT be converted into an ontology change by the pipeline itself.
 
