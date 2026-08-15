@@ -37,14 +37,14 @@ A conforming Adapter MUST:
 
 A conforming Adapter MUST NOT:
 
-- create a new canonical entity, attribute, or predicate automatically;
-- mutate canonical facts;
-- infer Canonical Truth solely from source labels, vendor codes, mapping success, or adapter behavior;
-- silently discard provenance;
-- silently resolve ambiguity;
-- silently convert unmappable data into a new Canonical concept;
-- rewrite historical canonicalization results;
-- treat vendor-specific semantics as Canonical Semantics without an explicit approved mapping.
+- MUST NOT create a new canonical entity, attribute, or predicate automatically;
+- MUST NOT mutate canonical facts;
+- MUST NOT infer Canonical Truth solely from source labels, vendor codes, mapping success, or adapter behavior;
+- MUST NOT silently discard provenance;
+- MUST NOT silently resolve ambiguity;
+- MUST NOT silently convert unmappable data into a new Canonical concept;
+- MUST NOT rewrite historical canonicalization results;
+- MUST NOT treat vendor-specific semantics as Canonical Semantics without an explicit approved mapping.
 
 ## Conformance result
 
