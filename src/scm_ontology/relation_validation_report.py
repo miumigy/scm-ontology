@@ -25,6 +25,11 @@ class RelationValidationReport:
             ValidationDisposition.EXTENSION_CANDIDATE.value: counts[ValidationDisposition.EXTENSION_CANDIDATE],
         }
 
+    def by_disposition(self, disposition: ValidationDisposition) -> tuple[RelationValidationResult, ...]:
+        return tuple(
+            result for result in self.results if disposition_for(result) is disposition
+        )
+
 
 def build_validation_report(
     results: Iterable[RelationValidationResult],
