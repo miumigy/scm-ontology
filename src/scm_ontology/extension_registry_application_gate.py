@@ -1,8 +1,10 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import TYPE_CHECKING
 
-from .extension_registry_application import RegistryApplicationPlan
+if TYPE_CHECKING:
+    from .extension_registry_application import RegistryApplicationPlan
 
 
 @dataclass(frozen=True)
