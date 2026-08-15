@@ -1,1 +1,23 @@
-{}
+{
+  "fixture_id": "M6-FX-001",
+  "name": "supply-dependency-chain",
+  "purpose": "Executable canonical graph fixture for UC-01 and UC-02.",
+  "nodes": [
+    {"id": "material:M-001", "type": "material", "name": "Resin A"},
+    {"id": "supplier:S-001", "type": "supplier", "name": "Supplier Alpha"},
+    {"id": "site:SITE-001", "type": "site", "name": "Alpha Plant"}
+  ],
+  "edges": [
+    {"from": "material:M-001", "predicate": "supplied_by", "to": "supplier:S-001", "evidence_id": "EV-001"},
+    {"from": "supplier:S-001", "predicate": "located_at", "to": "site:SITE-001", "evidence_id": "EV-002"}
+  ],
+  "evidence": [
+    {"id": "EV-001", "source": "fixture", "record": "supply-record-001"},
+    {"id": "EV-002", "source": "fixture", "record": "site-record-001"}
+  ],
+  "queries": [
+    {"id": "Q-001", "question": "Which supplier provides Resin A?", "expected_path": ["material:M-001", "supplied_by", "supplier:S-001"]},
+    {"id": "Q-002", "question": "Which physical site supports the supply of Resin A?", "expected_path": ["material:M-001", "supplied_by", "supplier:S-001", "located_at", "site:SITE-001"]}
+  ],
+  "invariants": {"read_only": true, "inference_creates_canonical_fact": false, "enterprise_specific_semantics": false}
+}
