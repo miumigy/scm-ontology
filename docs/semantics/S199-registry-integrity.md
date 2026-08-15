@@ -5,14 +5,15 @@ S199 validates the canonical relation registry after functional mutation.
 Invariants:
 
 - predicate references are unique;
-- every declared inverse reference is itself a declared predicate reference.
+- an inverse reference may point to an as-yet-unregistered predicate;
+- when an inverse reference is itself registered as a predicate, the two declarations must be reciprocal.
 
 ```text
 Canonical Registry
        ↓
 Integrity Validation
        ├─ predicate uniqueness
-       └─ inverse namespace completeness
+       └─ registered inverse reciprocity
 ```
 
-This validation is read-only. It does not mutate the registry or ontology.
+This preserves the existing canonical relation model, where inverse references can be declared before their inverse predicate is registered. Validation is read-only and does not mutate the registry or ontology.
