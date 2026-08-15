@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/miumigy/scm-ontology/schemas/canonical-assertion-set.schema.json",
+  "title": "SCM Ontology Canonical Assertion Set",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["entity_assertions", "relation_assertions", "metadata"],
+  "properties": {
+    "entity_assertions": {"type": "array", "items": {"$ref": "#/$defs/entityAssertion"}},
+    "relation_assertions": {"type": "array", "items": {"$ref": "#/$defs/relationAssertion"}},
+    "metadata": {"type": "object", "additionalProperties": true}
+  },
+  "$defs": {
+    "semanticContext": {
+      "type": "object",
+      "required": ["assertion_ref", "subject_ref"],
+      "properties": {
+        "assertion_ref": {"type": "string", "minLength": 1},
+        "subject_ref": {"type": "string", "minLength": 1},
+        "epistemic_kind": {"type": "string"},
+        "temporal_assertions": {"type": "array"},
+        "provenance": {}
+      },
+      "additionalProperties": true
+    },
+    "context": {
+      "type": "object",
+      "required": ["assertion_ref", "semantic_context", "qualifiers"],
+      "properties": {
+        "assertion_ref": {"type": "string", "minLength": 1},
+        "semantic_context": {"$ref": "#/$defs/semanticContext"},
+        "qualifiers": {"type": "object", "additionalProperties": true}
+      },
+      "additionalProperties": false
+    },
+    "entityAssertion": {
+      "type": "object",
+      "required": ["assertion_ref", "subject_ref", "attribute_ref", "value", "context"],
+      "properties": {
+        "assertion_ref": {"type": "string", "minLength": 1},
+        "subject_ref": {"type": "string", "minLength": 1},
+        "attribute_ref": {"type": "string", "minLength": 1},
+        "value": {},
+        "context": {"$ref": "#/$defs/context"}
+      },
+      "additionalProperties": false
+    },
+    "relationAssertion": {
+      "type": "object",
+      "required": ["assertion_ref", "subject_ref", "predicate_ref", "object_ref", "qualifiers", "context"],
+      "properties": {
+        "assertion_ref": {"type": "string", "minLength": 1},
+        "subject_ref": {"type": "string", "minLength": 1},
+        "predicate_ref": {"type": "string", "minLength": 1},
+        "object_ref": {"type": "string", "minLength": 1},
+        "qualifiers": {"type": "object", "additionalProperties": true},
+        "context": {"$ref": "#/$defs/context"}
+      },
+      "additionalProperties": false
+    }
+  }
+}
