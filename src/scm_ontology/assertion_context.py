@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Mapping
 
 from .core_instance import CanonicalRelation
@@ -17,7 +17,7 @@ class AssertionContext:
 
     relation_id: str
     context: SemanticContext
-    qualifiers: Mapping[str, object] = ()
+    qualifiers: Mapping[str, object] = field(default_factory=dict)
 
     def __post_init__(self) -> None:
         if not self.relation_id.strip():
