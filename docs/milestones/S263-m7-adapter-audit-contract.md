@@ -45,6 +45,8 @@ The lineage MUST be sufficient to identify the source representation, the mappin
 
 Once an audit record has been recorded, the audit history MUST be append-only. Corrections MUST be represented by a new audit record or explicit superseding event rather than silently rewriting the historical decision. The audit process MUST NOT silently rewrite the historical decision.
 
+The audit contract also states the invariant **MUST NOT silently rewriting the historical decision**: historical audit decisions MUST never be silently rewritten or erased as a side effect of processing.
+
 Audit immutability does not imply that the source business data is true or immutable.
 
 ## Reproducibility
