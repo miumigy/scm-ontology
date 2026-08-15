@@ -1,0 +1,20 @@
+{
+  "fixture_id": "M6-FX-003",
+  "name": "multi-hop-supply-risk-chain",
+  "nodes": [
+    {"id": "MAT-001", "type": "material"},
+    {"id": "SUP-001", "type": "supplier"},
+    {"id": "SITE-001", "type": "site"},
+    {"id": "RISK-001", "type": "supply_risk", "risk_type": "site_disruption", "severity": "high"}
+  ],
+  "edges": [
+    {"from": "MAT-001", "predicate": "supplied_by", "to": "SUP-001", "evidence": "E-FX003-01"},
+    {"from": "SUP-001", "predicate": "located_at", "to": "SITE-001", "evidence": "E-FX003-02"},
+    {"from": "SITE-001", "predicate": "exposed_to", "to": "RISK-001", "evidence": "E-FX003-03"}
+  ],
+  "business_questions": [
+    {"id": "Q-005", "question": "Which site exposes MAT-001 to an explicitly represented supply risk?", "expected_path": ["MAT-001", "supplied_by", "SUP-001", "located_at", "SITE-001", "exposed_to", "RISK-001"]},
+    {"id": "Q-006", "question": "What explicit supply risk is associated with the site supporting MAT-001?", "expected_path": ["MAT-001", "supplied_by", "SUP-001", "located_at", "SITE-001", "exposed_to", "RISK-001"]}
+  ],
+  "m6_invariants": {"read_only": true, "inference_creates_canonical_fact": false, "enterprise_specific_semantics": false}
+}
