@@ -86,6 +86,9 @@ legacy_backlog:
   - id: network-disruption-propagation
     status: active
     priority: P1
+  - id: plan-actual-commitment-reconciliation
+    status: active
+    priority: P1
   - id: scsim-integration
     status: planned
     priority: P2
