@@ -34,7 +34,7 @@ milestones:
 
 post_m8_implementation:
   - id: machine-readable-canonical-registry
-    status: planned
+    status: active
     priority: P0
   - id: reference-canonicalization-pipeline
     status: planned

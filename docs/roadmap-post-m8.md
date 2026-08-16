@@ -14,15 +14,34 @@ flowchart LR
     H --> I[Production Operations]
 ```
 
-## Phase 1 — Reference semantic implementation
+## Current phase — Machine-Readable Canonical Registry
 
-- machine-readable canonical entity / predicate / attribute registry;
-- stable identifiers and relationship signatures;
-- schema validation and fixture validation;
-- versioned semantic registry;
-- documentation generated from canonical metadata where practical.
+**Status: Active**
 
-## Phase 2 — Enterprise canonicalization
+The first post-M8 implementation slice makes the existing canonical semantic registry consumable by machines without changing its semantics.
+
+```mermaid
+flowchart TB
+    MODEL[src/scm_ontology/canonical_model.py]
+    MODEL --> REG[registry/canonical-registry.v0.2.json]
+    REG --> LOAD[MachineRegistry loader]
+    LOAD --> VALIDATE[Schema / uniqueness / endpoint validation]
+    VALIDATE --> DRIFT[Python ↔ JSON consistency check]
+    DRIFT --> FIX[Reference fixtures & canonicalization]
+```
+
+The registry is a **semantic vocabulary artifact**, not a database schema. It exposes stable concept identifiers, layers, worlds, descriptions, relationship predicates, endpoints, and relationship categories while preserving the M8 rule that machine-readable metadata does not itself mutate Canonical Truth.
+
+### Phase 1 — Reference semantic implementation
+
+- [x] machine-readable canonical entity / predicate / relationship registry;
+- [x] stable concept references and relationship signatures;
+- [x] registry uniqueness and endpoint validation;
+- [x] Python registry ↔ machine-readable registry drift detection;
+- [ ] versioned schema validation for the registry artifact;
+- [ ] documentation generated from canonical metadata where practical.
+
+### Phase 2 — Enterprise canonicalization
 
 - realistic ERP/WMS/TMS/APS fixtures;
 - explicit source mappings;
@@ -31,7 +50,7 @@ flowchart LR
 - governed identity resolution;
 - controlled application into Canonical Fact Versions.
 
-## Phase 3 — Canonical Graph runtime
+### Phase 3 — Canonical Graph runtime
 
 - graph persistence;
 - temporal and historical query execution;
@@ -40,7 +59,7 @@ flowchart LR
 - explicit result/outcome model;
 - projection and materialization runtime.
 
-## Phase 4 — SCM value applications
+### Phase 4 — SCM value applications
 
 Prioritize questions that demonstrate why a canonical SCM semantic layer matters:
 
@@ -52,7 +71,7 @@ Prioritize questions that demonstrate why a canonical SCM semantic layer matters
 - network disruption propagation;
 - plan/actual/commitment reconciliation.
 
-## Phase 5 — SCM OS integration
+### Phase 5 — SCM OS integration
 
 Connect the semantic layer to planning, simulation, optimization, visualization, and operational workflows while preserving the M8 boundary between derived decisions and Canonical Truth.
 

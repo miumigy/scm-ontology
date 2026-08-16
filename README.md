@@ -22,6 +22,10 @@ M8 closes the semantic and operational contract from enterprise evidence through
 
 This is a **contract-complete** milestone, not a claim that every production connector, graph database, scheduler, or ingestion engine has been implemented.
 
+**Post-M8 implementation: Machine-Readable Canonical Registry — ACTIVE**
+
+The first implementation slice turns the established semantic registry into a checked-in machine-readable artifact and validates it against the Python canonical model without changing the M8 semantic boundary.
+
 ## Architecture at a glance
 
 ```mermaid
@@ -82,6 +86,23 @@ flowchart TB
 ```
 
 **Important:** Mapping is not mutation. A mapping result is an evidence-bearing proposal/outcome until an explicit governed application step creates or changes Canonical state.
+
+## Machine-readable canonical registry
+
+```mermaid
+flowchart LR
+    MODEL[Canonical Model\nPython semantic registry] --> REG[Machine-readable Registry\nregistry/canonical-registry.v0.2.json]
+    REG --> LOAD[MachineRegistry loader]
+    LOAD --> VALIDATE[Validation & uniqueness]
+    VALIDATE --> DRIFT[Python ↔ JSON drift check]
+    DRIFT --> MAP[Reference canonicalization]
+    MAP --> FIX[Realistic multi-source fixtures]
+    FIX --> GRAPH[Canonical Graph runtime]
+```
+
+The registry is a **semantic vocabulary artifact**, not a storage schema. It captures stable concept identifiers, conceptual layers, world layers, descriptions, relationship predicates, endpoints, and categories. The checked-in artifact is validated against `src/scm_ontology/canonical_model.py`, so semantic drift becomes a test failure rather than an invisible documentation mismatch.
+
+See [`registry/canonical-registry.v0.2.json`](registry/canonical-registry.v0.2.json) and [`docs/roadmap-post-m8.md`](docs/roadmap-post-m8.md).
 
 ## Canonical Truth lifecycle
 
@@ -213,7 +234,9 @@ Operational Governance
 |---|---|
 | Project overview | `README.md` |
 | Documentation index | `docs/README.md` |
-| Architecture | `docs/architecture/` |
+| Current architecture | `docs/architecture/current-architecture.md` |
+| Machine-readable registry | `registry/canonical-registry.v0.2.json` |
+| Registry loader | `src/scm_ontology/machine_registry.py` |
 | Milestones & acceptance | `docs/milestones/` |
 | M8 closure contract | `docs/milestones/S310-m8-acceptance-closure.md` |
 | Semantic contracts | `docs/semantics/` and related contract documents |
@@ -237,14 +260,14 @@ A green CI is necessary but not sufficient: **tests must protect semantic bounda
 
 ## Road ahead
 
-M8 intentionally ends the contract-definition phase. The next phase should turn these stable boundaries into reference implementations and measurable SCM value:
+M8 intentionally ends the contract-definition phase. The next phase turns these stable boundaries into reference implementations and measurable SCM value:
 
-1. machine-readable canonical ontology and registries;
-2. reference canonicalization pipeline against realistic enterprise fixtures;
-3. graph persistence and query implementation;
-4. real multi-source identity resolution under governance;
-5. SCM business-question applications;
-6. integration with planning, simulation, and SCM OS capabilities;
-7. production observability, performance, and operational controls.
+1. **Machine-readable canonical ontology and registries — active.**
+2. Reference canonicalization pipeline against realistic enterprise fixtures.
+3. Graph persistence and query implementation.
+4. Real multi-source identity resolution under governance.
+5. SCM business-question applications.
+6. Integration with planning, simulation, and SCM OS capabilities.
+7. Production observability, performance, and operational controls.
 
 Future implementation must preserve the M8 contracts rather than redefining them for convenience.
