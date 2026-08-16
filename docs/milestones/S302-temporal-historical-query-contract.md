@@ -25,6 +25,7 @@ Define the governed read boundary for reconstructing Canonical Fact state at an 
 - A current-state query MUST identify that it requests the presently effective governed state.
 - A point-in-time query MUST identify its temporal boundary explicitly.
 - A query for a past state MUST NOT be silently answered with the current Canonical Truth.
+- A historical query MUST NOT be silently answered with the current Canonical Truth.
 - If the requested state cannot be reconstructed, the result MUST expose that limitation rather than fabricate or silently substitute a state.
 
 ## Intervals and temporal conflicts
