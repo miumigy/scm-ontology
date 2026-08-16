@@ -16,7 +16,11 @@ def definition() -> ProjectionDefinition:
     return ProjectionDefinition(
         "site-summary",
         "1",
-        lambda source: {"site_count": len(source.nodes), "node_ids": [n.node_id for n in source.nodes]},
+        lambda source: {
+            "site_count": len(source.nodes),
+            "node_ids": [n.node_id for n in source.nodes],
+            "site_names": [n.properties["name"] for n in source.nodes],
+        },
     )
 
 
