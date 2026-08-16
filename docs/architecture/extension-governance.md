@@ -1,33 +1,21 @@
 # Extension Governance Architecture
 
-S190–S209 establish the governed extension lifecycle for SCM Ontology.
+S190–S209 established the governed extension lifecycle for SCM Ontology. This document remains a historical architecture contract and is compatible with the post-M8 governance model.
 
-```text
-Proposal
-  ↓
-Governance Decision
-  ↓
-Application Plan
-  ↓
-Validation / Gate / Preflight
-  ↓
-Intent / Mutation Guard
-  ↓
-Canonical Registry Mutation
-  ↓
-Integrity / Inverse Pairing
-  ↓
-Transaction Boundary
-  ↓
-Audit / Idempotency
-  ↓
-Outcome / Versioning
-  ↓
-Serialization / Graph Projection
-  ↓
-Reasoning Compatibility
-  ↓
-Extension Lifecycle
+```mermaid
+flowchart LR
+    P[Proposal] --> D[Governance Decision]
+    D --> AP[Application Plan]
+    AP --> V[Validation / Gate / Preflight]
+    V --> I[Intent / Mutation Guard]
+    I --> M[Canonical Registry Mutation]
+    M --> X[Integrity / Inverse Pairing]
+    X --> T[Transaction Boundary]
+    T --> A[Audit / Idempotency]
+    A --> O[Outcome / Versioning]
+    O --> S[Serialization / Graph Projection]
+    S --> R[Reasoning Compatibility]
+    R --> L[Extension Lifecycle]
 ```
 
 ## Architectural boundaries
@@ -41,6 +29,6 @@ Extension Lifecycle
 - Reasoning compatibility validates the vocabulary before reasoning consumers use it.
 - Lifecycle state records the governed status of an extension without performing mutation itself.
 
-## Design principle
+## Post-M8 interpretation
 
-The ontology is not merely a schema. Its evolution is governed as a controlled semantic change process with explicit validation, provenance, history, projection, and lifecycle boundaries.
+The extension lifecycle is one instance of the broader M8 principle: **semantic change is a governed operation, not an implicit side effect of parsing, inference, projection, or runtime convenience.** New implementations must also preserve provenance, historical lineage, explicit outcomes, replayability, and scope boundaries.
