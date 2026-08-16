@@ -46,9 +46,33 @@ flowchart TB
     OPS -. explicit governed mutation .-> CAN
 ```
 
+## Machine-readable semantic surface
+
+```mermaid
+flowchart LR
+    MODEL[Canonical semantic model] --> REG[Machine-readable registry]
+    REG --> VALIDATE[Validation]
+    VALIDATE --> MAP[Explicit reference mappings]
+    MAP --> GAP[Semantic Gap / Conflict]
+    MAP --> FIX[Enterprise fixtures]
+    FIX --> CAN[Governed canonicalization]
+    CAN --> GRAPH[Canonical Graph]
+    GRAPH --> TEMP[Temporal semantic query]
+    TEMP --> REASON[Constraint-aware reasoning]
+    TEMP --> SCENARIO[Immutable what-if scenario]
+    SCENARIO --> TEMP
+    TEMP --> EVID[S321 Evidence-aware traversal]
+    EVID --> EPROJ[S323 Evidence-aware projection]
+    EPROJ --> LIFE[S324 Freshness / Invalidation]
+    LIFE --> QUERY[S325 Governed Projection Query]
+    QUERY --> ANSWER[Traceable answer]
+```
+
+The registry is deliberately separate from persistence. It describes the canonical vocabulary and relationship signatures; it does not prescribe a database schema and does not create or mutate Canonical Truth.
+
 ## Governance architecture
 
-The project separates five concerns:
+The project separates five concerns that are often accidentally collapsed in enterprise data platforms:
 
 | Concern | Meaning |
 |---|---|
@@ -83,7 +107,22 @@ The separation is deliberate: a system may derive a useful answer without changi
 - S331 — Canonical Network Disruption Propagation Business Question
 - S332 — Canonical Plan / Actual / Commitment Reconciliation Business Question
 
-S326–S332 are read-only business-question boundaries over already-canonical facts. They preserve explicit evidence/provenance and do not perform identity resolution, graph mutation, optimization, or business-policy decisions.
+S321 provides the first explicit evidence requirement at traversal time. S323 carries the same separation into projection state: evidence identifiers are supplied through an external governed mapping and only evidence explicitly consulted by projection code is retained in projection lineage. S324 makes projection lifecycle state observable by comparing the materialized lineage against current graph and projection dependencies. S325 makes the query boundary fail closed unless the requested projection is current and contract-compatible. S326 resolves an inventory position, S327 resolves a demand/supply gap, S328 resolves supplier schedule delay, S329 propagates explicit upstream risk over declared multi-hop dependencies, S330 compares explicit capacity and requirement facts as Phase 4 business-question slices, S331 propagates explicit disruption observations over declared directed dependencies, and S332 reconciles explicit plan, actual, and commitment facts over an exact item/period/unit scope.
+
+## M8 documentation set
+
+- S294 — Conflict Resolution Governance
+- S300 — Canonical Fact Lifecycle & Versioning
+- S301 — Canonical Fact Application & Version Transition
+- S302 — Temporal & Historical Query
+- S303 — Canonical Graph Read & Projection Boundary
+- S304 — Projection Freshness & Lineage
+- S305 — Governed Projection Query
+- S306 — Governed Projection Materialization
+- S307 — Projection Invalidation & Dependency Propagation
+- S308 — Cross-Projection Consistency & Rebuild Boundary
+- S309 — Operational Readiness & Governance
+- S310 — M8 Acceptance & Closure
 
 ## Reading the contracts
 
@@ -99,3 +138,5 @@ When a contract changes, update:
 2. its regression tests;
 3. the relevant architecture/index document;
 4. the README if the conceptual architecture changes.
+
+Historical documents are retained only when they provide useful provenance. Superseded design drafts should be moved out of the active documentation surface rather than presented as current guidance.
