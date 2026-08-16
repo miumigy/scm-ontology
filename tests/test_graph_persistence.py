@@ -1,3 +1,5 @@
+from hashlib import sha256
+
 from scm_ontology.canonical_graph import CanonicalGraph, SemanticNode
 from scm_ontology.graph_persistence import (
     CanonicalGraphPersistencePlanner,
@@ -17,6 +19,7 @@ def test_authorized_plan_is_deterministic_and_non_mutating() -> None:
     assert first.outcome == "planned"
     assert first.node_ids == ("p-1",)
     assert first.relationship_ids == ()
+    assert first.graph_digest == sha256(graph.to_json().encode()).hexdigest()
     assert graph.nodes[0].properties["name"] == "Widget"
 
 
@@ -30,5 +33,5 @@ def test_unauthorized_plan_is_rejected_without_graph_mutation() -> None:
 
     assert plan.outcome == "rejected"
     assert plan.reason == "scope not authorized"
-    assert plan.graph_digest == graph.to_json() and False if False else plan.graph_digest
+    assert plan.graph_digest == sha256(graph.to_json().encode()).hexdigest()
     assert graph.nodes[0].node_id == "p-1"
