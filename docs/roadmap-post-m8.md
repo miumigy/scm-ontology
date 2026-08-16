@@ -16,7 +16,7 @@ flowchart LR
 
 ## Current phase — Canonical Graph runtime
 
-**Status: Active — S327**
+**Status: Active — S328**
 
 The post-M8 implementation has progressed from machine-readable vocabulary and explicit reference canonicalization into a governed graph runtime. S311–S314 establish persistence planning, transport adapters, the Neo4j boundary, and temporal relationship persistence. S317 provides temporal semantic path traversal, S318 evaluates those paths against explicit constraints, S319 provides the stable read-only temporal query surface, S320 provides the immutable what-if scenario boundary, and S321 provides evidence-aware traversal.
 
@@ -31,6 +31,8 @@ S325 adds the **governed projection query boundary**. A query can expose a mater
 S326 adds the first **Phase 4 business-question vertical slice**, resolving an inventory position (`available = on_hand + inbound - outbound`) from already-canonical inventory facts without identity resolution, allocation, or graph mutation.
 
 S327 adds the second **Phase 4 business-question vertical slice**, resolving a demand/supply gap (`gap = max(demand - supply, 0)`) from already-canonical demand and supply facts over an explicit item/period/unit scope without allocation, optimization, or business-policy decisions.
+
+S328 adds the third **Phase 4 business-question vertical slice**, deriving supplier schedule delay (`delay_days = max(actual_at - expected_at, 0)`) from an exact canonical supplier/item/unit scope without identity resolution, allocation, optimization, or business-policy decisions.
 
 ### Phase 3 — Canonical Graph runtime
 
@@ -54,7 +56,7 @@ Prioritize questions that demonstrate why a canonical SCM semantic layer matters
 
 - [x] inventory position across heterogeneous systems;
 - [x] demand/supply gap;
-- supplier delay impact;
+- [x] supplier delay impact;
 - multi-hop supply risk;
 - capacity constraints;
 - network disruption propagation;
