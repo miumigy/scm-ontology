@@ -1,0 +1,33 @@
+"""Stable, JSON-safe contract for end-to-end accountability results."""
+from __future__ import annotations
+import json
+from dataclasses import asdict, is_dataclass
+from typing import Any
+from .end_to_end_accountability import EndToEndAccountability
+
+ACCOUNTABILITY_CONTRACT_VERSION = "1.0.0"
+
+class AccountabilityContractError(ValueError):
+    pass
+
+def _json_safe(value: Any) -> Any:
+    if is_dataclass(value):
+        return {k: _json_safe(v) for k, v in asdict(value).items()}
+    if isinstance(value, tuple):
+        return [_json_safe(v) for v in value]
+    if isinstance(value, dict):
+        return {str(k): _json_safe(v) for k, v in value.items()}
+    if isinstance(value, (str, int, float, bool)) or value is None:
+        return value
+    raise AccountabilityContractError(f"unsupported accountability value: {type(value).__name__}")
+
+def accountability_to_mapping(result: EndToEndAccountability) -> dict[str, Any]:
+    return {
+        "contract_version": ACCOUNTABILITY_CONTRACT_VERSION,
+        "decision": _json_safe(result.decision),
+        "evidence": _json_safe(result.evidence),
+        "provenance": _json_safe(result.provenance),
+    }
+
+def accountability_to_json(result: EndToEndAccountability) -> str:
+    return json.dumps(accountability_to_mapping(result), ensure_ascii=False, sort_keys=True, separators=(",", ":"))
