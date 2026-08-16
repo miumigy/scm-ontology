@@ -14,23 +14,24 @@ flowchart LR
     H --> I[Production Operations]
 ```
 
-## Current phase — Machine-Readable Canonical Registry
+## Current phase — Canonical Graph runtime
 
-**Status: Active**
+**Status: Active — S319**
 
-The first post-M8 implementation slice makes the existing canonical semantic registry consumable by machines without changing its semantics.
+The post-M8 implementation has progressed from machine-readable vocabulary and explicit reference canonicalization into a governed graph runtime. S311–S314 establish the persistence planning, transport adapter, Neo4j boundary, and temporal relationship persistence contracts. S317 provides temporal semantic path traversal and S318 evaluates those paths against explicit lead-time and capacity constraints.
+
+S319 adds the stable read-only query boundary over that semantic graph:
 
 ```mermaid
-flowchart TB
-    MODEL[src/scm_ontology/canonical_model.py]
-    MODEL --> REG[registry/canonical-registry.v0.2.json]
-    REG --> LOAD[MachineRegistry loader]
-    LOAD --> VALIDATE[Schema / uniqueness / endpoint validation]
-    VALIDATE --> DRIFT[Python ↔ JSON consistency check]
-    DRIFT --> FIX[Reference fixtures & canonicalization]
+flowchart LR
+    CG[Canonical Graph] --> T[Temporal versions]
+    T --> Q[S319 Temporal Semantic Query]
+    Q --> P[Path + qualifiers + graph digest]
+    P --> A[Downstream planning / scenario systems]
+    Q -. no mutation .-> CG
 ```
 
-The registry is a **semantic vocabulary artifact**, not a database schema. It exposes stable concept identifiers, layers, worlds, descriptions, relationship predicates, endpoints, and relationship categories while preserving the M8 rule that machine-readable metadata does not itself mutate Canonical Truth.
+The query surface is intentionally transport-neutral. It resolves only explicitly represented relationships valid at the requested instant, preserves relationship identity and qualifiers, and returns a deterministic canonical graph digest for query-level provenance.
 
 ### Phase 1 — Reference semantic implementation
 
@@ -38,26 +39,29 @@ The registry is a **semantic vocabulary artifact**, not a database schema. It ex
 - [x] stable concept references and relationship signatures;
 - [x] registry uniqueness and endpoint validation;
 - [x] Python registry ↔ machine-readable registry drift detection;
-- [ ] versioned schema validation for the registry artifact;
+- [x] versioned schema validation for the registry artifact;
 - [ ] documentation generated from canonical metadata where practical.
 
 ### Phase 2 — Enterprise canonicalization
 
-- realistic ERP/WMS/TMS/APS fixtures;
-- explicit source mappings;
-- ambiguity and Semantic Gap handling;
-- provenance and evidence preservation;
-- governed identity resolution;
-- controlled application into Canonical Fact Versions.
+- [x] realistic ERP/WMS/TMS/APS fixtures;
+- [x] explicit source mappings;
+- [x] ambiguity and Semantic Gap handling;
+- [x] provenance and evidence preservation;
+- [ ] governed identity resolution;
+- [ ] controlled application into Canonical Fact Versions.
 
 ### Phase 3 — Canonical Graph runtime
 
-- graph persistence;
-- temporal and historical query execution;
-- evidence-aware traversal;
-- deterministic reasoning;
-- explicit result/outcome model;
-- projection and materialization runtime.
+- [x] governed graph persistence planning;
+- [x] transport-neutral graph-store adapter;
+- [x] optional injected Neo4j adapter;
+- [x] temporal relationship persistence;
+- [x] temporal semantic path traversal;
+- [x] constraint-aware feasibility reasoning;
+- [x] deterministic temporal semantic query boundary;
+- [ ] evidence-aware traversal;
+- [ ] projection and materialization runtime.
 
 ### Phase 4 — SCM value applications
 
