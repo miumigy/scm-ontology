@@ -9,10 +9,11 @@ This directory is the documentation index for SCM Ontology after **M8 COMPLETE**
 3. [`architecture/current-architecture.md`](architecture/current-architecture.md) — current architecture and layer responsibilities
 4. [`roadmap-post-m8.md`](roadmap-post-m8.md) — active post-M8 implementation roadmap
 5. [`../registry/canonical-registry.v0.2.json`](../registry/canonical-registry.v0.2.json) — machine-readable canonical vocabulary
-6. [`milestones/`](milestones/) — milestone definitions and acceptance reports
-7. [`architecture/`](architecture/) — architecture freezes and governance contracts
-8. [`archive/`](archive/) — historical documentation no longer part of the active documentation surface
-9. [`../AGENTS.md`](../AGENTS.md) — development/agent contract
+6. [`reference-canonicalization.md`](reference-canonicalization.md) — first post-M8 implementation boundary for explicit source-to-canonical mappings
+7. [`milestones/`](milestones/) — milestone definitions and acceptance reports
+8. [`architecture/`](architecture/) — architecture freezes and governance contracts
+9. [`archive/`](archive/) — historical documentation no longer part of the active documentation surface
+10. [`../AGENTS.md`](../AGENTS.md) — development/agent contract
 
 ## Conceptual architecture
 
@@ -37,7 +38,8 @@ flowchart TB
 flowchart LR
     MODEL[Canonical semantic model] --> REG[Machine-readable registry]
     REG --> VALIDATE[Validation]
-    VALIDATE --> MAP[Reference mappings]
+    VALIDATE --> MAP[Explicit reference mappings]
+    MAP --> GAP[Semantic Gap / Conflict]
     MAP --> FIX[Enterprise fixtures]
     FIX --> CAN[Governed canonicalization]
     CAN --> GRAPH[Canonical Graph]
