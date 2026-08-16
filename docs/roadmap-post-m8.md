@@ -16,7 +16,7 @@ flowchart LR
 
 ## Current phase — Canonical Graph runtime
 
-**Status: Active — S330**
+**Status: Active — S331**
 
 The post-M8 implementation has progressed from machine-readable vocabulary and explicit reference canonicalization into a governed graph runtime. S311–S314 establish persistence planning, transport adapters, the Neo4j boundary, and temporal relationship persistence. S317 provides temporal semantic path traversal, S318 evaluates those paths against explicit constraints, S319 provides the stable read-only temporal query surface, S320 provides the immutable what-if scenario boundary, and S321 provides evidence-aware traversal.
 
@@ -37,6 +37,8 @@ S328 adds the third **Phase 4 business-question vertical slice**, deriving suppl
 S329 adds the fourth **Phase 4 business-question vertical slice**, propagating explicit upstream risk over declared multi-hop supply dependencies without relationship inference, graph mutation, optimization, or mitigation decisions.
 
 S330 adds the fifth **Phase 4 business-question vertical slice**, comparing explicit capacity and requirement facts by exact resource/unit scope and reporting headroom, utilization, and feasibility without allocation, optimization, or mitigation decisions.
+
+S331 adds the sixth **Phase 4 business-question vertical slice**, propagating explicit disruption observations over declared directed dependencies with bounded paths and traceable evidence/provenance, without relationship inference, graph mutation, optimization, or mitigation decisions.
 
 ### Phase 3 — Canonical Graph runtime
 
@@ -63,7 +65,7 @@ Prioritize questions that demonstrate why a canonical SCM semantic layer matters
 - [x] supplier delay impact;
 - [x] multi-hop supply risk;
 - [x] capacity constraints;
-- network disruption propagation;
+- [x] network disruption propagation;
 - plan/actual/commitment reconciliation.
 
 ### Phase 5 — SCM OS integration
