@@ -16,41 +16,11 @@ flowchart LR
 
 ## Current phase — Canonical Graph runtime
 
-**Status: Active — S321**
+**Status: Active — S322**
 
-The post-M8 implementation has progressed from machine-readable vocabulary and explicit reference canonicalization into a governed graph runtime. S311–S314 establish persistence planning, transport adapters, the Neo4j boundary, and temporal relationship persistence. S317 provides temporal semantic path traversal, S318 evaluates those paths against explicit constraints, S319 provides the stable read-only temporal query surface, and S320 provides the immutable what-if scenario boundary.
+The post-M8 implementation has progressed from machine-readable vocabulary and explicit reference canonicalization into a governed graph runtime. S311–S314 establish persistence planning, transport adapters, the Neo4j boundary, and temporal relationship persistence. S317 provides temporal semantic path traversal, S318 evaluates those paths against explicit constraints, S319 provides the stable read-only temporal query surface, S320 provides the immutable what-if scenario boundary, and S321 provides evidence-aware traversal.
 
-S321 adds the first explicit **evidence-aware traversal boundary**. Evidence remains external to Canonical Truth, but every traversed relationship can now be required to have explicit supporting evidence and can expose those evidence identifiers in the result.
-
-```mermaid
-flowchart LR
-    CG[Canonical Graph] --> T[Temporal versions]
-    T --> Q[S319 Temporal Query]
-    Q --> EA[S321 Evidence-aware Traversal]
-    EV[Governed Evidence Map] --> EA
-    EA --> R[Path + evidence IDs + graph provenance]
-    EA -. no Canonical Truth mutation .-> CG
-```
-
-The evidence-aware surface is deliberately conservative. It does not infer evidence, create provenance, resolve identities, mutate Canonical Truth, or authorize operations. Missing required evidence fails closed.
-
-### Phase 1 — Reference semantic implementation
-
-- [x] machine-readable canonical entity / predicate / relationship registry;
-- [x] stable concept references and relationship signatures;
-- [x] registry uniqueness and endpoint validation;
-- [x] Python registry ↔ machine-readable registry drift detection;
-- [x] versioned schema validation for the registry artifact;
-- [ ] documentation generated from canonical metadata where practical.
-
-### Phase 2 — Enterprise canonicalization
-
-- [x] realistic ERP/WMS/TMS/APS fixtures;
-- [x] explicit source mappings;
-- [x] ambiguity and Semantic Gap handling;
-- [x] provenance and evidence preservation;
-- [ ] governed identity resolution;
-- [ ] controlled application into Canonical Fact Versions.
+S322 adds the first explicit **projection/materialization runtime boundary**. A projection is derived state computed from Canonical Graph input; its source digest, projection identity, and projection version are preserved as lineage. Materialization never mutates Canonical Truth.
 
 ### Phase 3 — Canonical Graph runtime
 
@@ -63,7 +33,10 @@ The evidence-aware surface is deliberately conservative. It does not infer evide
 - [x] deterministic temporal semantic query boundary;
 - [x] immutable scenario overlay boundary;
 - [x] evidence-aware traversal boundary;
-- [ ] projection and materialization runtime.
+- [x] projection/materialization reference runtime;
+- [ ] evidence-aware projections;
+- [ ] projection freshness and invalidation runtime;
+- [ ] governed projection query boundary.
 
 ### Phase 4 — SCM value applications
 
