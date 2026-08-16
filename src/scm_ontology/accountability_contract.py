@@ -30,4 +30,4 @@ def accountability_to_mapping(result: EndToEndAccountability) -> dict[str, Any]:
     }
 
 def accountability_to_json(result: EndToEndAccountability) -> str:
-    return json.dumps(accountability_to_mapping(result), ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    return json.dumps(accountability_to_mapping(result), ensure_ascii=False, sort_keys=True)
