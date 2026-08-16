@@ -33,6 +33,7 @@ flowchart LR
         J[Materialization]
         K[Invalidation / Dependency]
         L[Cross-Projection Consistency]
+        Q[Evidence-aware Projection Context]
     end
 
     subgraph GOV[Governance / Operations]
@@ -58,7 +59,11 @@ flowchart LR
     H --> P
     I --> P
     O --> P
+    A -. external governed mapping .-> Q
+    I --> Q --> P
 ```
+
+S323 makes the evidence relationship explicit at the projection boundary: projection code can request evidence for a canonical relationship through a dedicated context, while the evidence mapping remains external to Canonical Truth.
 
 ## 2. Layer responsibilities
 
@@ -76,7 +81,7 @@ Contains Canonical Identity, Canonical Facts, Fact Versions, lifecycle state, an
 
 ### Read / Derived Layer
 
-Historical queries, reasoning, projections, materializations, invalidation, and consistency evaluation consume Canonical state. They are read-only with respect to Canonical Truth unless an explicit governed application step is invoked outside their boundary.
+Historical queries, reasoning, projections, materializations, invalidation, and consistency evaluation consume Canonical state. S323 evidence-aware projections may also consume an explicit external evidence mapping through a read-only context. These surfaces are read-only with respect to Canonical Truth unless an explicit governed application step is invoked outside their boundary.
 
 ### Governance / Operations
 
@@ -96,13 +101,14 @@ flowchart TB
     EV -->|supports / explains| DR
     CT --> DR
     CT --> PR
+    EV --> PR
     GOV -->|explicit application only| CT
 
     DR -. never implicit promotion .-> CT
     PR -. never implicit promotion .-> CT
 ```
 
-The most important architectural rule is the dotted boundary: **derived or projected information does not become Canonical Truth merely because it looks plausible, matches a source, or is computationally successful.**
+The most important architectural rule is the dotted boundary: **derived or projected information does not become Canonical Truth merely because it looks plausible, matches a source, or is computationally successful.** Evidence attached to a projection is lineage/provenance, not a promotion path into Canonical Truth.
 
 ## 4. Temporal model
 
