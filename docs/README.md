@@ -14,10 +14,11 @@ This directory is the documentation index for SCM Ontology after **M8 COMPLETE**
 8. [`S319-temporal-semantic-query.md`](S319-temporal-semantic-query.md) — governed temporal semantic query contract
 9. [`S320-scenario-overlay.md`](S320-scenario-overlay.md) — immutable what-if scenario overlay contract
 10. [`S321-evidence-aware-traversal.md`](S321-evidence-aware-traversal.md) — evidence-aware temporal traversal contract
-11. [`milestones/`](milestones/) — milestone definitions and acceptance reports
-12. [`architecture/`](architecture/) — architecture freezes and governance contracts
-13. [`archive/`](archive/) — historical documentation no longer part of the active documentation surface
-14. [`../AGENTS.md`](../AGENTS.md) — development/agent contract
+11. [`S323-evidence-aware-projection.md`](S323-evidence-aware-projection.md) — evidence-aware projection contract
+12. [`milestones/`](milestones/) — milestone definitions and acceptance reports
+13. [`architecture/`](architecture/) — architecture freezes and governance contracts
+14. [`archive/`](archive/) — historical documentation no longer part of the active documentation surface
+15. [`../AGENTS.md`](../AGENTS.md) — development/agent contract
 
 ## Conceptual architecture
 
@@ -52,7 +53,8 @@ flowchart LR
     TEMP --> SCENARIO[Immutable what-if scenario]
     SCENARIO --> TEMP
     TEMP --> EVID[S321 Evidence-aware traversal]
-    EVID --> ANSWER[Traceable answer]
+    EVID --> EPROJ[S323 Evidence-aware projection]
+    EPROJ --> ANSWER[Traceable answer]
 ```
 
 The registry is deliberately separate from persistence. It describes the canonical vocabulary and relationship signatures; it does not prescribe a database schema and does not create or mutate Canonical Truth.
@@ -82,8 +84,10 @@ The separation is deliberate: a system may derive a useful answer without changi
 - S319 — Temporal Semantic Supply Chain Query
 - S320 — Immutable What-if Scenario Overlay
 - S321 — Evidence-aware Traversal
+- S322 — Deterministic Projection / Materialization Runtime
+- S323 — Evidence-aware Projection
 
-S321 provides the first explicit evidence requirement at traversal time. Evidence identifiers are supplied through an external governed mapping; traversal never creates, mutates, or infers Canonical Truth.
+S321 provides the first explicit evidence requirement at traversal time. S323 carries the same separation into projection state: evidence identifiers are supplied through an external governed mapping and only evidence explicitly consulted by projection code is retained in projection lineage.
 
 ## M8 documentation set
 
