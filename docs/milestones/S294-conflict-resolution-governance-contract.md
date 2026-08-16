@@ -34,6 +34,8 @@ A governed resolution MUST explicitly identify its outcome, including at least a
 
 Acceptance of a resolution authorizes only the explicitly governed next Application step; it MUST NOT itself be treated as an implicit Canonical mutation.
 
+A resolution acceptance MUST NOT be treated as an implicit Canonical mutation.
+
 If evidence or governance context has materially changed since the original conflict, the resolution MUST expose that drift and require the applicable governed process rather than silently reusing the prior decision.
 
 ## Historical Integrity
