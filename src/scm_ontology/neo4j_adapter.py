@@ -1,9 +1,4 @@
-"""Optional Neo4j graph-store adapter boundary.
-
-The semantic core remains independent of Neo4j. A transaction callable is
-injected by the application layer, keeping the database driver out of the
-ontology model.
-"""
+"""Optional Neo4j graph-store adapter boundary."""
 from __future__ import annotations
 
 from typing import Any, Callable
@@ -23,12 +18,19 @@ class Neo4jGraphStoreAdapter:
         if plan.outcome != "planned":
             raise ValueError("only an authorized planned persistence intent may be applied")
 
+        payload = graph.to_mapping()
         self._execute(
             """
             UNWIND $nodes AS node
             MERGE (n:CanonicalNode {id: node.id})
             SET n.type = node.type, n.properties = node.properties
+            WITH 1 AS ignored
+            UNWIND $relationships AS rel
+            MATCH (a:CanonicalNode {id: rel.from})
+            MATCH (b:CanonicalNode {id: rel.to})
+            MERGE (a)-[r:CANONICAL_RELATIONSHIP {id: rel.id}]->(b)
+            SET r.predicate = rel.predicate, r.versions = rel.versions
             """,
-            {"nodes": graph.to_mapping()["nodes"]},
+            {"nodes": payload["nodes"], "relationships": payload["relationships"]},
         )
         return GraphStoreWriteResult(plan.plan_id, plan.graph_digest, "applied")
