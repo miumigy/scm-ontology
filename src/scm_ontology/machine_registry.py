@@ -33,6 +33,7 @@ class MachineRegistry:
             relationships=tuple(payload["relationships"]),
         )
         registry.validate()
+        registry.validate_schema()
         return registry
 
     def validate(self) -> None:
@@ -52,6 +53,25 @@ class MachineRegistry:
         if self.status not in {"reference", "draft", "deprecated"}:
             raise MachineRegistryError("unsupported registry status")
 
+    def validate_schema(self) -> None:
+        """Validate the checked-in registry against its versioned JSON Schema."""
+        try:
+            from jsonschema import Draft202012Validator
+        except ImportError as exc:  # pragma: no cover - dependency is provided by dev requirements
+            raise MachineRegistryError("jsonschema is required for registry schema validation") from exc
+
+        registry_path = _default_registry_path()
+        schema_path = _default_schema_path()
+        payload = json.loads(registry_path.read_text(encoding="utf-8"))
+        schema = json.loads(schema_path.read_text(encoding="utf-8"))
+        validator = Draft202012Validator(schema)
+        errors = sorted(validator.iter_errors(payload), key=lambda error: list(error.path))
+        if errors:
+            location = ".".join(str(part) for part in errors[0].path) or "<root>"
+            raise MachineRegistryError(
+                f"registry {location} violates schema: {errors[0].message}"
+            )
+
     def assert_matches_python_registry(self) -> None:
         python_concepts = {concept.name for concept in CANONICAL_CONCEPTS}
         machine_concepts = {concept["id"] for concept in self.concepts}
@@ -66,6 +86,10 @@ class MachineRegistry:
 
 def _default_registry_path() -> Path:
     return Path(__file__).resolve().parents[2] / "registry" / "canonical-registry.v0.2.json"
+
+
+def _default_schema_path() -> Path:
+    return Path(__file__).resolve().parents[2] / "registry" / "schemas" / "canonical-registry.v0.2.schema.json"
 
 
 def load_canonical_registry(path: str | Path | None = None) -> MachineRegistry:
