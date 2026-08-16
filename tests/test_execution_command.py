@@ -9,19 +9,12 @@ from scm_ontology.execution_command import (
 )
 from scm_ontology.decision_authorization import AuthorizedDecision
 from scm_ontology.proposal_validation import ValidatedDecisionProposal
-from scm_ontology.reasoning_input import ReasoningInput
 from scm_ontology.reasoning_output import ReasoningOutput
 
 
 def authorized_decision():
-    reasoning_input = ReasoningInput(
-        context_id="ctx-1",
-        observations=(),
-        evidence_ids=("e1",),
-        provenance_ids=("p1",),
-    )
     output = ReasoningOutput(
-        input=reasoning_input,
+        context_id="ctx-1",
         proposal="replenish",
         rationale="stock is below threshold",
         evidence_ids=("e1",),
