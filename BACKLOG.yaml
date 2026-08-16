@@ -69,7 +69,7 @@ legacy_backlog:
     status: active
     priority: P1
   - id: demand-supply-gap
-    status: planned
+    status: active
     priority: P1
   - id: impact-analysis
     status: planned

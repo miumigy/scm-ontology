@@ -17,10 +17,12 @@ This directory is the documentation index for SCM Ontology after **M8 COMPLETE**
 11. [`S323-evidence-aware-projection.md`](S323-evidence-aware-projection.md) — evidence-aware projection contract
 12. [`S324-projection-freshness-invalidation.md`](S324-projection-freshness-invalidation.md) — projection freshness and invalidation runtime contract
 13. [`S325-governed-projection-query.md`](S325-governed-projection-query.md) — governed projection query contract
-14. [`milestones/`](milestones/) — milestone definitions and acceptance reports
-15. [`architecture/`](architecture/) — architecture freezes and governance contracts
-16. [`archive/`](archive/) — historical documentation no longer part of the active documentation surface
-17. [`../AGENTS.md`](../AGENTS.md) — development/agent contract
+14. [`S326-inventory-position.md`](S326-inventory-position.md) — canonical inventory position business question
+15. [`S327-demand-supply-gap.md`](S327-demand-supply-gap.md) — canonical demand/supply gap business question
+16. [`milestones/`](milestones/) — milestone definitions and acceptance reports
+17. [`architecture/`](architecture/) — architecture freezes and governance contracts
+18. [`archive/`](archive/) — historical documentation no longer part of the active documentation surface
+19. [`../AGENTS.md`](../AGENTS.md) — development/agent contract
 
 ## Conceptual architecture
 
@@ -92,8 +94,10 @@ The separation is deliberate: a system may derive a useful answer without changi
 - S323 — Evidence-aware Projection
 - S324 — Projection Freshness & Invalidation Runtime
 - S325 — Governed Projection Query
+- S326 — Canonical Inventory Position Business Question
+- S327 — Canonical Demand/Supply Gap Business Question
 
-S321 provides the first explicit evidence requirement at traversal time. S323 carries the same separation into projection state: evidence identifiers are supplied through an external governed mapping and only evidence explicitly consulted by projection code is retained in projection lineage. S324 makes projection lifecycle state observable by comparing the materialized lineage against current graph and projection dependencies. S325 makes the query boundary fail closed unless the requested projection is current and contract-compatible.
+S321 provides the first explicit evidence requirement at traversal time. S323 carries the same separation into projection state: evidence identifiers are supplied through an external governed mapping and only evidence explicitly consulted by projection code is retained in projection lineage. S324 makes projection lifecycle state observable by comparing the materialized lineage against current graph and projection dependencies. S325 makes the query boundary fail closed unless the requested projection is current and contract-compatible. S326 resolves an inventory position and S327 resolves a demand/supply gap from already-canonical facts as the first Phase 4 business-question slices.
 
 ## M8 documentation set
 
