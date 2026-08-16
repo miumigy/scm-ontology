@@ -19,7 +19,8 @@ def test_build_reasoning_input_is_immutable_and_deterministic():
     assert result.context_id == "ctx-1"
     assert result.evidence_ids == ("e1", "e2")
     assert result.provenance_ids == ("p1", "p2")
-    assert result.observations[0].question_id == "q2"
+    # S333 canonicalizes DecisionContext observations by question_id.
+    assert result.observations[0].question_id == "q1"
     assert result.to_mapping()["contract_version"] == "S342.1"
 
 
