@@ -7,11 +7,12 @@ This directory is the documentation index for SCM Ontology after **M8 COMPLETE**
 1. [`../README.md`](../README.md) — project overview and architecture diagrams
 2. [`milestones/S310-m8-acceptance-closure.md`](milestones/S310-m8-acceptance-closure.md) — M8 acceptance boundary
 3. [`architecture/current-architecture.md`](architecture/current-architecture.md) — current architecture and layer responsibilities
-4. [`milestones/`](milestones/) — milestone definitions and acceptance reports
-5. [`architecture/`](architecture/) — architecture freezes and governance contracts
-6. [`roadmap-post-m8.md`](roadmap-post-m8.md) — post-M8 implementation roadmap
-7. [`archive/`](archive/) — historical documentation no longer part of the active documentation surface
-8. [`../AGENTS.md`](../AGENTS.md) — development/agent contract
+4. [`roadmap-post-m8.md`](roadmap-post-m8.md) — active post-M8 implementation roadmap
+5. [`../registry/canonical-registry.v0.2.json`](../registry/canonical-registry.v0.2.json) — machine-readable canonical vocabulary
+6. [`milestones/`](milestones/) — milestone definitions and acceptance reports
+7. [`architecture/`](architecture/) — architecture freezes and governance contracts
+8. [`archive/`](archive/) — historical documentation no longer part of the active documentation surface
+9. [`../AGENTS.md`](../AGENTS.md) — development/agent contract
 
 ## Conceptual architecture
 
@@ -29,6 +30,20 @@ flowchart TB
     CON --> OPS[Operational Governance]
     OPS -. explicit governed mutation .-> CAN
 ```
+
+## Machine-readable semantic surface
+
+```mermaid
+flowchart LR
+    MODEL[Canonical semantic model] --> REG[Machine-readable registry]
+    REG --> VALIDATE[Validation]
+    VALIDATE --> MAP[Reference mappings]
+    MAP --> FIX[Enterprise fixtures]
+    FIX --> CAN[Governed canonicalization]
+    CAN --> GRAPH[Canonical Graph]
+```
+
+The registry is deliberately separate from persistence. It describes the canonical vocabulary and relationship signatures; it does not prescribe a database schema and does not create or mutate Canonical Truth.
 
 ## Governance architecture
 
