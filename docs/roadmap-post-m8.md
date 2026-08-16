@@ -16,22 +16,24 @@ flowchart LR
 
 ## Current phase — Canonical Graph runtime
 
-**Status: Active — S319**
+**Status: Active — S320**
 
-The post-M8 implementation has progressed from machine-readable vocabulary and explicit reference canonicalization into a governed graph runtime. S311–S314 establish the persistence planning, transport adapter, Neo4j boundary, and temporal relationship persistence contracts. S317 provides temporal semantic path traversal and S318 evaluates those paths against explicit lead-time and capacity constraints.
+The post-M8 implementation has progressed from machine-readable vocabulary and explicit reference canonicalization into a governed graph runtime. S311–S314 establish persistence planning, transport adapters, the Neo4j boundary, and temporal relationship persistence. S317 provides temporal semantic path traversal, S318 evaluates those paths against explicit constraints, and S319 provides the stable read-only temporal query surface.
 
-S319 adds the stable read-only query boundary over that semantic graph:
+S320 adds the first explicit **what-if scenario boundary**. A scenario is an immutable set of declared hypothetical relationship operations evaluated against a derived graph view; it never mutates Canonical Truth.
 
 ```mermaid
 flowchart LR
     CG[Canonical Graph] --> T[Temporal versions]
-    T --> Q[S319 Temporal Semantic Query]
-    Q --> P[Path + qualifiers + graph digest]
-    P --> A[Downstream planning / scenario systems]
-    Q -. no mutation .-> CG
+    T --> Q[S319 Temporal Query]
+    Q --> SC[S320 Scenario Overlay]
+    SC --> V[Derived hypothetical graph]
+    V --> Q2[Temporal Query]
+    Q2 --> R[Scenario result + base/scenario provenance]
+    SC -. no Canonical Truth mutation .-> CG
 ```
 
-The query surface is intentionally transport-neutral. It resolves only explicitly represented relationships valid at the requested instant, preserves relationship identity and qualifiers, and returns a deterministic canonical graph digest for query-level provenance.
+The scenario surface is deliberately conservative. It supports explicit `add`, `remove`, and `replace` relationship operations only. It does not perform identity resolution, fuzzy matching, inference, optimization, allocation, feasibility optimization, or execution. This makes it suitable as a semantic input boundary for future planning and simulation systems.
 
 ### Phase 1 — Reference semantic implementation
 
@@ -60,6 +62,7 @@ The query surface is intentionally transport-neutral. It resolves only explicitl
 - [x] temporal semantic path traversal;
 - [x] constraint-aware feasibility reasoning;
 - [x] deterministic temporal semantic query boundary;
+- [x] immutable scenario overlay boundary;
 - [ ] evidence-aware traversal;
 - [ ] projection and materialization runtime.
 
