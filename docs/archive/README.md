@@ -2,7 +2,7 @@
 
 This directory records documentation that is no longer part of the current normative documentation surface.
 
-The archived documents remain available through Git history. They are intentionally not linked from the primary documentation path unless needed for historical context.
+Archived copies are historical reference material, not implementation authority. Where an archived note has been condensed, the complete original remains recoverable from Git history.
 
 ## Archived legacy documents
 
@@ -19,6 +19,8 @@ The archived documents remain available through Git history. They are intentiona
 
 ## Policy
 
-These documents are historical design artifacts, not current normative contracts. Their historical content is preserved in Git history rather than duplicated in the active documentation surface.
+These documents are historical design artifacts, not current normative contracts. They MUST NOT be treated as the current semantic authority after M8 completion.
+
+When a historical document is still needed for regression tests or provenance, reference its archived path explicitly. New normative documentation belongs under the current architecture and milestone surfaces rather than at the root of `docs/`.
 
 For current project orientation, start at the repository README and `docs/README.md`.
