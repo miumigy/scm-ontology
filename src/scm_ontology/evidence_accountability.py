@@ -17,6 +17,13 @@ class EvidenceAccountability:
     decision_id: str
     evidence: tuple[EvidenceRecord, ...]
 
+    @property
+    def evidence_id(self) -> str:
+        """Return the sole evidence identifier for single-evidence accountability."""
+        if len(self.evidence) != 1:
+            raise AttributeError("evidence_id is only defined for a single evidence record")
+        return self.evidence[0].evidence_id
+
 class EvidenceAccountabilityNotFound(LookupError):
     pass
 
