@@ -1,6 +1,6 @@
 version: "0.2"
 project: scm-ontology
-status: m8_complete
+status: post_m8_active
 principle: "Implement against the M8 governed semantic and operational contracts; do not weaken them for implementation convenience."
 
 milestones:
@@ -37,10 +37,10 @@ post_m8_implementation:
     status: active
     priority: P0
   - id: reference-canonicalization-pipeline
-    status: planned
+    status: complete
     priority: P0
   - id: realistic-multi-source-fixtures
-    status: planned
+    status: complete
     priority: P0
   - id: canonical-graph-persistence
     status: planned
