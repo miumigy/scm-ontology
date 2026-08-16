@@ -40,7 +40,8 @@ class ReasoningInput:
 def build_reasoning_input(context: DecisionContext) -> ReasoningInput:
     """Convert a ready DecisionContext into a storage/engine-neutral input."""
     require_context_ready(context)
-    observations = tuple(sorted(context.observations, key=lambda o: o.question_id))
+    # DecisionContext order is already the canonical assembly order. Preserve it.
+    observations = tuple(context.observations)
     evidence_ids = tuple(sorted({eid for o in observations for eid in o.evidence_ids}))
     provenance_ids = tuple(sorted({pid for o in observations for pid in o.provenance_ids}))
     return ReasoningInput(
