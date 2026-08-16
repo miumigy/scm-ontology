@@ -16,24 +16,23 @@ flowchart LR
 
 ## Current phase — Canonical Graph runtime
 
-**Status: Active — S320**
+**Status: Active — S321**
 
-The post-M8 implementation has progressed from machine-readable vocabulary and explicit reference canonicalization into a governed graph runtime. S311–S314 establish persistence planning, transport adapters, the Neo4j boundary, and temporal relationship persistence. S317 provides temporal semantic path traversal, S318 evaluates those paths against explicit constraints, and S319 provides the stable read-only temporal query surface.
+The post-M8 implementation has progressed from machine-readable vocabulary and explicit reference canonicalization into a governed graph runtime. S311–S314 establish persistence planning, transport adapters, the Neo4j boundary, and temporal relationship persistence. S317 provides temporal semantic path traversal, S318 evaluates those paths against explicit constraints, S319 provides the stable read-only temporal query surface, and S320 provides the immutable what-if scenario boundary.
 
-S320 adds the first explicit **what-if scenario boundary**. A scenario is an immutable set of declared hypothetical relationship operations evaluated against a derived graph view; it never mutates Canonical Truth.
+S321 adds the first explicit **evidence-aware traversal boundary**. Evidence remains external to Canonical Truth, but every traversed relationship can now be required to have explicit supporting evidence and can expose those evidence identifiers in the result.
 
 ```mermaid
 flowchart LR
     CG[Canonical Graph] --> T[Temporal versions]
     T --> Q[S319 Temporal Query]
-    Q --> SC[S320 Scenario Overlay]
-    SC --> V[Derived hypothetical graph]
-    V --> Q2[Temporal Query]
-    Q2 --> R[Scenario result + base/scenario provenance]
-    SC -. no Canonical Truth mutation .-> CG
+    Q --> EA[S321 Evidence-aware Traversal]
+    EV[Governed Evidence Map] --> EA
+    EA --> R[Path + evidence IDs + graph provenance]
+    EA -. no Canonical Truth mutation .-> CG
 ```
 
-The scenario surface is deliberately conservative. It supports explicit `add`, `remove`, and `replace` relationship operations only. It does not perform identity resolution, fuzzy matching, inference, optimization, allocation, feasibility optimization, or execution. This makes it suitable as a semantic input boundary for future planning and simulation systems.
+The evidence-aware surface is deliberately conservative. It does not infer evidence, create provenance, resolve identities, mutate Canonical Truth, or authorize operations. Missing required evidence fails closed.
 
 ### Phase 1 — Reference semantic implementation
 
@@ -63,7 +62,7 @@ The scenario surface is deliberately conservative. It supports explicit `add`, `
 - [x] constraint-aware feasibility reasoning;
 - [x] deterministic temporal semantic query boundary;
 - [x] immutable scenario overlay boundary;
-- [ ] evidence-aware traversal;
+- [x] evidence-aware traversal boundary;
 - [ ] projection and materialization runtime.
 
 ### Phase 4 — SCM value applications
