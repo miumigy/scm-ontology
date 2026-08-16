@@ -16,29 +16,23 @@ flowchart LR
 
 ## Current phase — Canonical Graph runtime
 
-**Status: Active — S331**
+**Status: Active — S332**
 
-The post-M8 implementation has progressed from machine-readable vocabulary and explicit reference canonicalization into a governed graph runtime. S311–S314 establish persistence planning, transport adapters, the Neo4j boundary, and temporal relationship persistence. S317 provides temporal semantic path traversal, S318 evaluates those paths against explicit constraints, S319 provides the stable read-only temporal query surface, S320 provides the immutable what-if scenario boundary, and S321 provides evidence-aware traversal.
+S311–S325 establish the governed Canonical Graph, temporal query, reasoning, evidence, projection, freshness, invalidation, and governed query runtime boundaries.
 
-S322 established the deterministic **projection/materialization runtime boundary**. A projection is derived state computed from Canonical Graph input; its source digest, projection identity, and projection version are preserved as lineage. Materialization never mutates Canonical Truth.
+S326 adds the first **Phase 4 business-question vertical slice**, resolving inventory position from already-canonical inventory facts.
 
-S323 adds the first **evidence-aware projection boundary**. Projection code can explicitly request governed evidence for a canonical relationship, and the runtime records only the evidence actually consulted. Missing required evidence fails closed; evidence remains derived provenance rather than Canonical Truth or authorization.
+S327 resolves demand/supply gap over an explicit item/period/unit scope.
 
-S324 adds a pure **projection freshness and invalidation runtime**. It classifies materialized projections as `current`, `stale`, `rebuild_required`, or `invalid` from explicit dependency and contract comparisons, while keeping persistence, scheduling, authorization, and governed recovery outside the semantic runtime.
+S328 derives supplier schedule delay from an exact canonical supplier/item/unit scope.
 
-S325 adds the **governed projection query boundary**. A query can expose a materialized projection only when its requested identity/version and contract are compatible and S324 reports `current`; stale, invalid, and rebuild-required projections fail closed with their lifecycle reason preserved.
+S329 propagates explicit upstream risk over declared multi-hop supply dependencies.
 
-S326 adds the first **Phase 4 business-question vertical slice**, resolving an inventory position (`available = on_hand + inbound - outbound`) from already-canonical inventory facts without identity resolution, allocation, or graph mutation.
+S330 compares explicit capacity and requirement facts by exact resource/unit scope and reports headroom, utilization, and feasibility.
 
-S327 adds the second **Phase 4 business-question vertical slice**, resolving a demand/supply gap (`gap = max(demand - supply, 0)`) from already-canonical demand and supply facts over an explicit item/period/unit scope without allocation, optimization, or business-policy decisions.
+S331 propagates explicit disruption observations over declared directed dependencies with bounded paths and traceable evidence/provenance.
 
-S328 adds the third **Phase 4 business-question vertical slice**, deriving supplier schedule delay (`delay_days = max(actual_at - expected_at, 0)`) from an exact canonical supplier/item/unit scope without identity resolution, allocation, or business-policy decisions.
-
-S329 adds the fourth **Phase 4 business-question vertical slice**, propagating explicit upstream risk over declared multi-hop supply dependencies without relationship inference, graph mutation, optimization, or mitigation decisions.
-
-S330 adds the fifth **Phase 4 business-question vertical slice**, comparing explicit capacity and requirement facts by exact resource/unit scope and reporting headroom, utilization, and feasibility without allocation, optimization, or mitigation decisions.
-
-S331 adds the sixth **Phase 4 business-question vertical slice**, propagating explicit disruption observations over declared directed dependencies with bounded paths and traceable evidence/provenance, without relationship inference, graph mutation, optimization, or mitigation decisions.
+S332 reconciles explicit plan, actual, and commitment facts by exact item/period/unit scope, reporting three deterministic variances while preserving evidence/provenance.
 
 ### Phase 3 — Canonical Graph runtime
 
@@ -58,15 +52,13 @@ S331 adds the sixth **Phase 4 business-question vertical slice**, propagating ex
 
 ### Phase 4 — SCM value applications
 
-Prioritize questions that demonstrate why a canonical SCM semantic layer matters:
-
 - [x] inventory position across heterogeneous systems;
 - [x] demand/supply gap;
 - [x] supplier delay impact;
 - [x] multi-hop supply risk;
 - [x] capacity constraints;
 - [x] network disruption propagation;
-- plan/actual/commitment reconciliation.
+- [x] plan/actual/commitment reconciliation.
 
 ### Phase 5 — SCM OS integration
 
