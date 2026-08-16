@@ -1,0 +1,27 @@
+"""Canonical SCM fact to runtime evidence binding primitives."""
+from __future__ import annotations
+from dataclasses import dataclass
+from typing import Any
+from .semantic_runtime import DecisionTrace
+
+@dataclass(frozen=True)
+class CanonicalFact:
+    fact_id: str
+    predicate: str
+    subject_id: str
+    value: Any
+    observed_at: str | None = None
+
+@dataclass(frozen=True)
+class EvidenceBinding:
+    evidence_id: str
+    fact_id: str
+    fact: CanonicalFact
+
+
+def bind_fact_evidence(fact: CanonicalFact, *, evidence_id: str) -> EvidenceBinding:
+    return EvidenceBinding(evidence_id, fact.fact_id, fact)
+
+
+def trace_with_fact_evidence(decision_id: str, decision: Any, evidence: tuple[EvidenceBinding, ...]) -> DecisionTrace:
+    return DecisionTrace(decision_id, decision, evidence)
