@@ -52,7 +52,7 @@ post_m8_implementation:
     status: planned
     priority: P1
   - id: scm-business-question-applications
-    status: planned
+    status: active
     priority: P1
   - id: planning-simulation-scm-os-integration
     status: planned
@@ -66,7 +66,7 @@ legacy_backlog:
     status: planned
     priority: P1
   - id: inventory-position
-    status: planned
+    status: active
     priority: P1
   - id: demand-supply-gap
     status: planned
