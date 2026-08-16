@@ -9,7 +9,9 @@ This directory is the documentation index for SCM Ontology after **M8 COMPLETE**
 3. [`architecture/current-architecture.md`](architecture/current-architecture.md) — current architecture and layer responsibilities
 4. [`milestones/`](milestones/) — milestone definitions and acceptance reports
 5. [`architecture/`](architecture/) — architecture freezes and governance contracts
-6. [`../AGENTS.md`](../AGENTS.md) — development/agent contract
+6. [`roadmap-post-m8.md`](roadmap-post-m8.md) — post-M8 implementation roadmap
+7. [`archive/`](archive/) — historical documentation no longer part of the active documentation surface
+8. [`../AGENTS.md`](../AGENTS.md) — development/agent contract
 
 ## Conceptual architecture
 
@@ -72,4 +74,4 @@ When a contract changes, update:
 3. the relevant architecture/index document;
 4. the README if the conceptual architecture changes.
 
-Do not leave historical milestone documents describing a newer phase as "active" or "next" after that phase has been completed.
+Historical documents are retained only when they provide useful provenance. Superseded design drafts should be moved out of the active documentation surface rather than presented as current guidance.

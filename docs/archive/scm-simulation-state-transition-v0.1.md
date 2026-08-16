@@ -1,5 +1,7 @@
 # SCM Simulation State Transition Contract v0.1
 
+> Historical S5 simulation contract. Archived after M8 completion.
+
 ## Purpose
 
 S5 makes the state change caused by a simulation event explicit and deterministic.
@@ -36,13 +38,7 @@ The property remains a canonical state value. `StateTransitionRule` is simulatio
 
 ## Rule contract
 
-A rule contains:
-
-- `ruleId`
-- `eventType`
-- `entityType`
-- `propertyName`
-- `attributeName`
+A rule contains `ruleId`, `eventType`, `entityType`, `propertyName`, and `attributeName`.
 
 S5 currently supports a non-negative integer increment for the mapped property.
 
@@ -70,7 +66,3 @@ Event → StateTransitionRule → New State
 ```
 
 These are intentionally separate contracts. A causal relationship does not automatically imply a state mutation.
-
-## Scope
-
-S5 does not yet model material depletion, production capacity, shipment dates, KPI impact, optimization, stochastic simulation, or Neo4j runtime execution.

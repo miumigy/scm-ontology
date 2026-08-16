@@ -1,5 +1,7 @@
 # SCM Simulation Causal Contract v0.1
 
+> Historical S4 simulation contract. Archived after M8 completion; current causal semantics are governed by the M8 contract set.
+
 ## Purpose
 
 S4 defines deterministic event-to-event causal propagation inside the simulation runtime.

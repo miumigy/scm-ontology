@@ -1,5 +1,7 @@
 # S116 — Machine-readable Ontology
 
+> Historical S116 schema note. Archived after M8 completion; the current schema and architecture documentation are authoritative.
+
 S116 establishes the machine-readable structural serialization contract for the S113-S115 canonical model.
 
 Normative schema: `schema/canonical-ontology.schema.json`

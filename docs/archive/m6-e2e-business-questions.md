@@ -1,5 +1,7 @@
 # S253 — M6 End-to-End Business Questions
 
+> Historical M6 acceptance note. Archived after M8 completion; current normative behavior is governed by the M8 contracts and acceptance report.
+
 ## Purpose
 
 Validate that executable M6 graph fixtures can answer SCM business questions through a deterministic read-only reasoning path.

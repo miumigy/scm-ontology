@@ -1,6 +1,8 @@
 # S6 — State Transition Chain v0.1
 
-Status: Implementation contract
+> Historical S6 implementation contract. Archived after M8 completion.
+
+Status: Implementation contract  
 Date: 2026-08-14
 
 ## Purpose
