@@ -15,6 +15,11 @@ def test_machine_registry_matches_canonical_model() -> None:
     registry.assert_matches_python_registry()
 
 
+def test_machine_registry_matches_versioned_schema() -> None:
+    registry = load_canonical_registry()
+    registry.validate_schema()
+
+
 def test_machine_registry_preserves_semantic_boundaries() -> None:
     registry = load_canonical_registry()
     concepts = {item["id"]: item for item in registry.concepts}
