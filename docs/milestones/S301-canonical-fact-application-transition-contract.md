@@ -38,6 +38,7 @@ The application boundary MUST produce one attributable outcome for the governed 
 ## Idempotency
 
 - Repeated application of the same accepted Write Intent MUST resolve to the same governed application outcome without creating unintended duplicate Fact Versions.
+- The application boundary MUST NOT create unintended duplicate Fact Versions for the same accepted Write Intent.
 - Idempotency MUST be evaluated using the declared application identity/idempotency key and relevant target/version context.
 - A replay against a changed current version MUST re-evaluate preconditions rather than bypassing them.
 
