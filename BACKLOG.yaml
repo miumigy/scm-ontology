@@ -43,7 +43,7 @@ post_m8_implementation:
     status: complete
     priority: P0
   - id: canonical-graph-persistence
-    status: planned
+    status: active
     priority: P1
   - id: canonical-query-runtime
     status: planned
