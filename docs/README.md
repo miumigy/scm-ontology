@@ -20,10 +20,11 @@ This directory is the documentation index for SCM Ontology after **M8 COMPLETE**
 14. [`S326-inventory-position.md`](S326-inventory-position.md) — canonical inventory position business question
 15. [`S327-demand-supply-gap.md`](S327-demand-supply-gap.md) — canonical demand/supply gap business question
 16. [`S328-supplier-delay-impact.md`](S328-supplier-delay-impact.md) — canonical supplier delay impact business question
-17. [`milestones/`](milestones/) — milestone definitions and acceptance reports
-18. [`architecture/`](architecture/) — architecture freezes and governance contracts
-19. [`archive/`](archive/) — historical documentation no longer part of the active documentation surface
-20. [`../AGENTS.md`](../AGENTS.md) — development/agent contract
+17. [`S329-multi-hop-supply-risk.md`](S329-multi-hop-supply-risk.md) — canonical multi-hop supply risk business question
+18. [`milestones/`](milestones/) — milestone definitions and acceptance reports
+19. [`architecture/`](architecture/) — architecture freezes and governance contracts
+20. [`archive/`](archive/) — historical documentation no longer part of the active documentation surface
+21. [`../AGENTS.md`](../AGENTS.md) — development/agent contract
 
 ## Conceptual architecture
 
@@ -98,8 +99,9 @@ The separation is deliberate: a system may derive a useful answer without changi
 - S326 — Canonical Inventory Position Business Question
 - S327 — Canonical Demand/Supply Gap Business Question
 - S328 — Canonical Supplier Delay Impact Business Question
+- S329 — Canonical Multi-Hop Supply Risk Business Question
 
-S321 provides the first explicit evidence requirement at traversal time. S323 carries the same separation into projection state: evidence identifiers are supplied through an external governed mapping and only evidence explicitly consulted by projection code is retained in projection lineage. S324 makes projection lifecycle state observable by comparing the materialized lineage against current graph and projection dependencies. S325 makes the query boundary fail closed unless the requested projection is current and contract-compatible. S326 resolves an inventory position, S327 resolves a demand/supply gap, and S328 resolves supplier schedule delay from already-canonical facts as Phase 4 business-question slices.
+S321 provides the first explicit evidence requirement at traversal time. S323 carries the same separation into projection state: evidence identifiers are supplied through an external governed mapping and only evidence explicitly consulted by projection code is retained in projection lineage. S324 makes projection lifecycle state observable by comparing the materialized lineage against current graph and projection dependencies. S325 makes the query boundary fail closed unless the requested projection is current and contract-compatible. S326 resolves an inventory position, S327 resolves a demand/supply gap, S328 resolves supplier schedule delay, and S329 propagates explicit upstream risk over declared multi-hop dependencies as Phase 4 business-question slices.
 
 ## M8 documentation set
 
