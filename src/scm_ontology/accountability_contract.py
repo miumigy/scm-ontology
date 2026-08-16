@@ -26,10 +26,11 @@ def _json_safe(value: Any) -> Any:
     raise AccountabilityContractError(f"unsupported accountability value: {type(value).__name__}")
 
 def accountability_to_mapping(result: EndToEndAccountability) -> dict[str, Any]:
+    evidence_records = tuple(record for accountability in result.evidence for record in accountability.evidence)
     return {
         "contract_version": ACCOUNTABILITY_CONTRACT_VERSION,
         "decision": _json_safe(result.decision),
-        "evidence": _json_safe(result.evidence),
+        "evidence": _json_safe(evidence_records),
         "provenance": _json_safe(result.provenance),
     }
 
