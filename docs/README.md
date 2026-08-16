@@ -16,10 +16,11 @@ This directory is the documentation index for SCM Ontology after **M8 COMPLETE**
 10. [`S321-evidence-aware-traversal.md`](S321-evidence-aware-traversal.md) — evidence-aware temporal traversal contract
 11. [`S323-evidence-aware-projection.md`](S323-evidence-aware-projection.md) — evidence-aware projection contract
 12. [`S324-projection-freshness-invalidation.md`](S324-projection-freshness-invalidation.md) — projection freshness and invalidation runtime contract
-13. [`milestones/`](milestones/) — milestone definitions and acceptance reports
-14. [`architecture/`](architecture/) — architecture freezes and governance contracts
-15. [`archive/`](archive/) — historical documentation no longer part of the active documentation surface
-16. [`../AGENTS.md`](../AGENTS.md) — development/agent contract
+13. [`S325-governed-projection-query.md`](S325-governed-projection-query.md) — governed projection query contract
+14. [`milestones/`](milestones/) — milestone definitions and acceptance reports
+15. [`architecture/`](architecture/) — architecture freezes and governance contracts
+16. [`archive/`](archive/) — historical documentation no longer part of the active documentation surface
+17. [`../AGENTS.md`](../AGENTS.md) — development/agent contract
 
 ## Conceptual architecture
 
@@ -56,7 +57,8 @@ flowchart LR
     TEMP --> EVID[S321 Evidence-aware traversal]
     EVID --> EPROJ[S323 Evidence-aware projection]
     EPROJ --> LIFE[S324 Freshness / Invalidation]
-    LIFE --> ANSWER[Traceable answer]
+    LIFE --> QUERY[S325 Governed Projection Query]
+    QUERY --> ANSWER[Traceable answer]
 ```
 
 The registry is deliberately separate from persistence. It describes the canonical vocabulary and relationship signatures; it does not prescribe a database schema and does not create or mutate Canonical Truth.
@@ -89,8 +91,9 @@ The separation is deliberate: a system may derive a useful answer without changi
 - S322 — Deterministic Projection / Materialization Runtime
 - S323 — Evidence-aware Projection
 - S324 — Projection Freshness & Invalidation Runtime
+- S325 — Governed Projection Query
 
-S321 provides the first explicit evidence requirement at traversal time. S323 carries the same separation into projection state: evidence identifiers are supplied through an external governed mapping and only evidence explicitly consulted by projection code is retained in projection lineage. S324 makes projection lifecycle state observable by comparing the materialized lineage against current graph and projection dependencies.
+S321 provides the first explicit evidence requirement at traversal time. S323 carries the same separation into projection state: evidence identifiers are supplied through an external governed mapping and only evidence explicitly consulted by projection code is retained in projection lineage. S324 makes projection lifecycle state observable by comparing the materialized lineage against current graph and projection dependencies. S325 makes the query boundary fail closed unless the requested projection is current and contract-compatible.
 
 ## M8 documentation set
 
