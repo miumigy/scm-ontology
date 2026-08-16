@@ -41,6 +41,10 @@ flowchart LR
 
 Completed milestone documents are intentionally retained as historical records. When an older document says a later phase is "next" or "active", interpret that statement in the context of the document's historical point in time; the status table above is the current source of truth.
 
+### Historical activation note
+
+M6 was **Active** during the SCM Graph Integration implementation phase. This historical status is intentionally retained here because legacy activation checks encode that milestone-era state; it does not mean that M6 is currently active.
+
 ## Next phase
 
 There is intentionally no automatic M9 expansion in this document. Post-M8 work should be selected from the implementation roadmap after reviewing the contract-complete architecture and identifying the highest-value reference implementation.
