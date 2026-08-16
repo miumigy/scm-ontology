@@ -33,9 +33,15 @@ def query_nodes(projection: GraphProjection, *, node_type: str | None = None, no
         raise GraphQueryError("node_id must be non-empty when supplied")
     if node_type is not None and not node_type.strip():
         raise GraphQueryError("node_type must be non-empty when supplied")
-    nodes = tuple(n for n in projection.nodes if (node_id is None or n.node_id == node_id) and (node_type is None or n.node_type == node_type))
+    nodes = tuple(sorted(
+        (n for n in projection.nodes if (node_id is None or n.node_id == node_id) and (node_type is None or n.node_type == node_type)),
+        key=lambda n: n.node_id,
+    ))
     ids = {n.node_id for n in nodes}
-    rels = tuple(r for r in projection.relationships if r.source_node_id in ids or r.target_node_id in ids)
+    rels = tuple(sorted(
+        (r for r in projection.relationships if r.source_node_id in ids or r.target_node_id in ids),
+        key=lambda r: r.relationship_id,
+    ))
     return GraphQueryResult(nodes, rels, projection.provenance_ids)
 
 
@@ -45,9 +51,12 @@ def query_relationships(projection: GraphProjection, *, relationship_type: str |
         raise GraphQueryError("relationship_type must be non-empty when supplied")
     if node_id is not None and not node_id.strip():
         raise GraphQueryError("node_id must be non-empty when supplied")
-    rels = tuple(r for r in projection.relationships if (relationship_type is None or r.relationship_type == relationship_type) and (node_id is None or r.source_node_id == node_id or r.target_node_id == node_id))
+    rels = tuple(sorted(
+        (r for r in projection.relationships if (relationship_type is None or r.relationship_type == relationship_type) and (node_id is None or r.source_node_id == node_id or r.target_node_id == node_id)),
+        key=lambda r: r.relationship_id,
+    ))
     ids = {r.source_node_id for r in rels} | {r.target_node_id for r in rels}
-    nodes = tuple(n for n in projection.nodes if n.node_id in ids)
+    nodes = tuple(sorted((n for n in projection.nodes if n.node_id in ids), key=lambda n: n.node_id))
     return GraphQueryResult(nodes, rels, projection.provenance_ids)
 
 
