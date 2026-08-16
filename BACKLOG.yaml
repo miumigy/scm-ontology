@@ -80,6 +80,9 @@ legacy_backlog:
   - id: multi-hop-supply-risk
     status: active
     priority: P1
+  - id: capacity-constraints
+    status: active
+    priority: P1
   - id: scsim-integration
     status: planned
     priority: P2
