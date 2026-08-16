@@ -1,64 +1,33 @@
+import pytest
+
 from scm_ontology.reference_canonicalization import (
-    CanonicalizationOutcome,
-    ReferenceCanonicalizer,
-    ReferenceMapping,
+    CanonicalizationError,
+    SourceMapping,
+    canonicalize_record,
+    canonicalize_to_json,
 )
 
 
-def test_explicit_mapping_is_applied_without_inference() -> None:
-    canonicalizer = ReferenceCanonicalizer(
-        [ReferenceMapping("customer_order", "Order")]
-    )
-
-    result = canonicalizer.canonicalize("customer_order")
-
-    assert result.outcome == CanonicalizationOutcome.APPLIED
-    assert result.canonical_id == "Order"
+def test_reference_mapping_is_explicit_and_deterministic() -> None:
+    mapping = SourceMapping("erp-fixture", (("MATNR", "item_id"), ("WERKS", "location_id"), ("QTY", "quantity"), ("MEINS", "unit")))
+    record = {"MEINS": "EA", "QTY": 12, "WERKS": "TOKYO", "MATNR": "P-001"}
+    expected = {"contract_version": "S335.1", "canonical": {"item_id": "P-001", "location_id": "TOKYO", "quantity": 12, "unit": "EA"}, "source_id": "erp-fixture", "mapping_version": "S335.1", "source_fields": ["MATNR", "WERKS", "QTY", "MEINS"]}
+    assert canonicalize_record(record, mapping) == expected
+    assert canonicalize_to_json(record, mapping) == canonicalize_to_json(dict(reversed(list(record.items()))), mapping)
 
 
-def test_unmapped_label_remains_a_semantic_gap() -> None:
-    canonicalizer = ReferenceCanonicalizer(
-        [ReferenceMapping("customer_order", "Order")]
-    )
-
-    result = canonicalizer.canonicalize("mystery_record")
-
-    assert result.outcome == CanonicalizationOutcome.SEMANTIC_GAP
-    assert result.canonical_id is None
+def test_missing_source_field_fails_closed() -> None:
+    mapping = SourceMapping("wms-fixture", (("sku", "item_id"), ("qty", "quantity")))
+    with pytest.raises(CanonicalizationError):
+        canonicalize_record({"sku": "P-001"}, mapping)
 
 
-def test_conflicting_explicit_mappings_remain_observable() -> None:
-    canonicalizer = ReferenceCanonicalizer(
-        [
-            ReferenceMapping("stock", "Inventory"),
-            ReferenceMapping("stock", "Supply"),
-        ]
-    )
-
-    result = canonicalizer.canonicalize("stock")
-
-    assert result.outcome == CanonicalizationOutcome.CONFLICT
-    assert result.canonical_id is None
+def test_duplicate_mapping_field_is_rejected() -> None:
+    with pytest.raises(CanonicalizationError):
+        SourceMapping("fixture", (("sku", "item_id"), ("sku", "location_id")))
 
 
-def test_unknown_canonical_target_is_rejected() -> None:
-    try:
-        ReferenceCanonicalizer([ReferenceMapping("x", "NotCanonical")])
-    except ValueError as exc:
-        assert "mapping target is not canonical" in str(exc)
-    else:
-        raise AssertionError("unknown canonical target must be rejected")
-
-
-def test_batch_order_is_deterministic() -> None:
-    canonicalizer = ReferenceCanonicalizer(
-        [ReferenceMapping("order", "Order")]
-    )
-
-    results = canonicalizer.canonicalize_many(["order", "unknown", "order"])
-
-    assert [result.outcome for result in results] == [
-        CanonicalizationOutcome.APPLIED,
-        CanonicalizationOutcome.SEMANTIC_GAP,
-        CanonicalizationOutcome.APPLIED,
-    ]
+def test_utf8_is_preserved() -> None:
+    mapping = SourceMapping("fixture", (("品目", "item_id"),))
+    payload = canonicalize_to_json({"品目": "東京P"}, mapping)
+    assert "東京P" in payload
