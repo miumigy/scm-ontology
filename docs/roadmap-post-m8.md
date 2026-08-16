@@ -16,7 +16,7 @@ flowchart LR
 
 ## Current phase — Canonical Graph runtime
 
-**Status: Active — S324**
+**Status: Active — S325**
 
 The post-M8 implementation has progressed from machine-readable vocabulary and explicit reference canonicalization into a governed graph runtime. S311–S314 establish persistence planning, transport adapters, the Neo4j boundary, and temporal relationship persistence. S317 provides temporal semantic path traversal, S318 evaluates those paths against explicit constraints, S319 provides the stable read-only temporal query surface, S320 provides the immutable what-if scenario boundary, and S321 provides evidence-aware traversal.
 
@@ -25,6 +25,8 @@ S322 established the deterministic **projection/materialization runtime boundary
 S323 adds the first **evidence-aware projection boundary**. Projection code can explicitly request governed evidence for a canonical relationship, and the runtime records only the evidence actually consulted. Missing required evidence fails closed; evidence remains derived provenance rather than Canonical Truth or authorization.
 
 S324 adds a pure **projection freshness and invalidation runtime**. It classifies materialized projections as `current`, `stale`, `rebuild_required`, or `invalid` from explicit dependency and contract comparisons, while keeping persistence, scheduling, authorization, and governed recovery outside the semantic runtime.
+
+S325 adds the **governed projection query boundary**. A query can expose a materialized projection only when its requested identity/version and contract are compatible and S324 reports `current`; stale, invalid, and rebuild-required projections fail closed with their lifecycle reason preserved.
 
 ### Phase 3 — Canonical Graph runtime
 
@@ -40,7 +42,7 @@ S324 adds a pure **projection freshness and invalidation runtime**. It classifie
 - [x] projection/materialization reference runtime;
 - [x] evidence-aware projections;
 - [x] projection freshness and invalidation runtime;
-- [ ] governed projection query boundary.
+- [x] governed projection query boundary.
 
 ### Phase 4 — SCM value applications
 
