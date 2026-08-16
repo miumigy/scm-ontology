@@ -12,10 +12,11 @@ This directory is the documentation index for SCM Ontology after **M8 COMPLETE**
 6. [`reference-canonicalization.md`](reference-canonicalization.md) — first post-M8 implementation boundary for explicit source-to-canonical mappings
 7. [`S318-constraint-reasoning.md`](S318-constraint-reasoning.md) — constraint-aware semantic path reasoning
 8. [`S319-temporal-semantic-query.md`](S319-temporal-semantic-query.md) — governed temporal semantic query contract
-9. [`milestones/`](milestones/) — milestone definitions and acceptance reports
-10. [`architecture/`](architecture/) — architecture freezes and governance contracts
-11. [`archive/`](archive/) — historical documentation no longer part of the active documentation surface
-12. [`../AGENTS.md`](../AGENTS.md) — development/agent contract
+9. [`S320-scenario-overlay.md`](S320-scenario-overlay.md) — immutable what-if scenario overlay contract
+10. [`milestones/`](milestones/) — milestone definitions and acceptance reports
+11. [`architecture/`](architecture/) — architecture freezes and governance contracts
+12. [`archive/`](archive/) — historical documentation no longer part of the active documentation surface
+13. [`../AGENTS.md`](../AGENTS.md) — development/agent contract
 
 ## Conceptual architecture
 
@@ -47,6 +48,8 @@ flowchart LR
     CAN --> GRAPH[Canonical Graph]
     GRAPH --> TEMP[Temporal semantic query]
     TEMP --> REASON[Constraint-aware reasoning]
+    TEMP --> SCENARIO[Immutable what-if scenario]
+    SCENARIO --> TEMP
 ```
 
 The registry is deliberately separate from persistence. It describes the canonical vocabulary and relationship signatures; it does not prescribe a database schema and does not create or mutate Canonical Truth.
@@ -74,8 +77,9 @@ The separation is deliberate: a system may derive a useful answer without changi
 - S317 — Temporal Semantic Path Traversal
 - S318 — Constraint-aware Supply Chain Reasoning
 - S319 — Temporal Semantic Supply Chain Query
+- S320 — Immutable What-if Scenario Overlay
 
-S319 is the stable read-only query surface for downstream reasoning and planning systems. It preserves temporal relationship semantics, explicit qualifiers, deterministic ordering, and query-level graph-snapshot provenance without introducing mutation, optimization, or execution semantics.
+S320 provides the first explicit scenario boundary for downstream planning and simulation. Scenario operations are hypothetical and evaluated against a derived graph view; they do not mutate Canonical Truth or introduce optimization/execution semantics.
 
 ## M8 documentation set
 
