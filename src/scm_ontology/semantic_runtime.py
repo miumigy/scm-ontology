@@ -8,12 +8,14 @@ class DecisionTrace:
     decision_id: str
     decision: Any
     evidence: tuple[Any, ...] = ()
+    snapshot_fingerprint: str | None = None
 
 @dataclass(frozen=True)
 class ReasoningProvenance:
     decision_id: str
     rationale: str
     evidence: tuple[Any, ...] = ()
+    snapshot_fingerprint: str | None = None
 
 @dataclass(frozen=True)
 class ExecutionRequest:
@@ -29,6 +31,6 @@ class RuntimePipeline:
     request: ExecutionRequest
 
 def build_runtime_pipeline(trace: DecisionTrace, *, rationale: str, request_id: str) -> RuntimePipeline:
-    provenance = ReasoningProvenance(trace.decision_id, rationale, trace.evidence)
+    provenance = ReasoningProvenance(trace.decision_id, rationale, trace.evidence, trace.snapshot_fingerprint)
     request = ExecutionRequest(request_id, trace.decision_id, trace.decision, provenance)
     return RuntimePipeline(trace, provenance, request)
