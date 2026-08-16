@@ -22,6 +22,12 @@ def trace_end_to_end_accountability(
 ) -> EndToEndAccountability:
     decision = trace_decision_accountability(transitions, decisions, snapshot_id=snapshot_id)
     source = next(item for item in decisions if item.decision_id == decision.decision_id)
-    evidence = tuple(trace_evidence_accountability(eid, evidence_by_id=evidence_by_id) for eid in source.evidence)
+    evidence = tuple(
+        trace_evidence_accountability(
+            DecisionTrace(source.decision_id, source.decision, (eid,), source.snapshot_fingerprint),
+            evidence_by_id=evidence_by_id,
+        )
+        for eid in source.evidence
+    )
     provenance = tuple(trace_provenance_accountability(eid, facts_by_evidence_id=facts_by_evidence_id) for eid in source.evidence)
     return EndToEndAccountability(decision, evidence, provenance)
