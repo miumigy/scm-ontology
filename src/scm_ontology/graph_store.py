@@ -1,9 +1,8 @@
-"""Transport-neutral graph-store adapter with a deterministic in-memory reference implementation.
+"""Transport-neutral graph-store adapter and deterministic reference store.
 
 The adapter consumes an authorized PersistencePlan and a CanonicalGraph. It is
-intentionally independent of Neo4j or any other graph database. The in-memory
-implementation is suitable for tests and dry-run integration while preserving
-idempotency and the explicit planned/applied boundary.
+independent of any database vendor and preserves the explicit planned/applied
+mutation boundary.
 """
 from __future__ import annotations
 
@@ -17,7 +16,7 @@ from .graph_persistence import PersistencePlan
 
 @dataclass(frozen=True)
 class GraphStoreWriteResult:
-    """Outcome of a graph-store adapter execution."""
+    """Auditable outcome of a graph-store execution."""
 
     plan_id: str
     graph_digest: str
@@ -26,14 +25,14 @@ class GraphStoreWriteResult:
 
 
 class GraphStoreAdapter(Protocol):
-    """Minimal adapter contract for a concrete graph store."""
+    """Minimal transport-neutral graph-store contract."""
 
     def apply(self, graph: CanonicalGraph, plan: PersistencePlan) -> GraphStoreWriteResult:
         ...
 
 
 class InMemoryGraphStore:
-    """Reference adapter used to prove the execution boundary without a database."""
+    """Reference implementation used for deterministic tests and dry runs."""
 
     def __init__(self) -> None:
         self._graphs: dict[str, str] = {}

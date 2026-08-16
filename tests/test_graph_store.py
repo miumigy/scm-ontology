@@ -1,3 +1,7 @@
+from dataclasses import replace
+
+import pytest
+
 from scm_ontology.canonical_graph import CanonicalGraph, SemanticNode
 from scm_ontology.graph_persistence import (
     CanonicalGraphPersistencePlanner,
@@ -26,17 +30,21 @@ def test_in_memory_adapter_applies_authorized_plan_and_is_idempotent() -> None:
     assert store.contains(plan.graph_digest)
 
 
+def test_in_memory_adapter_rejects_digest_mismatch() -> None:
+    graph = CanonicalGraph(nodes=(SemanticNode("p-1", "Product"),))
+    plan = replace(_plan(graph), graph_digest="0" * 64)
+
+    with pytest.raises(ValueError, match="graph digest"):
+        InMemoryGraphStore().apply(graph, plan)
+
+
 def test_in_memory_adapter_rejects_unplanned_intent() -> None:
     graph = CanonicalGraph(nodes=(SemanticNode("p-1", "Product"),))
     authorization = PersistenceAuthorization("decision-2", False, "test", "enterprise-a")
     plan = CanonicalGraphPersistencePlanner().plan(graph, authorization)
     store = InMemoryGraphStore()
 
-    try:
+    with pytest.raises(ValueError, match="only an authorized planned"):
         store.apply(graph, plan)
-    except ValueError as exc:
-        assert str(exc) == "only an authorized planned persistence intent may be applied"
-    else:
-        raise AssertionError("rejected persistence intent must not be applied")
 
     assert store.graph_count() == 0
