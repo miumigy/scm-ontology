@@ -1,27 +1,67 @@
-version: "0.1"
+version: "0.2"
 project: scm-ontology
+status: m8_complete
+principle: "Implement against the M8 governed semantic and operational contracts; do not weaken them for implementation convenience."
+
 milestones:
-  - id: semantic-integrity
-    status: in_progress
+  - id: m1-canonical-semantic-foundation
+    status: complete
     priority: P0
-  - id: s113-canonical-model
-    status: implemented
+  - id: m2-canonical-graph-query-foundation
+    status: complete
     priority: P0
-  - id: s114-type-attribute-value-semantics
-    status: implemented
+  - id: m3-evidence-provenance-foundation
+    status: complete
     priority: P0
-  - id: s115-canonical-identifier-reference
-    status: implemented
+  - id: m4-reasoning-runtime-foundation
+    status: complete
     priority: P0
-  - id: s116-machine-readable-ontology
+  - id: v0.2-release-candidate
+    status: complete
+    priority: P0
+  - id: m5-scm-use-case-validation
+    status: complete
+    priority: P0
+  - id: m6-scm-graph-integration
+    status: complete
+    priority: P0
+  - id: m7-enterprise-canonicalization
+    status: complete
+    priority: P0
+  - id: m8-canonicalization-projection-operational-governance
+    status: complete
+    priority: P0
+
+post_m8_implementation:
+  - id: machine-readable-canonical-registry
     status: planned
     priority: P0
-  - id: s117-examples-fixtures
+  - id: reference-canonicalization-pipeline
     status: planned
     priority: P0
-  - id: s118-validation-consistency
+  - id: realistic-multi-source-fixtures
     status: planned
     priority: P0
+  - id: canonical-graph-persistence
+    status: planned
+    priority: P1
+  - id: canonical-query-runtime
+    status: planned
+    priority: P1
+  - id: governed-identity-resolution
+    status: planned
+    priority: P1
+  - id: scm-business-question-applications
+    status: planned
+    priority: P1
+  - id: planning-simulation-scm-os-integration
+    status: planned
+    priority: P1
+  - id: production-observability-performance
+    status: planned
+    priority: P2
+
+legacy_backlog:
   - id: neo4j-loader
     status: planned
     priority: P1
