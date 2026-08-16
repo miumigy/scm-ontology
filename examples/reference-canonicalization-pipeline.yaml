@@ -1,0 +1,30 @@
+# Reference canonicalization pipeline fixture.
+# This fixture is intentionally non-authoritative: it demonstrates how
+# source-system labels are mapped before any governed Canonical Truth write.
+version: "0.1"
+status: reference
+sources:
+  - source_system: erp
+    records:
+      - label: customer_order
+        reference_id: ERP-1001
+      - label: inventory
+        reference_id: ERP-INV-01
+  - source_system: wms
+    records:
+      - label: stock
+        reference_id: WMS-STOCK-01
+      - label: unknown_record
+        reference_id: WMS-X-01
+mappings:
+  - source_label: customer_order
+    canonical_id: Order
+  - source_label: inventory
+    canonical_id: Inventory
+  - source_label: stock
+    canonical_id: Inventory
+pipeline_rules:
+  - explicit_reference_mapping_only
+  - unmapped_labels_are_semantic_gaps
+  - mapping_conflicts_are_not_resolved_implicitly
+  - output_does_not_mutate_canonical_truth
