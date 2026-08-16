@@ -34,6 +34,7 @@ flowchart LR
         K[Invalidation / Dependency]
         L[Cross-Projection Consistency]
         Q[Evidence-aware Projection Context]
+        R[Freshness / Lifecycle Assessment]
     end
 
     subgraph GOV[Governance / Operations]
@@ -60,10 +61,10 @@ flowchart LR
     I --> P
     O --> P
     A -. external governed mapping .-> Q
-    I --> Q --> P
+    I --> Q --> R --> P
 ```
 
-S323 makes the evidence relationship explicit at the projection boundary: projection code can request evidence for a canonical relationship through a dedicated context, while the evidence mapping remains external to Canonical Truth.
+S323 makes the evidence relationship explicit at the projection boundary: projection code can request evidence for a canonical relationship through a dedicated context, while the evidence mapping remains external to Canonical Truth. S324 adds a pure lifecycle assessment boundary that compares projection lineage with current graph and definition dependencies.
 
 ## 2. Layer responsibilities
 
@@ -81,7 +82,7 @@ Contains Canonical Identity, Canonical Facts, Fact Versions, lifecycle state, an
 
 ### Read / Derived Layer
 
-Historical queries, reasoning, projections, materializations, invalidation, and consistency evaluation consume Canonical state. S323 evidence-aware projections may also consume an explicit external evidence mapping through a read-only context. These surfaces are read-only with respect to Canonical Truth unless an explicit governed application step is invoked outside their boundary.
+Historical queries, reasoning, projections, materializations, invalidation, and consistency evaluation consume Canonical state. S323 evidence-aware projections may also consume an explicit external evidence mapping through a read-only context. S324 evaluates freshness and represents invalidation without mutating the graph. These surfaces are read-only with respect to Canonical Truth unless an explicit governed application step is invoked outside their boundary.
 
 ### Governance / Operations
 
@@ -141,12 +142,12 @@ stateDiagram-v2
     conflicted --> current: governed resolution + refresh
 ```
 
-The exact implementation may use different storage or workflow mechanisms, but these semantic states must remain distinguishable.
+S324 implements deterministic assessment of the `current`, `stale`, `rebuild_required`, and `invalid` states. `failed` and `conflicted` remain higher-level workflow outcomes and are not fabricated by the runtime.
 
 ## 6. Mutation boundary
 
 ```text
-Read / Query / Reasoning / Projection / Materialization
+Read / Query / Reasoning / Projection / Materialization / Lifecycle Assessment
                          │
                          ▼
                   Observable Result
