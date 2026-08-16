@@ -90,6 +90,50 @@ class CanonicalGraph:
             "relationships": [relationship.to_mapping() for relationship in self.relationships],
         }
 
+    @classmethod
+    def from_mapping(cls, value: Mapping[str, Any]) -> "CanonicalGraph":
+        """Construct a graph from the canonical mapping representation.
+
+        Relationship mappings accept both the current flat representation
+        emitted by ``to_mapping`` and the historical ``instance`` wrapper used
+        by early fixtures. Supporting the latter keeps persisted fixtures
+        readable while the canonical output remains normalized.
+        """
+        if not isinstance(value, Mapping):
+            raise CanonicalGraphError("graph mapping must be a mapping")
+
+        try:
+            nodes = tuple(
+                SemanticNode(
+                    node_id=node["id"],
+                    node_type=node.get("type", node.get("node_type", "")),
+                    properties=node.get("properties", {}),
+                )
+                for node in value.get("nodes", ())
+            )
+            relationships: list[CanonicalRelationship] = []
+            for raw in value.get("relationships", ()):
+                instance_data = raw.get("instance", raw)
+                instance = RelationshipInstance(
+                    relationship_id=instance_data["relationship_id"] if "relationship_id" in instance_data else instance_data["id"],
+                    from_id=instance_data["from_id"] if "from_id" in instance_data else instance_data["from"],
+                    predicate=instance_data["predicate"],
+                    to_id=instance_data["to_id"] if "to_id" in instance_data else instance_data["to"],
+                )
+                versions = tuple(
+                    RelationshipVersion(
+                        valid_from=version["valid_from"],
+                        valid_to=version.get("valid_to"),
+                        qualifiers=version.get("qualifiers"),
+                    )
+                    for version in raw.get("versions", ())
+                )
+                relationships.append(CanonicalRelationship(instance, versions))
+        except (KeyError, TypeError, AttributeError) as exc:
+            raise CanonicalGraphError(f"invalid canonical graph mapping: {exc}") from exc
+
+        return cls(nodes=nodes, relationships=tuple(relationships))
+
     def to_json(self) -> str:
         """Serialize the canonical graph deterministically as JSON."""
         try:
