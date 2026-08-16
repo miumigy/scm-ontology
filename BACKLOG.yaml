@@ -75,7 +75,7 @@ legacy_backlog:
     status: planned
     priority: P1
   - id: supplier-delay-scenario
-    status: planned
+    status: active
     priority: P1
   - id: scsim-integration
     status: planned
