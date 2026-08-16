@@ -14,6 +14,7 @@ def test_query_resolves_to_versioned_response():
     assert response.status == "resolved"
     assert response.contract_version == "1.0.0"
     assert response.accountability["decision"]["decision_id"] == "d1"
+    assert response.accountability["evidence"][0]["evidence_id"] == "ev1"
 
 def test_query_unknown_snapshot_is_protocol_not_found():
     inputs = _inputs()
