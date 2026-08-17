@@ -25,9 +25,9 @@ This is a **contract-complete** milestone, not a claim that every production con
 **Post-M8 implementation: Machine-Readable Canonical Registry — ACTIVE**
 
 The first implementation slice turns the established semantic registry into a checked-in machine-readable artifact and validates it against the Python canonical model without changing the M8 semantic boundary.
-**SCM OS Runtime (Phase R1) — ACTIVE (S348)**
+**SCM OS Runtime (Phase R1–R2) — ACTIVE (S352)**
 
-The first Runtime Integration milestone binds the governed cognitive loop — observations → ReasoningInput → ReasoningOutput → Proposal Validation → Authorization → ExecutionCommand — into a deterministic, in-memory, side-effect-free Python API ([`S348-decision-runtime.md`](docs/S348-decision-runtime.md)). See [`docs/roadmap-post-m8.md`](docs/roadmap-post-m8.md).
+The governed cognitive loop — observations → ReasoningInput → ReasoningOutput → Proposal Validation → Authorization → ExecutionCommand — runs as a deterministic, in-memory, side-effect-free Python API ([`S348-decision-runtime.md`](docs/S348-decision-runtime.md)). Phase R2 adds the first real provider families to the S368 boundary: a deterministic rule-based provider ([`S351`](docs/S351-rule-reasoning-provider.md)) and an injected, transport-neutral LLM provider ([`S352`](docs/S352-llm-reasoning-provider.md)) that does not couple the ontology to any vendor SDK. See [`docs/roadmap-post-m8.md`](docs/roadmap-post-m8.md).
 
 
 ## Architecture at a glance
