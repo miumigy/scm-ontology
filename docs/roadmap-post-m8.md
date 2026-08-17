@@ -1,7 +1,7 @@
 
-## Current phase — SCM OS Runtime (Phase R1–R3)
+## Current phase — SCM OS Runtime (Phase R1–R4)
 
-**Status: Active — S353**
+**Status: Active — S356**
 
 S348 is the first **Runtime Integration** milestone. It binds the S333..S346
 governed cognitive loop into a deterministic, in-memory, side-effect-free
@@ -23,14 +23,21 @@ S353 adds the first Execution Runtime milestone: an immutable
 as a deterministic, side-effect-free dry run, producing a
 `DryRunExecutionResult`.
 
+S354 records a governed decision as a content-addressed audit entry and
+replays the deterministic governed chain. S355 tracks the command lifecycle as
+an immutable, governed state machine. S356 applies the fail-closed
+authorization policy, human-approval, and senior-override gates. Together
+S354–S356 form Phase R4 (Governance).
+
 ### Phase R — SCM OS Runtime
 
 - [x] S348 SCM Decision Runtime v0 (governed loop as one Python API);
 - [x] S351 rule-based reasoning provider;
 - [x] S352 LLM reasoning provider (injected, transport-neutral);
 - [x] S353 execution runtime (ExecutionCommand -> Dry Run -> ExecutionResult);
-- [ ] R4 governance (audit trail, decision replay, provenance, policy,
-      human approval, override, command lifecycle).
+- [x] S354 governed audit trail & decision replay;
+- [x] S355 command lifecycle;
+- [x] S356 authorization policy, approval & override.
 
 # Post-M8 Implementation Roadmap
 
