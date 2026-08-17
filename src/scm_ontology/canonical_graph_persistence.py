@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import re
 from dataclasses import dataclass
 from hashlib import sha256
 from typing import Protocol
@@ -27,6 +28,10 @@ class StoredCanonicalGraph:
 class CanonicalGraphStore(Protocol):
     def save(self, graph_id: str, graph: CanonicalGraph, *, graph_version: str = "1", schema_version: str = "1") -> StoredCanonicalGraph: ...
     def load(self, graph_id: str, *, graph_version: str | None = None) -> CanonicalGraph: ...
+    def list_graph_ids(self) -> tuple[str, ...]: ...
+    def list_versions(self, graph_id: str) -> tuple[str, ...]: ...
+    def list_snapshots(self, graph_id: str) -> tuple[StoredCanonicalGraph, ...]: ...
+    def latest_version(self, graph_id: str) -> str: ...
 
 
 class InMemoryCanonicalGraphStore:
@@ -61,19 +66,45 @@ class InMemoryCanonicalGraphStore:
             _require_identifier(graph_version, "graph_version")
             key = (graph_id, graph_version)
         else:
-            versions = sorted(v for (gid, v) in self._documents if gid == graph_id)
-            if not versions:
-                raise CanonicalGraphPersistenceError("graph_id not found")
-            key = (graph_id, versions[-1])
+            key = (graph_id, self.latest_version(graph_id))
         try:
             stored = self._documents[key]
         except KeyError as exc:
             raise CanonicalGraphPersistenceError("graph version not found") from exc
         return _restore(stored)
 
+    def list_graph_ids(self) -> tuple[str, ...]:
+        return tuple(sorted({graph_id for graph_id, _ in self._documents}))
+
+    def list_versions(self, graph_id: str) -> tuple[str, ...]:
+        _require_identifier(graph_id, "graph_id")
+        versions = tuple(sorted(
+            (version for gid, version in self._documents if gid == graph_id),
+            key=_version_sort_key,
+            reverse=True,
+        ))
+        if not versions:
+            raise CanonicalGraphPersistenceError("graph_id not found")
+        return versions
+
+    def list_snapshots(self, graph_id: str) -> tuple[StoredCanonicalGraph, ...]:
+        versions = self.list_versions(graph_id)
+        return tuple(self._documents[(graph_id, version)] for version in versions)
+
+    def latest_version(self, graph_id: str) -> str:
+        return self.list_versions(graph_id)[0]
+
 
 def graph_identity(graph: CanonicalGraph) -> str:
     return sha256(graph.to_json().encode("utf-8")).hexdigest()
+
+
+def _version_sort_key(version: str) -> tuple[tuple[int, object], ...]:
+    """Sort versions naturally while remaining deterministic for arbitrary strings."""
+    return tuple(
+        (0, int(part)) if part.isdigit() else (1, part)
+        for part in re.findall(r"\d+|\D+", version)
+    )
 
 
 def _restore(stored: StoredCanonicalGraph) -> CanonicalGraph:
