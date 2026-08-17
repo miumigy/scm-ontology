@@ -1,7 +1,7 @@
 
 ## Current phase — SCM OS Runtime (Phase R1–R5)
 
-**Status: Active — S358**
+**Status: Active — S362**
 
 S348 is the first **Runtime Integration** milestone. It binds the S333..S346
 governed cognitive loop into a deterministic, in-memory, side-effect-free
@@ -31,7 +31,7 @@ S354–S356 form Phase R4 (Governance).
 
 S358 is the first Phase R5 application: it resolves on-hand inventory
 into a replenishment decision and, when a reorder is needed, drives it through
-the governed loop to an authorized execution command and dry run. S360 resolves a demand/supply shortage into a procurement decision through the governed loop, and S361 resolves a production requirement against capacity into a scheduling decision. S358–S361 form the first Phase R5 application set.
+the governed loop to an authorized execution command and dry run. S360 resolves a demand/supply shortage into a procurement decision through the governed loop, S361 resolves a production requirement against capacity into a scheduling decision, and S362 resolves a shipment requirement against transportation capacity into a distribution decision. S358–S362 form the first Phase R5 application set across the physical material flow: replenish -> procure -> produce -> distribute.
 
 ### Phase R — SCM OS Runtime
 
@@ -45,6 +45,7 @@ the governed loop to an authorized execution command and dry run. S360 resolves 
 - [x] S358 replenishment decision application;
 - [x] S360 procurement decision application;
 - [x] S361 production decision application;
+- [x] S362 distribution decision application;
 
 # Post-M8 Implementation Roadmap
 
