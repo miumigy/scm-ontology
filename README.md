@@ -25,6 +25,10 @@ This is a **contract-complete** milestone, not a claim that every production con
 **Post-M8 implementation: Machine-Readable Canonical Registry — ACTIVE**
 
 The first implementation slice turns the established semantic registry into a checked-in machine-readable artifact and validates it against the Python canonical model without changing the M8 semantic boundary.
+**SCM OS Runtime (Phase R1) — ACTIVE (S348)**
+
+The first Runtime Integration milestone binds the governed cognitive loop — observations → ReasoningInput → ReasoningOutput → Proposal Validation → Authorization → ExecutionCommand — into a deterministic, in-memory, side-effect-free Python API ([`S348-decision-runtime.md`](docs/S348-decision-runtime.md)). See [`docs/roadmap-post-m8.md`](docs/roadmap-post-m8.md).
+
 
 ## Architecture at a glance
 

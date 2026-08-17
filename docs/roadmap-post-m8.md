@@ -1,3 +1,29 @@
+
+## Current phase — SCM OS Runtime (Phase R1)
+
+**Status: Active — S348**
+
+S348 is the first **Runtime Integration** milestone. It binds the S333..S346
+governed cognitive loop into a deterministic, in-memory, side-effect-free
+Python API (`run_decision_loop`), so the canonical path runs end to end:
+
+```text
+observations -> ReasoningInput -> ReasoningOutput -> ValidatedDecisionProposal
+    -> AuthorizedDecision -> ExecutionCommand
+```
+
+S348 reuses the existing governed contracts and introduces no new canonical
+semantics. A deterministic `MockReasoningProvider` exercises the loop without
+LLM, rule, or optimization backends.
+
+### Phase R — SCM OS Runtime
+
+- [x] S348 SCM Decision Runtime v0 (governed loop as one Python API);
+- [ ] R2 deterministic / rule-based / LLM reasoning providers;
+- [ ] R3 execution runtime (ExecutionCommand -> Dry Run -> ExecutionResult);
+- [ ] R4 governance (audit trail, decision replay, provenance, policy,
+      human approval, override, command lifecycle).
+
 # Post-M8 Implementation Roadmap
 
 M8 completes the semantic and operational contract-definition phase. The next objective is to convert those contracts into a reference implementation and then into SCM business value.
@@ -14,9 +40,10 @@ flowchart LR
     H --> I[Production Operations]
 ```
 
-## Current phase — Canonical Graph runtime
 
-**Status: Active — S332**
+## Canonical Graph runtime (completed — Phase 3/4)
+
+**Status: Completed — S332**
 
 S311–S325 establish the governed Canonical Graph, temporal query, reasoning, evidence, projection, freshness, invalidation, and governed query runtime boundaries.
 

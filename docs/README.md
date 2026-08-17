@@ -24,10 +24,25 @@ This directory is the documentation index for SCM Ontology after **M8 COMPLETE**
 18. [`S330-capacity-constraint.md`](S330-capacity-constraint.md) — canonical capacity constraint business question
 19. [`S331-network-disruption-propagation.md`](S331-network-disruption-propagation.md) — canonical network disruption propagation business question
 20. [`S332-plan-actual-commitment-reconciliation.md`](S332-plan-actual-commitment-reconciliation.md) — canonical plan/actual/commitment reconciliation business question
-21. [`milestones/`](milestones/) — milestone definitions and acceptance reports
-22. [`architecture/`](architecture/) — architecture freezes and governance contracts
-23. [`archive/`](archive/) — historical documentation no longer part of the active documentation surface
-24. [`../AGENTS.md`](../AGENTS.md) — development/agent contract
+21. [`S333-decision-context.md`](S333-decision-context.md) — SCM OS decision context boundary
+22. [`S334-decision-proposal.md`](S334-decision-proposal.md) — SCM OS decision proposal contract
+23. [`S335-reference-canonicalization.md`](S335-reference-canonicalization.md) — reference source-to-canonical boundary
+24. [`S336-reference-scm-os-flow.md`](S336-reference-scm-os-flow.md) — reference end-to-end SCM OS flow
+25. [`S337-graph-projection-boundary.md`](S337-graph-projection-boundary.md) — governed graph projection boundary
+26. [`S338-graph-query-boundary.md`](S338-graph-query-boundary.md) — governed graph query boundary
+27. [`S339-graph-observation-boundary.md`](S339-graph-observation-boundary.md) — graph-to-reasoning observation boundary
+28. [`S340-context-assembly-boundary.md`](S340-context-assembly-boundary.md) — decision context assembly boundary
+29. [`S341-context-readiness-boundary.md`](S341-context-readiness-boundary.md) — decision context readiness boundary
+30. [`S342-reasoning-input-boundary.md`](S342-reasoning-input-boundary.md) — reasoning input boundary
+31. [`S343-reasoning-output-boundary.md`](S343-reasoning-output-boundary.md) — reasoning output boundary
+32. [`S344-proposal-validation-boundary.md`](S344-proposal-validation-boundary.md) — proposal validation boundary
+33. [`S345-decision-authorization-boundary.md`](S345-decision-authorization-boundary.md) — decision authorization boundary
+34. [`S346-execution-command-boundary.md`](S346-execution-command-boundary.md) — execution command boundary
+35. [`S348-decision-runtime.md`](S348-decision-runtime.md) — SCM Decision Runtime v0 (Phase R1)
+36. [`milestones/`](milestones/) — milestone definitions and acceptance reports
+37. [`architecture/`](architecture/) — architecture freezes and governance contracts
+38. [`archive/`](archive/) — historical documentation no longer part of the active documentation surface
+39. [`../AGENTS.md`](../AGENTS.md) — development/agent contract
 
 ## Conceptual architecture
 
@@ -106,8 +121,23 @@ The separation is deliberate: a system may derive a useful answer without changi
 - S330 — Canonical Capacity Constraint Business Question
 - S331 — Canonical Network Disruption Propagation Business Question
 - S332 — Canonical Plan / Actual / Commitment Reconciliation Business Question
+- S333 — SCM OS Decision Context Boundary
+- S334 — SCM OS Decision Proposal Contract
+- S335 — Reference Source-to-Canonical Boundary
+- S336 — Reference End-to-End SCM OS Flow
+- S337 — Governed Graph Projection Boundary
+- S338 — Governed Graph Query Boundary
+- S339 — Graph-to-Reasoning Observation Boundary
+- S340 — Decision Context Assembly Boundary
+- S341 — Decision Context Readiness Boundary
+- S342 — Reasoning Input Boundary
+- S343 — Reasoning Output Boundary
+- S344 — Proposal Validation Boundary
+- S345 — Decision Authorization Boundary
+- S346 — Execution Command Boundary
+- S348 — SCM Decision Runtime v0 (Phase R1)
 
-S321 provides the first explicit evidence requirement at traversal time. S323 carries the same separation into projection state: evidence identifiers are supplied through an external governed mapping and only evidence explicitly consulted by projection code is retained in projection lineage. S324 makes projection lifecycle state observable by comparing the materialized lineage against current graph and projection dependencies. S325 makes the query boundary fail closed unless the requested projection is current and contract-compatible. S326 resolves an inventory position, S327 resolves a demand/supply gap, S328 resolves supplier schedule delay, S329 propagates explicit upstream risk over declared multi-hop dependencies, S330 compares explicit capacity and requirement facts as Phase 4 business-question slices, S331 propagates explicit disruption observations over declared directed dependencies, and S332 reconciles explicit plan, actual, and commitment facts over an exact item/period/unit scope.
+S321 provides the first explicit evidence requirement at traversal time. S323 carries the same separation into projection state: evidence identifiers are supplied through an external governed mapping and only evidence explicitly consulted by projection code is retained in projection lineage. S324 makes projection lifecycle state observable by comparing the materialized lineage against current graph and projection dependencies. S325 makes the query boundary fail closed unless the requested projection is current and contract-compatible. S326 resolves an inventory position, S327 resolves a demand/supply gap, S328 resolves supplier schedule delay, S329 propagates explicit upstream risk over declared multi-hop dependencies, S330 compares explicit capacity and requirement facts as Phase 4 business-question slices, S331 propagates explicit disruption observations over declared directed dependencies, and S332 reconciles explicit plan, actual, and commitment facts over an exact item/period/unit scope. S333 bundles already-canonical observations into an immutable decision context, and S334..S346 compose the governed cognitive loop (context -> reasoning input -> reasoning output -> proposal validation -> authorization -> immutable execution command). S348 binds that loop into a deterministic, side-effect-free Python API (SCM Decision Runtime v0), reusing the S333..S346 contracts without defining new canonical semantics.
 
 ## M8 documentation set
 
