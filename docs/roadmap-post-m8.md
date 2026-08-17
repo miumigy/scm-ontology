@@ -31,7 +31,7 @@ S354–S356 form Phase R4 (Governance).
 
 S358 is the first Phase R5 application: it resolves on-hand inventory
 into a replenishment decision and, when a reorder is needed, drives it through
-the governed loop to an authorized execution command and dry run.
+the governed loop to an authorized execution command and dry run. S360 resolves a demand/supply shortage into a procurement decision through the governed loop, and S361 resolves a production requirement against capacity into a scheduling decision. S358–S361 form the first Phase R5 application set.
 
 ### Phase R — SCM OS Runtime
 
@@ -43,6 +43,8 @@ the governed loop to an authorized execution command and dry run.
 - [x] S355 command lifecycle;
 - [x] S356 authorization policy, approval & override;
 - [x] S358 replenishment decision application;
+- [x] S360 procurement decision application;
+- [x] S361 production decision application;
 
 # Post-M8 Implementation Roadmap
 
