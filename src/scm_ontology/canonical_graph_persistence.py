@@ -15,8 +15,7 @@ class CanonicalGraphPersistenceError(ValueError):
 
 @dataclass(frozen=True)
 class StoredCanonicalGraph:
-    """A persisted graph snapshot with deterministic integrity metadata."""
-
+    """An immutable persisted graph snapshot with deterministic integrity metadata."""
     graph_id: str
     document: str
     graph_version: str = "1"
@@ -26,34 +25,16 @@ class StoredCanonicalGraph:
 
 
 class CanonicalGraphStore(Protocol):
-    """Minimal storage contract; implementations may use any backend."""
-
-    def save(
-        self,
-        graph_id: str,
-        graph: CanonicalGraph,
-        *,
-        graph_version: str = "1",
-        schema_version: str = "1",
-    ) -> StoredCanonicalGraph: ...
-
-    def load(self, graph_id: str) -> CanonicalGraph: ...
+    def save(self, graph_id: str, graph: CanonicalGraph, *, graph_version: str = "1", schema_version: str = "1") -> StoredCanonicalGraph: ...
+    def load(self, graph_id: str, *, graph_version: str | None = None) -> CanonicalGraph: ...
 
 
 class InMemoryCanonicalGraphStore:
-    """Reference store used for tests and lightweight applications."""
-
+    """Reference store with immutable versioned snapshots."""
     def __init__(self) -> None:
-        self._documents: dict[str, StoredCanonicalGraph] = {}
+        self._documents: dict[tuple[str, str], StoredCanonicalGraph] = {}
 
-    def save(
-        self,
-        graph_id: str,
-        graph: CanonicalGraph,
-        *,
-        graph_version: str = "1",
-        schema_version: str = "1",
-    ) -> StoredCanonicalGraph:
+    def save(self, graph_id: str, graph: CanonicalGraph, *, graph_version: str = "1", schema_version: str = "1") -> StoredCanonicalGraph:
         _require_identifier(graph_id, "graph_id")
         _require_identifier(graph_version, "graph_version")
         _require_identifier(schema_version, "schema_version")
@@ -63,44 +44,53 @@ class InMemoryCanonicalGraphStore:
             document = graph.to_json()
         except CanonicalGraphError as exc:
             raise CanonicalGraphPersistenceError(str(exc)) from exc
-        identity = sha256(document.encode("utf-8")).hexdigest()
-        stored = StoredCanonicalGraph(
-            graph_id=graph_id,
-            document=document,
-            graph_version=graph_version,
-            schema_version=schema_version,
-            canonical_identity=identity,
-            payload_integrity=sha256(document.encode("utf-8")).hexdigest(),
-        )
-        self._documents[graph_id] = stored
+        identity = graph_identity(graph)
+        stored = StoredCanonicalGraph(graph_id, document, graph_version, schema_version, identity, identity)
+        key = (graph_id, graph_version)
+        existing = self._documents.get(key)
+        if existing is not None:
+            if existing == stored:
+                return existing
+            raise CanonicalGraphPersistenceError("graph version collision: existing snapshot differs")
+        self._documents[key] = stored
         return stored
 
-    def load(self, graph_id: str) -> CanonicalGraph:
+    def load(self, graph_id: str, *, graph_version: str | None = None) -> CanonicalGraph:
         _require_identifier(graph_id, "graph_id")
+        if graph_version is not None:
+            _require_identifier(graph_version, "graph_version")
+            key = (graph_id, graph_version)
+        else:
+            versions = sorted(v for (gid, v) in self._documents if gid == graph_id)
+            if not versions:
+                raise CanonicalGraphPersistenceError("graph_id not found")
+            key = (graph_id, versions[-1])
         try:
-            stored = self._documents[graph_id]
+            stored = self._documents[key]
         except KeyError as exc:
-            raise CanonicalGraphPersistenceError("graph_id not found") from exc
-        try:
-            actual_integrity = sha256(stored.document.encode("utf-8")).hexdigest()
-            if actual_integrity != stored.payload_integrity:
-                raise CanonicalGraphPersistenceError("stored payload integrity mismatch")
-            if actual_integrity != stored.canonical_identity:
-                raise CanonicalGraphPersistenceError("stored graph identity mismatch")
-            value = json.loads(stored.document)
-            graph = CanonicalGraph.from_mapping(value)
-            if graph_identity(graph) != stored.canonical_identity:
-                raise CanonicalGraphPersistenceError("stored graph identity mismatch")
-            return graph
-        except CanonicalGraphPersistenceError:
-            raise
-        except (ValueError, TypeError, json.JSONDecodeError) as exc:
-            raise CanonicalGraphPersistenceError("stored graph is invalid") from exc
+            raise CanonicalGraphPersistenceError("graph version not found") from exc
+        return _restore(stored)
 
 
 def graph_identity(graph: CanonicalGraph) -> str:
-    """Return the deterministic SHA-256 identity of a canonical graph."""
     return sha256(graph.to_json().encode("utf-8")).hexdigest()
+
+
+def _restore(stored: StoredCanonicalGraph) -> CanonicalGraph:
+    try:
+        actual = sha256(stored.document.encode("utf-8")).hexdigest()
+        if actual != stored.payload_integrity:
+            raise CanonicalGraphPersistenceError("stored payload integrity mismatch")
+        if actual != stored.canonical_identity:
+            raise CanonicalGraphPersistenceError("stored graph identity mismatch")
+        graph = CanonicalGraph.from_mapping(json.loads(stored.document))
+        if graph_identity(graph) != stored.canonical_identity:
+            raise CanonicalGraphPersistenceError("stored graph identity mismatch")
+        return graph
+    except CanonicalGraphPersistenceError:
+        raise
+    except (ValueError, TypeError, json.JSONDecodeError) as exc:
+        raise CanonicalGraphPersistenceError("stored graph is invalid") from exc
 
 
 def _require_identifier(value: str, field: str) -> None:
