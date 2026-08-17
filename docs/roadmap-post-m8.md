@@ -1,7 +1,7 @@
 
-## Current phase — SCM OS Runtime (Phase R1–R2)
+## Current phase — SCM OS Runtime (Phase R1–R3)
 
-**Status: Active — S352**
+**Status: Active — S353**
 
 S348 is the first **Runtime Integration** milestone. It binds the S333..S346
 governed cognitive loop into a deterministic, in-memory, side-effect-free
@@ -18,12 +18,17 @@ LLM, rule, or optimization backends. S351 adds a deterministic rule-based
 provider, and S352 connects an injected, transport-neutral LLM client to the
 same S368 boundary without coupling the ontology to a vendor SDK.
 
+S353 adds the first Execution Runtime milestone: an immutable
+`ExecutionCommand` is processed through a bounded, injected `ExecutionAdapter`
+as a deterministic, side-effect-free dry run, producing a
+`DryRunExecutionResult`.
+
 ### Phase R — SCM OS Runtime
 
 - [x] S348 SCM Decision Runtime v0 (governed loop as one Python API);
 - [x] S351 rule-based reasoning provider;
 - [x] S352 LLM reasoning provider (injected, transport-neutral);
-- [ ] R3 execution runtime (ExecutionCommand -> Dry Run -> ExecutionResult);
+- [x] S353 execution runtime (ExecutionCommand -> Dry Run -> ExecutionResult);
 - [ ] R4 governance (audit trail, decision replay, provenance, policy,
       human approval, override, command lifecycle).
 
