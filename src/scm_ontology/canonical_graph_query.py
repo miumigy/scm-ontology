@@ -67,7 +67,7 @@ def query_canonical_nodes(graph: CanonicalGraph, *, node_type: str | None = None
     relationships = tuple(
         GraphRelationship(r.instance.relationship_id, r.instance.predicate, r.instance.from_id, r.instance.to_id)
         for r in sorted(
-            (r for r in graph.relationships if r.instance.from_id in ids and r.instance.to_id in ids),
+            (r for r in graph.relationships if r.instance.from_id in ids),
             key=lambda r: r.instance.relationship_id,
         )
     )
