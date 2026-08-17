@@ -10,7 +10,7 @@ from dataclasses import dataclass
 from typing import Any
 
 from .decision_context import DecisionObservation
-from .graph_projection import GraphProjection, GraphNode, GraphRelationship
+from .graph_projection import GraphProjection
 from .graph_query import GraphQueryResult
 
 
@@ -55,9 +55,7 @@ def project_query_result_to_observation(
     if not question_id.strip():
         raise GraphReasoningProjectionError("question_id must be non-empty")
 
-    nodes = tuple(
-        sorted(query_result.nodes, key=lambda node: node.node_id)
-    )
+    nodes = tuple(sorted(query_result.nodes, key=lambda node: node.node_id))
     relationships = tuple(
         sorted(query_result.relationships, key=lambda relationship: relationship.relationship_id)
     )
@@ -69,7 +67,7 @@ def project_query_result_to_observation(
         question_id=question_id,
         value=value,
         evidence_ids=evidence_ids,
-        provenance_ids=provenance_ids,
+        provenance_ids=tuple(provenance_ids) + query_result.provenance_ids,
     )
 
 
