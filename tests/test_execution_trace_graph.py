@@ -5,6 +5,8 @@ import pytest
 from scm_ontology.execution_trace import ExecutionTrace
 from scm_ontology.execution_trace_graph import (
     ExecutionTraceGraphProjectionError,
+    ExecutionTracePredicate,
+    execution_trace_relationships,
     execution_trace_to_graph,
 )
 
@@ -28,20 +30,28 @@ def trace():
 def test_trace_projects_to_deterministic_canonical_nodes():
     result = execution_trace_to_graph(trace())
     assert [node.node_id for node in result.nodes] == [
-        "ctx-1",
-        "proposal:cmd-1",
-        "command:cmd-1",
-        "outcome:cmd-1",
-        "cmd-1",
+        "ctx-1", "proposal:cmd-1", "command:cmd-1", "outcome:cmd-1", "cmd-1",
     ]
     assert [node.node_type for node in result.nodes] == [
-        "DecisionContext",
-        "DecisionProposal",
-        "ExecutionCommand",
-        "ExecutionOutcome",
-        "CanonicalEvent",
+        "DecisionContext", "DecisionProposal", "ExecutionCommand", "ExecutionOutcome", "CanonicalEvent",
     ]
-    assert result.to_mapping()["relationships"] == []
+
+
+def test_relationships_have_explicit_semantics_and_deterministic_identity():
+    relationships = execution_trace_relationships(trace())
+    assert [(r.instance.from_id, r.instance.predicate, r.instance.to_id) for r in relationships] == [
+        ("ctx-1", ExecutionTracePredicate.HAS_PROPOSAL, "proposal:cmd-1"),
+        ("proposal:cmd-1", ExecutionTracePredicate.AUTHORIZED_AS, "command:cmd-1"),
+        ("command:cmd-1", ExecutionTracePredicate.RESULTED_IN, "outcome:cmd-1"),
+        ("outcome:cmd-1", ExecutionTracePredicate.RECORDED_BY, "cmd-1"),
+    ]
+    assert [r.instance.relationship_id for r in relationships] == [
+        "has_proposal:ctx-1:proposal:cmd-1",
+        "authorized_as:proposal:cmd-1:command:cmd-1",
+        "resulted_in:command:cmd-1:outcome:cmd-1",
+        "recorded_by:outcome:cmd-1:cmd-1",
+    ]
+    assert execution_trace_to_graph(trace()).relationships == relationships
 
 
 def test_projection_is_read_only_and_trace_remains_immutable():
@@ -56,3 +66,5 @@ def test_projection_is_read_only_and_trace_remains_immutable():
 def test_projection_rejects_non_trace_input():
     with pytest.raises(ExecutionTraceGraphProjectionError):
         execution_trace_to_graph(object())
+    with pytest.raises(ExecutionTraceGraphProjectionError):
+        execution_trace_relationships(object())
