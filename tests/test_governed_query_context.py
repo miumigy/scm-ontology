@@ -16,8 +16,14 @@ def trace():
     from scm_ontology.execution_trace import ExecutionTrace
     return ExecutionTrace(
         context_id="ctx-1",
+        proposal="replenish",
+        actor_id="actor-1",
+        authority="planner",
         command_id="cmd-1",
+        command_type="replenishment",
+        outcome_status="accepted",
         event_id="evt-1",
+        event_type="execution_outcome_recorded",
         evidence_ids=("e2", "e1"),
         provenance_ids=("p2", "p1"),
     )
