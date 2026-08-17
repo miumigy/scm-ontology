@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import re
 from dataclasses import dataclass
 from hashlib import sha256
 from typing import Protocol
@@ -77,7 +78,11 @@ class InMemoryCanonicalGraphStore:
 
     def list_versions(self, graph_id: str) -> tuple[str, ...]:
         _require_identifier(graph_id, "graph_id")
-        versions = tuple(sorted((version for gid, version in self._documents if gid == graph_id), reverse=True))
+        versions = tuple(sorted(
+            (version for gid, version in self._documents if gid == graph_id),
+            key=_version_sort_key,
+            reverse=True,
+        ))
         if not versions:
             raise CanonicalGraphPersistenceError("graph_id not found")
         return versions
@@ -92,6 +97,14 @@ class InMemoryCanonicalGraphStore:
 
 def graph_identity(graph: CanonicalGraph) -> str:
     return sha256(graph.to_json().encode("utf-8")).hexdigest()
+
+
+def _version_sort_key(version: str) -> tuple[tuple[int, object], ...]:
+    """Sort versions naturally while remaining deterministic for arbitrary strings."""
+    return tuple(
+        (0, int(part)) if part.isdigit() else (1, part)
+        for part in re.findall(r"\d+|\D+", version)
+    )
 
 
 def _restore(stored: StoredCanonicalGraph) -> CanonicalGraph:
