@@ -27,6 +27,10 @@ class StoredCanonicalGraph:
 class CanonicalGraphStore(Protocol):
     def save(self, graph_id: str, graph: CanonicalGraph, *, graph_version: str = "1", schema_version: str = "1") -> StoredCanonicalGraph: ...
     def load(self, graph_id: str, *, graph_version: str | None = None) -> CanonicalGraph: ...
+    def list_graph_ids(self) -> tuple[str, ...]: ...
+    def list_versions(self, graph_id: str) -> tuple[str, ...]: ...
+    def list_snapshots(self, graph_id: str) -> tuple[StoredCanonicalGraph, ...]: ...
+    def latest_version(self, graph_id: str) -> str: ...
 
 
 class InMemoryCanonicalGraphStore:
@@ -61,15 +65,29 @@ class InMemoryCanonicalGraphStore:
             _require_identifier(graph_version, "graph_version")
             key = (graph_id, graph_version)
         else:
-            versions = sorted(v for (gid, v) in self._documents if gid == graph_id)
-            if not versions:
-                raise CanonicalGraphPersistenceError("graph_id not found")
-            key = (graph_id, versions[-1])
+            key = (graph_id, self.latest_version(graph_id))
         try:
             stored = self._documents[key]
         except KeyError as exc:
             raise CanonicalGraphPersistenceError("graph version not found") from exc
         return _restore(stored)
+
+    def list_graph_ids(self) -> tuple[str, ...]:
+        return tuple(sorted({graph_id for graph_id, _ in self._documents}))
+
+    def list_versions(self, graph_id: str) -> tuple[str, ...]:
+        _require_identifier(graph_id, "graph_id")
+        versions = tuple(sorted((version for gid, version in self._documents if gid == graph_id), reverse=True))
+        if not versions:
+            raise CanonicalGraphPersistenceError("graph_id not found")
+        return versions
+
+    def list_snapshots(self, graph_id: str) -> tuple[StoredCanonicalGraph, ...]:
+        versions = self.list_versions(graph_id)
+        return tuple(self._documents[(graph_id, version)] for version in versions)
+
+    def latest_version(self, graph_id: str) -> str:
+        return self.list_versions(graph_id)[0]
 
 
 def graph_identity(graph: CanonicalGraph) -> str:
