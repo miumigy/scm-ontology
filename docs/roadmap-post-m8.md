@@ -1,7 +1,7 @@
 
 ## Current phase — SCM OS Runtime (Phase R1–R5)
 
-**Status: Active — S362**
+**Status: Active — S363**
 
 S348 is the first **Runtime Integration** milestone. It binds the S333..S346
 governed cognitive loop into a deterministic, in-memory, side-effect-free
@@ -31,7 +31,7 @@ S354–S356 form Phase R4 (Governance).
 
 S358 is the first Phase R5 application: it resolves on-hand inventory
 into a replenishment decision and, when a reorder is needed, drives it through
-the governed loop to an authorized execution command and dry run. S360 resolves a demand/supply shortage into a procurement decision through the governed loop, S361 resolves a production requirement against capacity into a scheduling decision, and S362 resolves a shipment requirement against transportation capacity into a distribution decision. S358–S362 form the first Phase R5 application set across the physical material flow: replenish -> procure -> produce -> distribute.
+the governed loop to an authorized execution command and dry run. S360 resolves a demand/supply shortage into a procurement decision through the governed loop, S361 resolves a production requirement against capacity into a scheduling decision, and S362 resolves a shipment requirement against transportation capacity into a distribution decision. S358–S362 form the first Phase R5 application set across the physical material flow: replenish -> procure -> produce -> distribute. S363 is the first Phase 5 slice: it composes those four governed applications into a bounded, multi-period, multi-decision simulation, running each step through the S348 governed loop with an S353 dry run in a deterministic, side-effect-free run.
 
 ### Phase R — SCM OS Runtime
 
@@ -113,6 +113,14 @@ S332 reconciles explicit plan, actual, and commitment facts by exact item/period
 ### Phase 5 — SCM OS integration
 
 Connect the semantic layer to planning, simulation, optimization, visualization, and operational workflows while preserving the M8 boundary between derived decisions and Canonical Truth.
+
+S363 composes the Phase R5 applications into a governed, multi-step simulation. It reuses the S348 governed loop, the S351 rule-based provider, and the S353 execution runtime for every step, introduces no new canonical semantics, and performs no external side effect.
+
+### Phase 5 — checklist
+
+- [x] S363 governed simulation application (multi-period, multi-decision);
+- [ ] planning/optimization integration;
+- [ ] visualization & operational workflow integration;
 
 ## Selection principle
 
