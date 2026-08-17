@@ -1,7 +1,7 @@
 
-## Current phase — SCM OS Runtime (Phase R1–R4)
+## Current phase — SCM OS Runtime (Phase R1–R5)
 
-**Status: Active — S356**
+**Status: Active — S358**
 
 S348 is the first **Runtime Integration** milestone. It binds the S333..S346
 governed cognitive loop into a deterministic, in-memory, side-effect-free
@@ -29,6 +29,10 @@ an immutable, governed state machine. S356 applies the fail-closed
 authorization policy, human-approval, and senior-override gates. Together
 S354–S356 form Phase R4 (Governance).
 
+S358 is the first Phase R5 application: it resolves on-hand inventory
+into a replenishment decision and, when a reorder is needed, drives it through
+the governed loop to an authorized execution command and dry run.
+
 ### Phase R — SCM OS Runtime
 
 - [x] S348 SCM Decision Runtime v0 (governed loop as one Python API);
@@ -37,7 +41,8 @@ S354–S356 form Phase R4 (Governance).
 - [x] S353 execution runtime (ExecutionCommand -> Dry Run -> ExecutionResult);
 - [x] S354 governed audit trail & decision replay;
 - [x] S355 command lifecycle;
-- [x] S356 authorization policy, approval & override.
+- [x] S356 authorization policy, approval & override;
+- [x] S358 replenishment decision application;
 
 # Post-M8 Implementation Roadmap
 
