@@ -42,10 +42,13 @@ This directory is the documentation index for SCM Ontology after **M8 COMPLETE**
 36. [`S351-rule-reasoning-provider.md`](S351-rule-reasoning-provider.md) — rule-based reasoning provider (Phase R2)
 37. [`S352-llm-reasoning-provider.md`](S352-llm-reasoning-provider.md) — LLM reasoning provider (Phase R2)
 38. [`S353-execution-runtime.md`](S353-execution-runtime.md) — SCM Execution Runtime v0 (Phase R3)
-39. [`milestones/`](milestones/) — milestone definitions and acceptance reports
-40. [`architecture/`](architecture/) — architecture freezes and governance contracts
-41. [`archive/`](archive/) — historical documentation no longer part of the active documentation surface
-42. [`../AGENTS.md`](../AGENTS.md) — development/agent contract
+39. [`S354-governed-audit.md`](S354-governed-audit.md) — governed decision audit trail & replay (Phase R4)
+40. [`S355-command-lifecycle.md`](S355-command-lifecycle.md) — command lifecycle (Phase R4)
+41. [`S356-authorization-governance.md`](S356-authorization-governance.md) — authorization policy, approval & override (Phase R4)
+42. [`milestones/`](milestones/) — milestone definitions and acceptance reports
+43. [`architecture/`](architecture/) — architecture freezes and governance contracts
+44. [`archive/`](archive/) — historical documentation no longer part of the active documentation surface
+45. [`../AGENTS.md`](../AGENTS.md) — development/agent contract
 
 ## Conceptual architecture
 
@@ -142,8 +145,12 @@ The separation is deliberate: a system may derive a useful answer without changi
 - S351 — Rule-Based Reasoning Provider (Phase R2)
 - S352 — LLM Reasoning Provider (Phase R2)
 - S353 — SCM Execution Runtime v0 (Phase R3)
+- S354 — Governed Decision Audit Trail & Replay (Phase R4)
+- S355 — Command Lifecycle (Phase R4)
+- S356 — Authorization Policy, Approval & Override (Phase R4)
 
 S321 provides the first explicit evidence requirement at traversal time. S323 carries the same separation into projection state: evidence identifiers are supplied through an external governed mapping and only evidence explicitly consulted by projection code is retained in projection lineage. S324 makes projection lifecycle state observable by comparing the materialized lineage against current graph and projection dependencies. S325 makes the query boundary fail closed unless the requested projection is current and contract-compatible. S326 resolves an inventory position, S327 resolves a demand/supply gap, S328 resolves supplier schedule delay, S329 propagates explicit upstream risk over declared multi-hop dependencies, S330 compares explicit capacity and requirement facts as Phase 4 business-question slices, S331 propagates explicit disruption observations over declared directed dependencies, and S332 reconciles explicit plan, actual, and commitment facts over an exact item/period/unit scope. S333 bundles already-canonical observations into an immutable decision context, and S334..S346 compose the governed cognitive loop (context -> reasoning input -> reasoning output -> proposal validation -> authorization -> immutable execution command). S348 binds that loop into a deterministic, side-effect-free Python API (SCM Decision Runtime v0), reusing the S333..S346 contracts without defining new canonical semantics. S351 implements the S368 provider boundary with a deterministic rule engine, and S352 connects an injected, transport-neutral LLM client to the same boundary without coupling the ontology to a vendor SDK. Both families run through the S348 governed loop. S353 processes an immutable ExecutionCommand through a bounded, injected ExecutionAdapter as a deterministic, side-effect-free dry run, returning an immutable DryRunExecutionResult.
+ S354 records a governed decision as a content-addressed audit entry and replays the deterministic governed chain to prove reproducibility. S355 tracks the command lifecycle as an immutable, governed state machine. S356 provides the fail-closed authorization policy, human-approval, and senior-override gates. S354–S356 form Phase R4 (Governance).
 
 ## M8 documentation set
 
