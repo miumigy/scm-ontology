@@ -50,6 +50,8 @@ def build_execution_command(
     command_id: str,
 ) -> ExecutionCommand:
     """Build an immutable command from an authorized decision only."""
+    if not isinstance(decision, AuthorizedDecision):
+        raise ExecutionCommandError("decision must be an AuthorizedDecision")
     return ExecutionCommand(
         decision=decision,
         command_type=command_type,
