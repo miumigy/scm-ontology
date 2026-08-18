@@ -2,7 +2,7 @@
 
 ## Current phase
 
-**Phase 7 — SCM OS Real Data Plane: IN PROGRESS (P7-A, P7-B & P7-C complete).**
+**Phase 7 — SCM OS Real Data Plane: IN PROGRESS (P7-A–P7-D complete).**
 
 The SCM OS reference platform moves from in-memory fixtures toward
 heterogeneous enterprise data while preserving the Canonical Truth boundary.
@@ -17,7 +17,7 @@ See `docs/P7A-reference-data-adapter.md`. The **P7-B Mapping/Canonicalization
 Runtime** (`src/scm_ontology/mapping_canonicalization_runtime.py`) consumes that
 evidence and emits S262-compatible, deterministic `CanonicalizationResult`
 records (entity/attribute/predicate mapping per S256/S257/S258, S255 semantic-gap
-classification, `canonical_mutation = False`). See `docs/P7B-mapping-canonicalization.md`. The **P7-C Identity Resolution Runtime** (`src/scm_ontology/identity_resolution_runtime.py`) decides whether distinct source identities refer to the same Canonical Entity with deterministic, governed conflict handling (S279/S280/S288/S290/S297), preserving source identity, provenance, evidence, and append-only decisions. See `docs/P7C-identity-resolution-runtime.md`.
+classification, `canonical_mutation = False`). See `docs/P7B-mapping-canonicalization.md`. The **P7-C Identity Resolution Runtime** (`src/scm_ontology/identity_resolution_runtime.py`) decides whether distinct source identities refer to the same Canonical Entity with deterministic, governed conflict handling (S279/S280/S288/S290/S297), preserving source identity, provenance, evidence, and append-only decisions. See `docs/P7C-identity-resolution-runtime.md`. The **P7-D Data Quality / Freshness Gate** (`src/scm_ontology/data_quality_gate.py`) validates completeness, freshness, scope, unit, and provenance of `SourceEvidence` before canonicalization (fail closed, read-only). See `docs/P7D-data-quality-gate.md`.
 
 Phase 6 (previous):
 
@@ -40,8 +40,8 @@ SCM OS integration through S366.
 toward heterogeneous enterprise data while preserving the Canonical Truth
 boundary. Per `docs/roadmap-post-m8.md`, P7-A (Reference Data Adapter),
 P7-B (Mapping/Canonicalization Runtime), and P7-C (Identity Resolution Runtime)
-are complete. The next slice is **P7-D — Data Quality / Freshness Gate**,
-followed by P7-E (Multi-source Reference Dataset), and P7-F (Phase 7 acceptance).
+are complete. The next slice is **P7-E — Multi-source Reference Dataset**,
+followed by P7-F (Phase 7 acceptance).
 
 ## Guardrails (still in force)
 

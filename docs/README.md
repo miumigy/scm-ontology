@@ -62,9 +62,10 @@ This directory is the documentation index for SCM Ontology after **M8 COMPLETE**
 56. [`P7A-reference-data-adapter.md`](P7A-reference-data-adapter.md) — Reference Data Adapter (Phase 7 P7-A)
 57. [`P7B-mapping-canonicalization.md`](P7B-mapping-canonicalization.md) — Mapping/Canonicalization Runtime (Phase 7 P7-B)
 58. [`P7C-identity-resolution-runtime.md`](P7C-identity-resolution-runtime.md) — Identity Resolution Runtime (Phase 7 P7-C)
-59. [`milestones/`](milestones/) — milestone definitions and acceptance reports
-60. [`architecture/`](architecture/) — architecture freezes and governance contracts
-61. [`archive/`](archive/) — historical documentation no longer part of the active documentation surface
+59. [`P7D-data-quality-gate.md`](P7D-data-quality-gate.md) — Data Quality / Freshness Gate (Phase 7 P7-D)
+60. [`milestones/`](milestones/) — milestone definitions and acceptance reports
+61. [`architecture/`](architecture/) — architecture freezes and governance contracts
+62. [`archive/`](archive/) — historical documentation no longer part of the active documentation surface
 
 ## Conceptual architecture
 
