@@ -57,9 +57,10 @@ This directory is the documentation index for SCM Ontology after **M8 COMPLETE**
 51. [`P6B-decision-inbox.md`](P6B-decision-inbox.md) — Decision Inbox (Phase 6 P6-B)
 52. [`P6C-sim-optim-workspace.md`](P6C-sim-optim-workspace.md) — Simulation/Optimization Workspace (Phase 6 P6-C)
 53. [`P6D-exec-workflow-workspace.md`](P6D-exec-workflow-workspace.md) — Execution Workflow Workspace (Phase 6 P6-D)
-54. [`milestones/`](milestones/) — milestone definitions and acceptance reports
-55. [`architecture/`](architecture/) — architecture freezes and governance contracts
-56. [`archive/`](archive/) — historical documentation no longer part of the active documentation surface
+54. [`P6E-control-plane-e2e.md`](P6E-control-plane-e2e.md) — Control Plane E2E (Phase 6 P6-E)
+55. [`milestones/`](milestones/) — milestone definitions and acceptance reports
+56. [`architecture/`](architecture/) — architecture freezes and governance contracts
+57. [`archive/`](archive/) — historical documentation no longer part of the active documentation surface
 53. [`../AGENTS.md`](../AGENTS.md) — development/agent contract
 
 ## Conceptual architecture
