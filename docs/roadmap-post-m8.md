@@ -21,7 +21,7 @@ flowchart LR
 
 S348–S356 established the deterministic governed decision/runtime foundation. S358–S362 established applications across the physical material flow: replenish -> procure -> produce -> distribute. S363 established governed multi-period simulation. S364 established deterministic replenishment planning/optimization. S365 extended planning/optimization to procurement, production, and distribution. S366 established the operational workflow/reporting slice by composing governed audit and command lifecycle behavior.
 
-The next milestone is **Phase 6: SCM OS Control Plane**. P6-A (SCM OS Cockpit v0), P6-B (Decision Inbox), P6-C (Simulation / Optimization Workspace), P6-D (Execution Workflow Workspace), and P6-E (Control Plane E2E, one deterministic workflow traversing State -> Decision -> Simulation/Plan -> Authorization -> Workflow -> Audit) are implemented; the remaining slice is P6-F (Phase 6 acceptance).
+**Phase 6 (SCM OS Control Plane) — COMPLETE.** P6-A (Cockpit v0), P6-B (Decision Inbox), P6-C (Simulation/Optimization Workspace), P6-D (Execution Workflow Workspace), P6-E (Control Plane E2E), and P6-F (Phase 6 acceptance covering all surfaces) are implemented and merged. The next milestone is **Phase 7: SCM OS Real Data Plane**.
 
 ---
 
@@ -56,7 +56,7 @@ Audit / Governance
 - [x] **P6-C — Simulation / Optimization Workspace**: launch and inspect deterministic scenarios and plans from the same control plane;
 - [x] **P6-D — Execution Workflow Workspace**: inspect command lifecycle, dry-run results, approval gates, and audit trail;
 - [x] **P6-E — Control Plane E2E**: one deterministic user workflow traverses State → Decision → Simulation/Plan → Authorization → Workflow → Audit;
-- [ ] **P6-F — Phase 6 acceptance**: the major existing runtime capabilities are discoverable and operable from one coherent SCM OS surface.
+- [x] **P6-F — Phase 6 acceptance**: the major existing runtime capabilities are discoverable and operable from one coherent SCM OS surface.
 
 ### Design rule
 
