@@ -61,6 +61,28 @@ post_m8_implementation:
     status: planned
     priority: P2
 
+
+phase6_scm_os_control_plane:
+  - id: p6a-scm-os-cockpit
+    status: active
+    priority: P0
+    note: "SCM OS Cockpit v0 - minimal read-only web control plane"
+  - id: p6b-decision-inbox
+    status: planned
+    priority: P1
+  - id: p6c-simulation-optimization-workspace
+    status: planned
+    priority: P1
+  - id: p6d-execution-workflow-workspace
+    status: planned
+    priority: P1
+  - id: p6e-control-plane-e2e
+    status: planned
+    priority: P1
+  - id: p6f-phase6-acceptance
+    status: planned
+    priority: P2
+
 legacy_backlog:
   - id: neo4j-loader
     status: planned
