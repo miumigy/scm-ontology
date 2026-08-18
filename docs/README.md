@@ -67,8 +67,8 @@ This directory is the documentation index for SCM Ontology after **M8 COMPLETE**
 61. [`P7F-phase7-acceptance.md`](P7F-phase7-acceptance.md) — Phase 7 Acceptance (P7-F)
 62. [`P8A-persistent-graph-contract.md`](P8A-persistent-graph-contract.md) — Persistent Graph Contract (Phase 8 P8-A)
 OLD_MILESTONES — milestone definitions and acceptance reports
-65. [`architecture/`](architecture/) — architecture freezes and governance contracts
-66. [`archive/`](archive/) — historical documentation no longer part of the active documentation surface
+66. [`architecture/`](architecture/) — architecture freezes and governance contracts
+67. [`archive/`](archive/) — historical documentation no longer part of the active documentation surface
 
 ## Conceptual architecture
 

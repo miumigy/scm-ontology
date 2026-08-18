@@ -1,0 +1,256 @@
+"""P8-C Neo4j Reference Backend (Phase 8, SCM OS Persistent Graph).
+
+P8-C is the *graph-backed* sibling of the P8-B relational backend. It implements
+the same interchangeable ``PersistentGraphBackend`` interface over the P8-A
+``PersistedGraphDocument`` contract, so P8-F can prove that InMemory, relational,
+and graph backends produce equivalent canonical/query semantics.
+
+The semantic core does **not** import the Neo4j driver. The application injects
+two transport callables -- ``execute`` for writes (MERGE statements) and
+``query`` for reads (RETURN statements) -- so driver/session/transaction
+lifecycle stays outside the ontology (a test double provides an in-memory
+"Neo4j" for deterministic tests).
+
+Neo4j data model (graph-shaped, provenance as relationships):
+
+    (:CanonicalPersistenceDocument {document_digest, scope, canonical_digest})
+    (:CanonicalPersistenceElement {document_digest, position, element_id,
+                                   kind, payload, effective_at, valid_to,
+                                   observed_at})
+    (:CanonicalPersistenceElement)-[:HAS_PROVENANCE {observed_at, metadata}]->(:CanonicalProvenance {source_ref})
+
+Guarantees mirror P8-B: deterministic, content-addressed, idempotent write,
+fail-closed digest validation, and byte-identical ``write -> read`` round-trip.
+"""
+from __future__ import annotations
+
+from typing import Any, Callable, Mapping
+
+from .persistent_graph_contract import (
+    PersistedElement,
+    PersistedGraphDocument,
+    document_from_mapping,
+)
+from .relational_graph_backend import PersistentGraphBackendError
+
+
+class Neo4jGraphBackendError(PersistentGraphBackendError):
+    """Raised when a Neo4j persistence operation cannot complete safely."""
+    pass
+
+
+StatementExecutor = Callable[[str, Mapping[str, Any]], None]
+RowQuery = Callable[[str, Mapping[str, Any]], tuple[tuple[Any, ...], ...]]
+
+
+class Neo4jGraphBackend:
+    """Graph-backed reference backend conforming to the P8-B interchange contract.
+
+    ``execute`` issues Cypher writes; ``query`` returns a tuple of rows for read
+    statements. Both are injected so no database driver is imported by the
+    semantic core.
+    """
+
+    def __init__(self, execute: StatementExecutor, query: RowQuery) -> None:
+        self._execute = execute
+        self._query = query
+
+    # ---- writes ----------------------------------------------------------
+
+    def write(self, document: PersistedGraphDocument) -> PersistedGraphDocument:
+        if not isinstance(document, PersistedGraphDocument):
+            raise Neo4jGraphBackendError("document must be a PersistedGraphDocument")
+        if not document.document_digest:
+            raise Neo4jGraphBackendError("document_digest must be non-empty")
+
+        # content-addressed integrity: recompute the document digest (deterministic)
+        recomputed = document_from_mapping(document.to_mapping())
+        if recomputed.document_digest != document.document_digest:
+            raise Neo4jGraphBackendError("document digest mismatch")
+
+        if self.contains(document.document_digest):
+            return self.read(document.document_digest)
+
+        self._execute(
+            """
+            MERGE (d:CanonicalDocument {document_digest: $digest})
+            SET d.scope = $scope, d.canonical_digest = $canonical_digest
+            """,
+            {"digest": document.document_digest, "scope": document.scope,
+             "canonical_digest": document.canonical_digest},
+        )
+        for position, el in enumerate(document.elements):
+            self._execute(
+                """MERGE (e:CanonicalElement {document_digest: $digest, element_id: $element_id})
+                   SET e.position = $position, e.kind = $kind, e.payload = $payload,
+                       e.effective_at = $effective_at, e.valid_to = $valid_to, e.observed_at = $observed_at
+                """,
+                {"digest": document.document_digest, "element_id": el.element_id,
+                 "position": position, "kind": el.kind, "payload": _dumps(el.payload),
+                 "effective_at": el.effective_at, "valid_to": el.valid_to, "observed_at": el.observed_at},
+            )
+            for ref in el.provenance:
+                self._execute(
+                    """MATCH (e:CanonicalElement {document_digest: $digest, element_id: $element_id})
+                       MERGE (p:CanonicalProvenance {source_ref: $source_ref})
+                       SET p.observed_at = $observed_at, p.metadata = $metadata
+                       MERGE (e)-[hp:HAS_PROVENANCE]->(p)
+                       SET hp.observed_at = $observed_at, hp.source_ref = $source_ref, hp.metadata = $metadata
+                    """,
+                    {"digest": document.document_digest, "element_id": el.element_id,
+                     "source_ref": ref.source_ref, "observed_at": ref.observed_at,
+                     "metadata": _dumps(ref.metadata) if ref.metadata else None},
+                )
+        return self.read(document.document_digest)
+
+    # ---- reads -----------------------------------------------------------
+
+    def read(self, document_digest: str) -> PersistedGraphDocument:
+        doc_rows = self._query(
+            "MATCH (d:CanonicalDocument {document_digest: $digest}) "
+            "RETURN d.scope, d.canonical_digest",
+            {"digest": document_digest},
+        )
+        if not doc_rows:
+            raise Neo4jGraphBackendError("document_digest not found")
+        if len(doc_rows) > 1:
+            raise Neo4jGraphBackendError("duplicate document present in backend")
+        scope, canonical_digest = doc_rows[0]
+
+        el_rows = self._query(
+            "MATCH (e:CanonicalElement {document_digest: $digest}) "
+            "RETURN e.element_id, e.kind, e.payload, e.effective_at, e.valid_to, e.observed_at "
+            "ORDER BY e.position",
+            {"digest": document_digest},
+        )
+        prov_rows = self._query(
+            "MATCH (e:CanonicalElement {document_digest: $digest})-[hp:HAS_PROVENANCE]->(p:CanonicalProvenance) "
+            "RETURN e.element_id, hp.source_ref, hp.observed_at, hp.metadata "
+            "ORDER BY e.element_id, hp.source_ref",
+            {"digest": document_digest},
+        )
+        provenance_by_element: dict[str, list[dict[str, Any]]] = {}
+        for element_id, source_ref, observed_at, metadata in prov_rows:
+            provenance_by_element.setdefault(element_id, []).append(
+                {"source_ref": source_ref, "observed_at": observed_at, "metadata": metadata}
+            )
+
+        elements: list[PersistedElement] = []
+        for element_id, kind, payload, effective_at, valid_to, observed_at in el_rows:
+            elements.append(
+                PersistedElement(
+                    kind=kind,
+                    element_id=element_id,
+                    payload=_loads(payload),
+                    effective_at=effective_at,
+                    valid_to=valid_to,
+                    observed_at=observed_at,
+                    provenance=_refs(provenance_by_element.get(element_id, [])),
+                )
+            )
+
+        mapping = {
+            "scope": scope,
+            "canonical_digest": canonical_digest,
+            "elements": [_el_mapping(el) for el in elements],
+        }
+        return document_from_mapping(mapping)
+
+    # ---- queries ---------------------------------------------------------
+
+    def contains(self, document_digest: str) -> bool:
+        rows = self._query(
+            "MATCH (d:CanonicalDocument {document_digest: $digest}) RETURN d.document_digest",
+            {"digest": document_digest},
+        )
+        return bool(rows)
+
+    def list_document_digests(self) -> tuple[str, ...]:
+        rows = self._query(
+            "MATCH (d:CanonicalDocument) RETURN d.document_digest ORDER BY d.document_digest",
+            {},
+        )
+        return tuple(row[0] for row in rows)
+
+    def element_count(self, document_digest: str) -> int:
+        rows = self._query(
+            "MATCH (e:CanonicalElement {document_digest: $digest}) RETURN count(e)",
+            {"digest": document_digest},
+        )
+        return int(rows[0][0]) if rows else 0
+
+    def elements_of_kind(self, document_digest: str, kind: str) -> tuple[PersistedElement, ...]:
+        el_rows = self._query(
+            "MATCH (e:CanonicalElement {document_digest: $digest, kind: $kind}) "
+            "RETURN e.element_id, e.kind, e.payload, e.effective_at, e.valid_to, e.observed_at "
+            "ORDER BY e.position",
+            {"digest": document_digest, "kind": kind},
+        )
+        if not el_rows:
+            return ()
+        prov_rows = self._query(
+            "MATCH (e:CanonicalElement {document_digest: $digest, kind: $kind})-[hp:HAS_PROVENANCE]->(p:CanonicalProvenance) "
+            "RETURN e.element_id, hp.source_ref, hp.observed_at, hp.metadata "
+            "ORDER BY e.element_id, hp.source_ref",
+            {"digest": document_digest, "kind": kind},
+        )
+        provenance_by_element: dict[str, list[dict[str, Any]]] = {}
+        for element_id, source_ref, observed_at, metadata in prov_rows:
+            provenance_by_element.setdefault(element_id, []).append(
+                {"source_ref": source_ref, "observed_at": observed_at, "metadata": metadata}
+            )
+        return tuple(
+            PersistedElement(
+                kind=kind,
+                element_id=element_id,
+                payload=_loads(payload),
+                effective_at=effective_at,
+                valid_to=valid_to,
+                observed_at=observed_at,
+                provenance=_refs(provenance_by_element.get(element_id, [])),
+            )
+            for element_id, kind, payload, effective_at, valid_to, observed_at in el_rows
+        )
+
+
+def _dumps(value: Mapping[str, Any]) -> str:
+    import json
+
+    return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+
+
+def _loads(value: Any) -> Mapping[str, Any]:
+    import json
+
+    if isinstance(value, str):
+        return json.loads(value)
+    return dict(value)
+
+
+def _refs(rows: list[dict[str, Any]]) -> tuple:
+    from .evidence_provenance import EvidenceRef
+
+    return tuple(
+        EvidenceRef(
+            source_ref=r["source_ref"],
+            observed_at=r.get("observed_at"),
+            metadata=_loads(r["metadata"]) if r.get("metadata") else {},
+        )
+        for r in rows
+    )
+
+
+def _el_mapping(el: PersistedElement) -> dict[str, Any]:
+    result: dict[str, Any] = {"kind": el.kind, "element_id": el.element_id, "payload": dict(el.payload)}
+    if el.effective_at is not None:
+        result["effective_at"] = el.effective_at
+    if el.valid_to is not None:
+        result["valid_to"] = el.valid_to
+    if el.observed_at is not None:
+        result["observed_at"] = el.observed_at
+    if el.provenance:
+        result["provenance"] = [
+            dict({"source_ref": ref.source_ref}, **({"observed_at": ref.observed_at} if ref.observed_at is not None else {}), **({"metadata": dict(ref.metadata)} if ref.metadata else {}))
+            for ref in el.provenance
+        ]
+    return result
