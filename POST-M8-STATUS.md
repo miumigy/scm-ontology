@@ -2,7 +2,20 @@
 
 ## Current phase
 
-**Phase 6 — SCM OS Control Plane: COMPLETE.**
+**Phase 7 — SCM OS Real Data Plane: IN PROGRESS (P7-A complete).**
+
+The SCM OS reference platform moves from in-memory fixtures toward
+heterogeneous enterprise data while preserving the Canonical Truth boundary.
+The first slice implements a **Reference Data Adapter** (P7-A): portable
+CSV/JSON/SQL source adapters
+(`src/scm_ontology/reference_data_adapter.py`) that turn arbitrary enterprise
+representations into immutable, provenance-bearing `SourceEvidence` records.
+All adapters are fail-closed, carry field-level `EvidenceRef` provenance, carry
+an explicit `SourceManifest` (source system, adapter/mapping versions, scope,
+extraction time), and never map, resolve identity, or mutate Canonical Truth.
+See `docs/P7A-reference-data-adapter.md`.
+
+Phase 6 (previous):
 
 The SCM OS reference capabilities are now discoverable and operable from one
 coherent control-plane surface. Merged slices (PR #395–#400):

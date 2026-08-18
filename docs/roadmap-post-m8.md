@@ -23,7 +23,7 @@ S348–S356 established the deterministic governed decision/runtime foundation. 
 
 **Phase 6 (SCM OS Control Plane) — COMPLETE.** P6-A (Cockpit v0), P6-B (Decision Inbox), P6-C (Simulation/Optimization Workspace), P6-D (Execution Workflow Workspace), P6-E (Control Plane E2E), and P6-F (Phase 6 acceptance covering all surfaces) are implemented and merged.
 
-**Next slice: Phase 7 — SCM OS Real Data Plane (P7-A Reference Data Adapter).** See the Phase 7 checklist below; see also `POST-M8-STATUS.md` for the handoff summary.
+**Phase 7 (SCM OS Real Data Plane) — IN PROGRESS.** P7-A (Reference Data Adapter: CSV/JSON/SQL adapters with explicit source evidence, `src/scm_ontology/reference_data_adapter.py`) is implemented. The next slice is **P7-B — Mapping / Canonicalization Runtime**. See the Phase 7 checklist below; see also `POST-M8-STATUS.md` for the handoff summary.
 
 ---
 
@@ -90,7 +90,7 @@ CSV / Excel / JSON / SQL / ERP / WMS / TMS / APS
 
 ### Phase 7 milestones
 
-- [ ] **P7-A — Reference Data Adapter**: CSV/JSON/SQL adapters with explicit source evidence;
+- [x] **P7-A — Reference Data Adapter**: CSV/JSON/SQL adapters with explicit source evidence;
 - [ ] **P7-B — Mapping / Canonicalization Runtime**: deterministic source-to-canonical mapping without embedding source-system semantics in the ontology;
 - [ ] **P7-C — Identity Resolution Runtime**: governed entity matching with deterministic conflict handling;
 - [ ] **P7-D — Data Quality / Freshness Gate**: completeness, freshness, scope, unit, and provenance validation before canonicalization;

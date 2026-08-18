@@ -59,9 +59,10 @@ This directory is the documentation index for SCM Ontology after **M8 COMPLETE**
 53. [`P6D-exec-workflow-workspace.md`](P6D-exec-workflow-workspace.md) — Execution Workflow Workspace (Phase 6 P6-D)
 54. [`P6E-control-plane-e2e.md`](P6E-control-plane-e2e.md) — Control Plane E2E (Phase 6 P6-E)
 55. [`P6F-phase6-acceptance.md`](P6F-phase6-acceptance.md) — Phase 6 Acceptance (P6-F)
-56. [`milestones/`](milestones/) — milestone definitions and acceptance reports
-57. [`architecture/`](architecture/) — architecture freezes and governance contracts
-58. [`archive/`](archive/) — historical documentation no longer part of the active documentation surface
+56. [`P7A-reference-data-adapter.md`](P7A-reference-data-adapter.md) — Reference Data Adapter (Phase 7 P7-A)
+57. [`milestones/`](milestones/) — milestone definitions and acceptance reports
+58. [`architecture/`](architecture/) — architecture freezes and governance contracts
+59. [`archive/`](archive/) — historical documentation no longer part of the active documentation surface
 53. [`../AGENTS.md`](../AGENTS.md) — development/agent contract
 
 ## Conceptual architecture
