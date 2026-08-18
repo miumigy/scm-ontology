@@ -2,7 +2,7 @@
 
 ## Current phase
 
-**Phase 7 — SCM OS Real Data Plane: IN PROGRESS (P7-A complete).**
+**Phase 7 — SCM OS Real Data Plane: IN PROGRESS (P7-A & P7-B complete).**
 
 The SCM OS reference platform moves from in-memory fixtures toward
 heterogeneous enterprise data while preserving the Canonical Truth boundary.
@@ -13,7 +13,11 @@ representations into immutable, provenance-bearing `SourceEvidence` records.
 All adapters are fail-closed, carry field-level `EvidenceRef` provenance, carry
 an explicit `SourceManifest` (source system, adapter/mapping versions, scope,
 extraction time), and never map, resolve identity, or mutate Canonical Truth.
-See `docs/P7A-reference-data-adapter.md`.
+See `docs/P7A-reference-data-adapter.md`. The **P7-B Mapping/Canonicalization
+Runtime** (`src/scm_ontology/mapping_canonicalization_runtime.py`) consumes that
+evidence and emits S262-compatible, deterministic `CanonicalizationResult`
+records (entity/attribute/predicate mapping per S256/S257/S258, S255 semantic-gap
+classification, `canonical_mutation = False`). See `docs/P7B-mapping-canonicalization.md`.
 
 Phase 6 (previous):
 
@@ -34,11 +38,11 @@ SCM OS integration through S366.
 
 **Phase 7 — SCM OS Real Data Plane.** Move from reference/in-memory fixtures
 toward heterogeneous enterprise data while preserving the Canonical Truth
-boundary. Per `docs/roadmap-post-m8.md`, the next slice is **P7-A — Reference
-Data Adapter** (CSV/JSON/SQL adapters with explicit source evidence), followed
-by P7-B (Mapping/Canonicalization Runtime), P7-C (Identity Resolution Runtime),
-P7-D (Data Quality/Freshness Gate), P7-E (Multi-source Reference Dataset), and
-P7-F (Phase 7 acceptance).
+boundary. Per `docs/roadmap-post-m8.md`, P7-A (Reference Data Adapter) and P7-B
+(Mapping/Canonicalization Runtime) are complete. The next slice is **P7-C —
+Identity Resolution Runtime** (governed entity matching with deterministic
+conflict handling), followed by P7-D (Data Quality/Freshness Gate), P7-E
+(Multi-source Reference Dataset), and P7-F (Phase 7 acceptance).
 
 ## Guardrails (still in force)
 
