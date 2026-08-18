@@ -2,14 +2,20 @@
 
 ## Current phase
 
-**Phase 8 — SCM OS Persistent Graph: IN PROGRESS (P8-A complete).**
+**Phase 8 — SCM OS Persistent Graph: IN PROGRESS (P8-A, P8-B complete).**
 
 P8-A (`src/scm_ontology/persistent_graph_contract.py`) defines the explicit,
 backend-neutral persistence semantics — nodes, relationships, temporal state,
 evidence, and provenance — as a content-addressed `PersistedGraphDocument`
 anchored to the source `CanonicalGraph`. It is the contract that the P8-B/P8-C
 backends and P8-F acceptance conform to, and it never mutates Canonical Truth.
-See `docs/P8A-persistent-graph-contract.md`.
+See `docs/P8A-persistent-graph-contract.md`. **P8-B (Relational Reference
+Backend, `src/scm_ontology/relational_graph_backend.py`)** implements that
+contract on a durable, normalized relational store (`sqlite3`-based, stdlib
+only): `write` persists a `PersistedGraphDocument` atomically and
+content-addressed, `read` reconstructs it byte-identically (preserving payload,
+temporal fields, element order, and provenance), and element/kind indexing
+provides the foundation P8-E builds on. See `docs/P8B-relational-backend.md`.
 
 For completeness, Phase 7 (previous) is recorded below.
 
@@ -49,10 +55,10 @@ SCM OS integration through S366.
 
 ## Next phase
 
-**Phase 8 — SCM OS Persistent Graph** continues with P8-B (relational reference
-backend) and P8-C (Neo4j reference backend) conforming to the P8-A contract,
-then P8-D (snapshot/version/replay), P8-E (scale/index boundary), and P8-F
-(Phase 8 acceptance: interchangeable persistence backends produce equivalent
+**Phase 8 — SCM OS Persistent Graph** continues with **P8-C (Neo4j reference
+backend)** conforming to the P8-A/P8-B contracts, then P8-D
+(snapshot/version/replay), P8-E (scale/index boundary), and P8-F (Phase 8
+acceptance: interchangeable persistence backends produce equivalent
 canonical/query semantics for the reference workload).
 
 ## Guardrails (still in force)
