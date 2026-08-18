@@ -37,7 +37,7 @@ from __future__ import annotations
 
 import json
 import sqlite3
-from typing import Any, Mapping, Protocol
+from typing import Any, Mapping, Protocol, Protocol
 
 from .persistent_graph_contract import (
     PersistedElement,
@@ -49,9 +49,30 @@ from .persistent_graph_contract import (
 )
 
 
-class RelationalGraphBackendError(ValueError):
+class PersistentGraphBackendError(ValueError):
+    """Base error for a Phase 8 persistence backend."""
+    pass
+
+
+class RelationalGraphBackendError(PersistentGraphBackendError):
     """Raised when a relational persistence operation cannot complete safely."""
     pass
+
+
+class PersistentGraphBackend(Protocol):
+    """Interchangeable Phase 8 persistent-graph backend contract.
+
+    Both the relational (P8-B) and Neo4j (P8-C) reference backends implement
+    this interface so P8-F can prove that interchangeable backends produce
+    equivalent canonical/query semantics over identical P8-A documents.
+    """
+
+    def write(self, document: PersistedGraphDocument) -> PersistedGraphDocument: ...
+    def read(self, document_digest: str) -> PersistedGraphDocument: ...
+    def contains(self, document_digest: str) -> bool: ...
+    def list_document_digests(self) -> tuple[str, ...]: ...
+    def element_count(self, document_digest: str) -> int: ...
+    def elements_of_kind(self, document_digest: str, kind: str) -> tuple[PersistedElement, ...]: ...
 
 
 class ConnectionProvider(Protocol):
