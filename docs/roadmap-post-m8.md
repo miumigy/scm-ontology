@@ -21,7 +21,9 @@ flowchart LR
 
 S348–S356 established the deterministic governed decision/runtime foundation. S358–S362 established applications across the physical material flow: replenish -> procure -> produce -> distribute. S363 established governed multi-period simulation. S364 established deterministic replenishment planning/optimization. S365 extended planning/optimization to procurement, production, and distribution. S366 established the operational workflow/reporting slice by composing governed audit and command lifecycle behavior.
 
-**Phase 6 (SCM OS Control Plane) — COMPLETE.** P6-A (Cockpit v0), P6-B (Decision Inbox), P6-C (Simulation/Optimization Workspace), P6-D (Execution Workflow Workspace), P6-E (Control Plane E2E), and P6-F (Phase 6 acceptance covering all surfaces) are implemented and merged. The next milestone is **Phase 7: SCM OS Real Data Plane**.
+**Phase 6 (SCM OS Control Plane) — COMPLETE.** P6-A (Cockpit v0), P6-B (Decision Inbox), P6-C (Simulation/Optimization Workspace), P6-D (Execution Workflow Workspace), P6-E (Control Plane E2E), and P6-F (Phase 6 acceptance covering all surfaces) are implemented and merged.
+
+**Next slice: Phase 7 — SCM OS Real Data Plane (P7-A Reference Data Adapter).** See the Phase 7 checklist below; see also `POST-M8-STATUS.md` for the handoff summary.
 
 ---
 
