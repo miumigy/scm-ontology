@@ -72,10 +72,14 @@ phase6_scm_os_control_plane:
     priority: P0
     note: "Decision Inbox - inspect decisions without recomputing"
   - id: p6c-simulation-optimization-workspace
-    status: active
+    status: complete
     priority: P0
     note: "Simulation/Optimization Workspace - launch and inspect scenarios and plans"
-  - id: next-p6d-execution-workflow-workspace
+  - id: p6d-execution-workflow-workspace
+    status: active
+    priority: P0
+    note: "Execution Workflow Workspace - inspect lifecycle, dry-run, approval, audit"
+  - id: next-p6e-control-plane-e2e
     status: planned
     priority: P1
   - id: p6c-simulation-optimization-workspace
