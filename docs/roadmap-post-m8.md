@@ -23,7 +23,7 @@ S348–S356 established the deterministic governed decision/runtime foundation. 
 
 **Phase 6 (SCM OS Control Plane) — COMPLETE.** P6-A (Cockpit v0), P6-B (Decision Inbox), P6-C (Simulation/Optimization Workspace), P6-D (Execution Workflow Workspace), P6-E (Control Plane E2E), and P6-F (Phase 6 acceptance covering all surfaces) are implemented and merged.
 
-**Phase 7 (SCM OS Real Data Plane) — COMPLETE.** P7-A (Reference Data Adapter), P7-B (Mapping/Canonicalization Runtime), P7-C (Identity Resolution Runtime), P7-D (Data Quality / Freshness Gate), P7-E (Multi-source Reference Dataset), and P7-F (Phase 7 acceptance) are implemented and merged. The next phase is **Phase 8 — Persistent SCM Graph**. See the Phase 7 checklist below; see also `POST-M8-STATUS.md` for the handoff summary.
+**Phase 7 (SCM OS Real Data Plane) — COMPLETE.** P7-A .. P7-F are implemented and merged. **Phase 8 — Persistent SCM Graph** is now in progress: **P8-A (Persistent Graph Contract)** is implemented and merged, defining explicit backend-neutral persistence semantics for nodes, relationships, temporal state, evidence, and provenance. See the Phase 8 checklist below; see also `POST-M8-STATUS.md` for the handoff summary.
 
 ---
 
@@ -119,7 +119,7 @@ Turn the Canonical Graph runtime into a persistence-independent production refer
 
 ### Phase 8 milestones
 
-- [ ] **P8-A — Persistent Graph Contract**: explicit persistence semantics for nodes, relationships, temporal state, evidence, and provenance;
+- [x] **P8-A — Persistent Graph Contract**: explicit persistence semantics for nodes, relationships, temporal state, evidence, and provenance (`src/scm_ontology/persistent_graph_contract.py`, `docs/P8A-persistent-graph-contract.md`, `tests/test_persistent_graph_contract.py`);
 - [ ] **P8-B — Relational Reference Backend**: durable SQL-backed implementation;
 - [ ] **P8-C — Neo4j Reference Backend**: durable graph-backed implementation through the existing transport-neutral boundary;
 - [ ] **P8-D — Snapshot / Version / Replay**: deterministic graph snapshots and reproducible historical queries;

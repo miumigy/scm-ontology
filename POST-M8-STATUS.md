@@ -2,7 +2,20 @@
 
 ## Current phase
 
-**Phase 7 — SCM OS Real Data Plane: COMPLETE.**
+**Phase 8 — SCM OS Persistent Graph: IN PROGRESS (P8-A complete).**
+
+P8-A (`src/scm_ontology/persistent_graph_contract.py`) defines the explicit,
+backend-neutral persistence semantics — nodes, relationships, temporal state,
+evidence, and provenance — as a content-addressed `PersistedGraphDocument`
+anchored to the source `CanonicalGraph`. It is the contract that the P8-B/P8-C
+backends and P8-F acceptance conform to, and it never mutates Canonical Truth.
+See `docs/P8A-persistent-graph-contract.md`.
+
+For completeness, Phase 7 (previous) is recorded below.
+
+---
+
+## Phase 7 — SCM OS Real Data Plane (COMPLETE)
 
 The SCM OS reference platform moves from in-memory fixtures toward
 heterogeneous enterprise data while preserving the Canonical Truth boundary.
@@ -36,12 +49,11 @@ SCM OS integration through S366.
 
 ## Next phase
 
-**Phase 7 — SCM OS Real Data Plane: COMPLETE** (P7-A..P7-F merged). Phase 7
-took the SCM OS from reference/in-memory fixtures to a reproducible, traceable
-reference Canonical Graph over heterogeneous CSV/JSON/SQL inputs, preserving the
-Canonical Truth boundary. Per `docs/roadmap-post-m8.md`, the next phase is
-**Phase 8 — Persistent SCM Graph** (interchangeable, backend-neutral
-persistence with equivalent canonical/query semantics).
+**Phase 8 — SCM OS Persistent Graph** continues with P8-B (relational reference
+backend) and P8-C (Neo4j reference backend) conforming to the P8-A contract,
+then P8-D (snapshot/version/replay), P8-E (scale/index boundary), and P8-F
+(Phase 8 acceptance: interchangeable persistence backends produce equivalent
+canonical/query semantics for the reference workload).
 
 ## Guardrails (still in force)
 
