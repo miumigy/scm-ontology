@@ -54,9 +54,10 @@ This directory is the documentation index for SCM Ontology after **M8 COMPLETE**
 48. [`S365-optimized-app-planning.md`](S365-optimized-app-planning.md) — optimized procurement/production/distribution plan applications (Phase 5)
 49. [`S366-operational-workflow.md`](S366-operational-workflow.md) — operational workflow application (Phase 5)
 50. [`P6A-scm-os-cockpit.md`](P6A-scm-os-cockpit.md) — SCM OS Cockpit v0 (Phase 6 P6-A)
-51. [`milestones/`](milestones/) — milestone definitions and acceptance reports
-52. [`architecture/`](architecture/) — architecture freezes and governance contracts
-53. [`archive/`](archive/) — historical documentation no longer part of the active documentation surface
+51. [`P6B-decision-inbox.md`](P6B-decision-inbox.md) — Decision Inbox (Phase 6 P6-B)
+52. [`milestones/`](milestones/) — milestone definitions and acceptance reports
+53. [`architecture/`](architecture/) — architecture freezes and governance contracts
+54. [`archive/`](archive/) — historical documentation no longer part of the active documentation surface
 53. [`../AGENTS.md`](../AGENTS.md) — development/agent contract
 
 ## Conceptual architecture

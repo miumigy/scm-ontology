@@ -21,7 +21,7 @@ flowchart LR
 
 S348–S356 established the deterministic governed decision/runtime foundation. S358–S362 established applications across the physical material flow: replenish -> procure -> produce -> distribute. S363 established governed multi-period simulation. S364 established deterministic replenishment planning/optimization. S365 extended planning/optimization to procurement, production, and distribution. S366 established the operational workflow/reporting slice by composing governed audit and command lifecycle behavior.
 
-The next milestone was **Phase 6: SCM OS Control Plane**. P6-A (SCM OS Cockpit v0, an in-memory read-only web cockpit) is implemented; the next slice is P6-B (Decision Inbox).
+The next milestone is **Phase 6: SCM OS Control Plane**. P6-A (SCM OS Cockpit v0, an in-memory read-only web cockpit) and P6-B (Decision Inbox, a read-only projection of governed decision evidence/provenance/authorization/command state) are implemented; the next slice is P6-C (Simulation / Optimization Workspace).
 
 ---
 
@@ -52,7 +52,7 @@ Audit / Governance
 ### Phase 6 milestones
 
 - [x] **P6-A — SCM OS Cockpit v0**: a minimal web control plane exposing state, exceptions, decisions, simulation, execution, and governance;
-- [ ] **P6-B — Decision Inbox**: inspect proposal, rationale, evidence, provenance, authorization status, and command state without recomputing the decision;
+- [x] **P6-B — Decision Inbox**: inspect proposal, rationale, evidence, provenance, authorization status, and command state without recomputing the decision;
 - [ ] **P6-C — Simulation / Optimization Workspace**: launch and inspect deterministic scenarios and plans from the same control plane;
 - [ ] **P6-D — Execution Workflow Workspace**: inspect command lifecycle, dry-run results, approval gates, and audit trail;
 - [ ] **P6-E — Control Plane E2E**: one deterministic user workflow traverses State → Decision → Simulation/Plan → Authorization → Workflow → Audit;
