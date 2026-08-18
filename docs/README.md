@@ -60,10 +60,10 @@ This directory is the documentation index for SCM Ontology after **M8 COMPLETE**
 54. [`P6E-control-plane-e2e.md`](P6E-control-plane-e2e.md) — Control Plane E2E (Phase 6 P6-E)
 55. [`P6F-phase6-acceptance.md`](P6F-phase6-acceptance.md) — Phase 6 Acceptance (P6-F)
 56. [`P7A-reference-data-adapter.md`](P7A-reference-data-adapter.md) — Reference Data Adapter (Phase 7 P7-A)
-57. [`milestones/`](milestones/) — milestone definitions and acceptance reports
-58. [`architecture/`](architecture/) — architecture freezes and governance contracts
-59. [`archive/`](archive/) — historical documentation no longer part of the active documentation surface
-53. [`../AGENTS.md`](../AGENTS.md) — development/agent contract
+57. [`P7B-mapping-canonicalization.md`](P7B-mapping-canonicalization.md) — Mapping/Canonicalization Runtime (Phase 7 P7-B)
+58. [`milestones/`](milestones/) — milestone definitions and acceptance reports
+59. [`architecture/`](architecture/) — architecture freezes and governance contracts
+60. [`archive/`](archive/) — historical documentation no longer part of the active documentation surface
 
 ## Conceptual architecture
 
