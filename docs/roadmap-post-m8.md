@@ -23,7 +23,7 @@ S348–S356 established the deterministic governed decision/runtime foundation. 
 
 **Phase 6 (SCM OS Control Plane) — COMPLETE.** P6-A (Cockpit v0), P6-B (Decision Inbox), P6-C (Simulation/Optimization Workspace), P6-D (Execution Workflow Workspace), P6-E (Control Plane E2E), and P6-F (Phase 6 acceptance covering all surfaces) are implemented and merged.
 
-**Phase 7 (SCM OS Real Data Plane) — COMPLETE.** P7-A .. P7-F are implemented and merged. **Phase 8 — Persistent SCM Graph** is now in progress: **P8-A (Persistent Graph Contract)** defines the explicit backend-neutral persistence semantics, **P8-B (Relational Reference Backend)** implements them on a durable normalized relational store, and **P8-C (Neo4j Reference Backend)** implements the same interchangeable contract graph-shaped. See the Phase 8 checklist below; see also `POST-M8-STATUS.md` for the handoff summary.
+**Phase 7 (SCM OS Real Data Plane) — COMPLETE.** P7-A .. P7-F are implemented and merged. **Phase 8 — Persistent SCM Graph** is now in progress: **P8-A (Persistent Graph Contract)** defines the explicit backend-neutral persistence semantics, **P8-B (Relational Reference Backend)** and **P8-C (Neo4j Reference Backend)** implement them interchangeably (relational and graph-shaped), and **P8-D (Snapshot / Version / Replay)** adds deterministic, replayable versioning on top of any backend. See the Phase 8 checklist below; see also `POST-M8-STATUS.md` for the handoff summary.
 
 ---
 
@@ -122,7 +122,7 @@ Turn the Canonical Graph runtime into a persistence-independent production refer
 - [x] **P8-A — Persistent Graph Contract**: explicit persistence semantics for nodes, relationships, temporal state, evidence, and provenance (`src/scm_ontology/persistent_graph_contract.py`, `docs/P8A-persistent-graph-contract.md`, `tests/test_persistent_graph_contract.py`);
 - [x] **P8-B — Relational Reference Backend**: durable SQL-backed implementation (`src/scm_ontology/relational_graph_backend.py`, `docs/P8B-relational-backend.md`, `tests/test_relational_graph_backend.py`);
 - [x] **P8-C — Neo4j Reference Backend**: durable graph-backed implementation through the existing transport-neutral boundary (`src/scm_ontology/neo4j_graph_backend.py`, `docs/P8C-neo4j-backend.md`, `tests/test_neo4j_graph_backend.py`);
-- [ ] **P8-D — Snapshot / Version / Replay**: deterministic graph snapshots and reproducible historical queries;
+- [x] **P8-D — Snapshot / Version / Replay**: deterministic graph snapshots and reproducible historical queries (`src/scm_ontology/persistent_snapshot.py`, `docs/P8D-snapshot-version-replay.md`, `tests/test_persistent_snapshot.py`);
 - [ ] **P8-E — Scale / Index Boundary**: identify query/index expectations without leaking backend-specific concepts into the ontology;
 - [ ] **P8-F — Phase 8 acceptance**: interchangeable persistence backends produce equivalent canonical/query semantics for the reference workload.
 
