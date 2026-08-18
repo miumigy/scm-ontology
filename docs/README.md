@@ -64,9 +64,10 @@ This directory is the documentation index for SCM Ontology after **M8 COMPLETE**
 58. [`P7C-identity-resolution-runtime.md`](P7C-identity-resolution-runtime.md) — Identity Resolution Runtime (Phase 7 P7-C)
 59. [`P7D-data-quality-gate.md`](P7D-data-quality-gate.md) — Data Quality / Freshness Gate (Phase 7 P7-D)
 60. [`P7E-multi-source-reference-dataset.md`](P7E-multi-source-reference-dataset.md) — Multi-source Reference Dataset (Phase 7 P7-E)
-61. [`milestones/`](milestones/) — milestone definitions and acceptance reports
-62. [`architecture/`](architecture/) — architecture freezes and governance contracts
-63. [`archive/`](archive/) — historical documentation no longer part of the active documentation surface
+61. [`P7F-phase7-acceptance.md`](P7F-phase7-acceptance.md) — Phase 7 Acceptance (P7-F)
+62. [`milestones/`](milestones/) — milestone definitions and acceptance reports
+63. [`architecture/`](architecture/) — architecture freezes and governance contracts
+64. [`archive/`](archive/) — historical documentation no longer part of the active documentation surface
 
 ## Conceptual architecture
 

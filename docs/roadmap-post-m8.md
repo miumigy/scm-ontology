@@ -23,7 +23,7 @@ S348–S356 established the deterministic governed decision/runtime foundation. 
 
 **Phase 6 (SCM OS Control Plane) — COMPLETE.** P6-A (Cockpit v0), P6-B (Decision Inbox), P6-C (Simulation/Optimization Workspace), P6-D (Execution Workflow Workspace), P6-E (Control Plane E2E), and P6-F (Phase 6 acceptance covering all surfaces) are implemented and merged.
 
-**Phase 7 (SCM OS Real Data Plane) — IN PROGRESS.** P7-A (Reference Data Adapter, CSV/JSON/SQL, `reference_data_adapter.py`), P7-B (Mapping/Canonicalization Runtime, `mapping_canonicalization_runtime.py`), P7-C (Identity Resolution Runtime, `identity_resolution_runtime.py`), P7-D (Data Quality / Freshness Gate, `data_quality_gate.py`), and P7-E (Multi-source Reference Dataset, `multi_source_reference.py`) are implemented. The next slice is **P7-F — Phase 7 acceptance**. See the Phase 7 checklist below; see also `POST-M8-STATUS.md` for the handoff summary.
+**Phase 7 (SCM OS Real Data Plane) — COMPLETE.** P7-A (Reference Data Adapter), P7-B (Mapping/Canonicalization Runtime), P7-C (Identity Resolution Runtime), P7-D (Data Quality / Freshness Gate), P7-E (Multi-source Reference Dataset), and P7-F (Phase 7 acceptance) are implemented and merged. The next phase is **Phase 8 — Persistent SCM Graph**. See the Phase 7 checklist below; see also `POST-M8-STATUS.md` for the handoff summary.
 
 ---
 
@@ -95,7 +95,7 @@ CSV / Excel / JSON / SQL / ERP / WMS / TMS / APS
 - [x] **P7-C — Identity Resolution Runtime**: governed entity matching with deterministic conflict handling;
 - [x] **P7-D — Data Quality / Freshness Gate**: completeness, freshness, scope, unit, and provenance validation before canonicalization;
 - [x] **P7-E — Multi-source Reference Dataset**: several heterogeneous representations converge on one Canonical Graph;
-- [ ] **P7-F — Phase 7 acceptance**: heterogeneous input → governed canonicalization → Canonical Graph is reproducible and traceable.
+- [x] **P7-F — Phase 7 acceptance**: heterogeneous input → governed canonicalization → Canonical Graph is reproducible and traceable.
 
 ### Design rule
 
