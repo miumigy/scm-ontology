@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 
-SCHEMA = Path(__file__).parents[1] / "schema" / "canonical-ontology.schema.json"
+SCHEMA = Path(__file__).parents[1] / "schemas" / "canonical-ontology.schema.json"
 
 
 def test_schema_is_valid_json() -> None:

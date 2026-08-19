@@ -3,7 +3,7 @@ from pathlib import Path
 
 
 def load_fixture() -> dict:
-    return json.loads(Path("fixtures/m6/supply-dependency-chain.json").read_text(encoding="utf-8"))
+    return json.loads(Path("fixtures/supply-dependency/supply-dependency-chain.json").read_text(encoding="utf-8"))
 
 
 def test_fixture_has_canonical_nodes_and_edges() -> None:

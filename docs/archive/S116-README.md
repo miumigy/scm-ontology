@@ -4,9 +4,9 @@
 
 S116 establishes the machine-readable structural serialization contract for the S113-S115 canonical model.
 
-Normative schema: `schema/canonical-ontology.schema.json`
+Normative schema: `schemas/canonical-ontology.schema.json`
 
-Example: `schema/canonical-ontology.example.yaml`
+Example: `schemas/canonical-ontology.example.yaml`
 
 Structural tests: `tests/test_s116_schema.py`
 

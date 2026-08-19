@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/miumigy/scm-ontology/schema/canonical-ontology.schema.json",
+  "$id": "https://github.com/miumigy/scm-ontology/schemas/canonical-ontology.schema.json",
   "title": "SCM Ontology Canonical Model",
   "description": "Machine-readable serialization contract for the S113-S115 canonical semantic model.",
   "type": "object",
