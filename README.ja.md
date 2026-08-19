@@ -283,3 +283,9 @@ Primary Launch後は `v0.1.0`、`v0.2.0`、`v0.3.0` のようにリリース単�
 - 新しい契約を導入する前に、既存の統治された契約を組み合わせて解決できないかを検討してください。
 - すべてのSchema / Contract変更には検証とテストを追加してください。CIをGreenにするためにテストや受入条件を弱めてはいけません。
 - ブランチ運用は `main` → 集中したFeature Branch → CI → PR → Review → Governed Merge の流れに従ってください。
+
+## ライセンス
+
+このプロジェクトは[MIT License](./LICENSE)の下で公開されています。
+
+Copyright (c) 2026 miumigy.
