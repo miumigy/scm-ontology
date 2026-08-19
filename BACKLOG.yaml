@@ -1,137 +1,45 @@
-version: "0.2"
+version: "1.0"
 project: scm-ontology
-status: post_m8_active
-principle: "Implement against the M8 governed semantic and operational contracts; do not weaken them for implementation convenience."
+status: post_primary_launch
+principle: "After v0.1.0, plan by public releases and capability outcomes; do not extend the historical S/M/Phase sequence indefinitely."
 
-milestones:
-  - id: m1-canonical-semantic-foundation
-    status: complete
-    priority: P0
-  - id: m2-canonical-graph-query-foundation
-    status: complete
-    priority: P0
-  - id: m3-evidence-provenance-foundation
-    status: complete
-    priority: P0
-  - id: m4-reasoning-runtime-foundation
-    status: complete
-    priority: P0
-  - id: v0.2-release-candidate
-    status: complete
-    priority: P0
-  - id: m5-scm-use-case-validation
-    status: complete
-    priority: P0
-  - id: m6-scm-graph-integration
-    status: complete
-    priority: P0
-  - id: m7-enterprise-canonicalization
-    status: complete
-    priority: P0
-  - id: m8-canonicalization-projection-operational-governance
-    status: complete
-    priority: P0
+release_policy:
+  current_release: "0.1.0"
+  next_release: "0.2.0"
+  historical_identifiers:
+    status: archived
+    note: "Sxxx/Mxx/Phase identifiers remain in historical documents for traceability and are not the active planning mechanism."
 
-post_m8_implementation:
-  - id: machine-readable-canonical-registry
-    status: active
-    priority: P0
-  - id: reference-canonicalization-pipeline
-    status: complete
-    priority: P0
-  - id: realistic-multi-source-fixtures
-    status: complete
-    priority: P0
-  - id: canonical-graph-persistence
-    status: active
-    priority: P1
-  - id: canonical-query-runtime
+post_launch_backlog:
+  - id: enterprise-connectors
     status: planned
     priority: P1
-  - id: governed-identity-resolution
+    outcome: "Governed adapters for ERP/WMS/TMS/APS source evidence."
+  - id: production-observability
     status: planned
     priority: P1
-  - id: scm-business-question-applications
-    status: active
-    priority: P1
-  - id: planning-simulation-scm-os-integration
+    outcome: "Operational metrics, tracing, failure visibility, and deployment diagnostics."
+  - id: production-scale-graph
     status: planned
     priority: P1
-  - id: production-observability-performance
+    outcome: "Measured scale, indexing, performance, HA, backup, and recovery boundaries."
+  - id: enterprise-identity-and-tenancy
+    status: planned
+    priority: P1
+    outcome: "Explicit tenant, identity, authorization, and enterprise security boundaries."
+  - id: scm-business-applications
+    status: planned
+    priority: P1
+    outcome: "Expand governed SCM business questions and decision applications."
+  - id: planning-and-simulation-integration
+    status: planned
+    priority: P1
+    outcome: "Deeper integration with planning, simulation, and optimization workflows."
+  - id: governed-agent-capabilities
     status: planned
     priority: P2
-
-
-phase6_scm_os_control_plane:
-  - id: p6a-scm-os-cockpit
-    status: complete
-    priority: P0
-    note: "SCM OS Cockpit v0 - minimal read-only web control plane"
-  - id: p6b-decision-inbox
-    status: complete
-    priority: P0
-    note: "Decision Inbox - inspect decisions without recomputing"
-  - id: p6c-simulation-optimization-workspace
-    status: complete
-    priority: P0
-    note: "Simulation/Optimization Workspace - launch and inspect scenarios and plans"
-  - id: p6d-execution-workflow-workspace
-    status: complete
-    priority: P0
-    note: "Execution Workflow Workspace - inspect lifecycle, dry-run, approval, audit"
-  - id: p6e-control-plane-e2e
-    status: complete
-    priority: P0
-    note: "Control Plane E2E - one deterministic workflow through State->Decision->Sim->Auth->Workflow->Audit"
-  - id: p6f-phase6-acceptance
-    status: complete
-    priority: P0
-    note: "Phase 6 acceptance - all control-plane surfaces discoverable and operable"
-  - id: next-phase7-data-plane
-    status: planned
-    priority: P1
-    note: "Phase 7 - SCM OS Real Data Plane
-  - id: p6c-simulation-optimization-workspace
-    status: planned
-    priority: P1
-  - id: p6d-execution-workflow-workspace
-    status: planned
-    priority: P1
-  - id: p6e-control-plane-e2e
-    status: planned
-    priority: P1
-  - id: p6f-phase6-acceptance
+    outcome: "More capable policy-bounded reasoning and proposal providers without bypassing governance."
+  - id: developer-experience
     status: planned
     priority: P2
-
-legacy_backlog:
-  - id: neo4j-loader
-    status: planned
-    priority: P1
-  - id: inventory-position
-    status: active
-    priority: P1
-  - id: demand-supply-gap
-    status: active
-    priority: P1
-  - id: impact-analysis
-    status: planned
-    priority: P1
-  - id: supplier-delay-scenario
-    status: active
-    priority: P1
-  - id: multi-hop-supply-risk
-    status: active
-    priority: P1
-  - id: capacity-constraints
-    status: active
-    priority: P1
-  - id: network-disruption-propagation
-    status: active
-    priority: P1
-  - id: plan-actual-commitment-reconciliation
-    status: active
-    priority: P1
-  - id: scsim-integration
-    status: planned
-    priority: P2
+    outcome: "Examples, adapters, extension templates, and improved onboarding."
