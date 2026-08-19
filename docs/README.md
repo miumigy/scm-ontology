@@ -79,6 +79,7 @@ This directory is the documentation index for SCM Ontology after **M8 COMPLETE**
 73. [`P9E-closed-loop-e2e.md`](P9E-closed-loop-e2e.md) — Closed-Loop E2E (Phase 9 P9-E)
 74. [`P9F-failure-retry-idempotency.md`](P9F-failure-retry-idempotency.md) — Failure / Retry / Idempotency (Phase 9 P9-F)
 75. [`P9G-phase9-acceptance.md`](P9G-phase9-acceptance.md) — Phase 9 Acceptance (P9-G)
+76. [`SCM_OS_HANDOFF_PROMPT_PHASE10.md`](SCM_OS_HANDOFF_PROMPT_PHASE10.md) — Phase 10 new-session handoff prompt
 69. [`milestones/`](milestones/) — milestone definitions and acceptance reports
 70. [`architecture/`](architecture/) — architecture freezes and governance contracts
 71. [`archive/`](archive/) — historical documentation no longer part of the active documentation surface

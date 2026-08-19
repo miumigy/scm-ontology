@@ -120,9 +120,12 @@ SCM OS integration through S366.
 
 ## Next phase
 
-**Phase 9 — Closed-Loop SCM OS Execution: COMPLETE** (P9-A..P9-G merged).
-The next phase per
-`docs/roadmap-post-m8.md` and `docs/SCM_OS_HANDOFF_PROMPT_PHASE9.md`.
+**Phase 9 — Closed-Loop SCM OS Execution: COMPLETE** (P9-A..P9-G merged). The
+next phase per `docs/roadmap-post-m8.md` is **Phase 10 — Autonomous SCM
+Control**: bounded, governed AI autonomy that observes scoped evidence, proposes
+via tool/action boundaries, simulates before executing, and remains replayable
+and governed. To continue in a new session, start from
+`docs/SCM_OS_HANDOFF_PROMPT_PHASE10.md` (Phase 10 new-session handoff prompt).
 
 ## Guardrails (still in force)
 
