@@ -2,18 +2,25 @@
 
 ## Current phase
 
-**Phase 9 — Closed-Loop SCM OS Execution: COMPLETE (P9-A..P9-G).**
+**Phase 10 — Autonomous SCM Control: COMPLETE (P10-A..P10-G).**
 
-Phase 8 (Persistent Graph, P8-A..P8-F COMPLETE — full record below) hands off to
-**Phase 9 — Closed-Loop SCM OS Execution** (see `docs/roadmap-post-m8.md`).
-The goal is to move from side-effect-free dry runs to a governed real-execution
-architecture that closes the state-feedback loop:
+Phase 9 (Closed-Loop Execution, P9-A..P9-G COMPLETE — full record below) hands
+off to **Phase 10 — Autonomous SCM Control** (see `docs/roadmap-post-m8.md`).
+The goal is to introduce agentic/autonomous reasoning only after Truth,
+Governance, Execution, and Outcome semantics are stable, keeping the agent
+inside the governed loop:
 
 ```text
-Observation -> Canonical Graph -> Reasoning -> Decision -> Authorization
-  -> ExecutionCommand -> External Execution -> Execution Outcome
-  -> Canonical Event -> Canonical Graph -> Next Decision
+Observe -> Reason -> Propose -> Simulate -> Evaluate -> Authorize
+  -> Execute -> Observe Outcome -> Learn
 ```
+
+Phase 10 establishes the agent boundaries that surround the now-stable
+governed loop: scoped evidence-aware observations (P10-A), proposal-only agent
+tools (P10-B), simulation-before-execution (P10-C), policy-aware autonomy
+(P10-D), explicit human-in-the-loop control (P10-E), and agent replay/audit
+(P10-F). P10-G composes these into an acceptance report that closes the phase
+with `accepted = True`.
 
 **P9-A (Execution Outcome Contract,
 `src/scm_ontology/execution_outcome_contract.py`)** establishes the explicit
@@ -53,6 +60,59 @@ redone), and recovery semantics that escalate to `failed_permanently` with a
 loop against the injected external system and confirms every P9-A..P9-F
 capability is operable (`accepted = True`; see
 `docs/P9G-phase9-acceptance.md`). **Phase 9 is COMPLETE.**
+
+---
+
+## Phase 10 — Autonomous SCM Control (COMPLETE)
+
+Phase 10 introduces **bounded autonomy inside the governed loop**. AI is a
+Reasoning Provider / Agent, not the SCM OS: agents observe scoped projections
+and propose actions, while governance authorizes and execution adapters perform
+side effects. Every agent step is replayable and non-mutating.
+
+- **P10-A (Agent Observation Boundary, `src/scm_ontology/agent_observation.py`)** —
+  agents receive scoped, evidence-aware, read-only `AgentObservation`s composed
+  from an already-validated `GraphProjection` through the S338/S339 read path.
+  The envelope is immutable, content-addressed, bound to an `AgentScope`
+  (`agent_id`, `question_id`, `node_type`, `node_id`, `relationship_type`), and
+  exposes `can_write = False` — no mutation surface. See
+  `docs/P10A-agent-observation-boundary.md`.
+- **P10-B (Tool / Action Boundary, `src/scm_ontology/agent_tool.py`)** — agent
+  tools produce content-addressed `AgentProposal` records (never canonical
+  mutations) via `run_agent_tool`, and `proposal_to_execution_command` routes a
+  proposal through S344 validation and S345 authorization before any
+  `ExecutionCommand` may be produced. See `docs/P10B-tool-action-boundary.md`.
+- **P10-C (Simulation-before-Execution,
+  `src/scm_ontology/simulation_before_execution.py`)** — material decisions are
+  evaluated against the S363 deterministic governed simulation before
+  authorization; `evaluate_simulation_before_execution` produces a
+  content-addressed `AgentSimulationEvaluation` (`feasible` verdict) that
+  informs, but never overrides, governance. See
+  `docs/P10C-simulation-before-execution.md`.
+- **P10-D (Policy-aware Autonomy, `src/scm_ontology/policy_autonomy.py`)** —
+  confidence, risk, monetary impact, and scope determine the allowed autonomy
+  level via `evaluate_autonomy`/`AutonomyPolicy`, yielding
+  `fully_autonomous`/`approved`/`human_review`/`blocked`. Fails closed on
+  unknown scope or threshold violations. See `docs/P10D-policy-aware-autonomy.md`.
+- **P10-E (Human-in-the-loop Control, `src/scm_ontology/human_control.py`)** —
+  explicit review, override, escalation, and delegation paths via
+  `route_human_control`, recording each outcome as a replayable
+  `HumanControlRecord` (approval or senior override). See
+  `docs/P10E-human-in-the-loop-control.md`.
+- **P10-F (Agent Replay / Audit, `src/scm_ontology/agent_replay.py`)** — every
+  agent observation, proposal, autonomy verdict, human-control record, command,
+  and outcome is recorded in a content-addressed, append-only `AgentAuditTrail`;
+  `replay()` verifies content integrity and detects tampering. See
+  `docs/P10F-agent-replay-audit.md`.
+- **P10-G (Phase 10 acceptance, `src/scm_ontology/phase10_acceptance.py`)** —
+  `run_phase10_acceptance` probes all six capabilities and the governed
+  autonomous-loop gate, returning `accepted = True`. The gate runs a bounded,
+  fully-autonomous replenishment use case through observe -> propose -> evaluate
+  -> human-control -> replayable audit while remaining governed. See
+  `docs/P10G-phase10-acceptance.md`.
+
+**Phase 10 is COMPLETE.** Autonomy is a policy result, human governance remains
+explicit, and the agent never owns Canonical Truth.
 
 ---
 
