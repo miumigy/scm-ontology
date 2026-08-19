@@ -2,10 +2,9 @@ import json
 from pathlib import Path
 
 
-FIXTURE_DIR = Path("fixtures/m6")
 FIXTURES = [
-    FIXTURE_DIR / "supply-dependency-chain.json",
-    FIXTURE_DIR / "inventory-capacity-chain.json",
+    Path("fixtures/supply-dependency/supply-dependency-chain.json"),
+    Path("fixtures/inventory-capacity/inventory-capacity-chain.json"),
 ]
 
 

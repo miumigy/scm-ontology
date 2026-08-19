@@ -1,1 +1,0 @@
-Review focus: schema structure is normative; semantic endpoint/value-type consistency is intentionally deferred to S118.

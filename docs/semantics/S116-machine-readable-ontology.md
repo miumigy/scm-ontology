@@ -26,7 +26,7 @@ Ontology
      └─ category
 ```
 
-The JSON Schema in `schema/canonical-ontology.schema.json` is the normative machine-readable contract for this milestone.
+The JSON Schema in `schemas/canonical-ontology.schema.json` is the normative machine-readable contract for this milestone.
 
 ## Design rules
 
@@ -58,7 +58,7 @@ The canonical model can later be rendered into JSON, YAML, RDF, property graphs,
 
 ## Example
 
-See `schema/canonical-ontology.example.yaml` for a minimal human-readable instance corresponding to the JSON Schema.
+See `schemas/canonical-ontology.example.yaml` for a minimal human-readable instance corresponding to the JSON Schema.
 
 ## Exit criteria
 
