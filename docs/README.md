@@ -66,9 +66,15 @@ This directory is the documentation index for SCM Ontology after **M8 COMPLETE**
 60. [`P7E-multi-source-reference-dataset.md`](P7E-multi-source-reference-dataset.md) — Multi-source Reference Dataset (Phase 7 P7-E)
 61. [`P7F-phase7-acceptance.md`](P7F-phase7-acceptance.md) — Phase 7 Acceptance (P7-F)
 62. [`P8A-persistent-graph-contract.md`](P8A-persistent-graph-contract.md) — Persistent Graph Contract (Phase 8 P8-A)
-OLD_MILESTONES — milestone definitions and acceptance reports
-69. [`architecture/`](architecture/) — architecture freezes and governance contracts
-70. [`archive/`](archive/) — historical documentation no longer part of the active documentation surface
+63. [`P8B-relational-backend.md`](P8B-relational-backend.md) — Relational Reference Backend (Phase 8 P8-B)
+64. [`P8C-neo4j-backend.md`](P8C-neo4j-backend.md) — Neo4j Reference Backend (Phase 8 P8-C)
+65. [`P8D-snapshot-version-replay.md`](P8D-snapshot-version-replay.md) — Snapshot / Version / Replay (Phase 8 P8-D)
+66. [`P8E-scale-index-boundary.md`](P8E-scale-index-boundary.md) — Scale / Index Boundary (Phase 8 P8-E)
+67. [`P8F-phase8-acceptance.md`](P8F-phase8-acceptance.md) — Phase 8 Acceptance (P8-F)
+68. [`SCM_OS_HANDOFF_PROMPT_PHASE9.md`](SCM_OS_HANDOFF_PROMPT_PHASE9.md) — Phase 9 new-session handoff prompt
+69. [`milestones/`](milestones/) — milestone definitions and acceptance reports
+70. [`architecture/`](architecture/) — architecture freezes and governance contracts
+71. [`archive/`](archive/) — historical documentation no longer part of the active documentation surface
 
 ## Conceptual architecture
 
