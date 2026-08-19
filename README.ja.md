@@ -1,6 +1,6 @@
 # SCM Ontology
 
-> **サプライチェーン管理のためのフレームワーク非依存のカノニカル意味モデル — エンタープライズデータ、カノニカルファクト、グラフ推論、プロジェクション、将来のSCM OS実装を接続するために設計されました。ソースシステムの意味論が黙って真実になることは許しません。**
+> **サプライチェーン・マネジメント（SCM）のためのフレームワーク非依存のCanonical Semantic Model（カノニカル意味モデル）です。企業データ、Canonical Fact、グラフ推論、Projection、そして将来のSCM OS実装を接続しつつ、ソースシステム固有の意味論が暗黙に「真実」になることを防ぎます。**
 
 [![CI](https://github.com/miumigy/scm-ontology/actions/workflows/ontology.yml/badge.svg)](https://github.com/miumigy/scm-ontology/actions)
 
@@ -8,51 +8,53 @@
 
 ## このプロジェクトが存在する理由
 
-エンタープライズSCMデータは豊かですが断片化しています。ERP、WMS、TMS、APS、計画、流通、調達、製造、分析システムは、それぞれ独自の識別子・意味論・時間（時制）ルール・前提を持っています。
+企業のSCMデータは豊富である一方、分断されています。ERP、WMS、TMS、APS、計画、物流、調達、製造、分析などの各システムは、それぞれ固有の識別子、意味論、時間的ルール、前提条件を持っています。
 
-SCM Ontology は、そうした表現と下流のグラフ／推論アプリケーションの間をつなぐ**意味論的コントロールプレーン**（semantic control plane）を提供します。
+SCM Ontologyは、これらの異なる表現と、その下流にあるグラフ／推論アプリケーションの間に位置する、**意味論的コントロールプレーン（semantic control plane）**を提供します。
 
-中央の設計原則は次の通りです:
+中心となる設計原則は次のとおりです。
 
-> **Canonical Truth は統治されます。マッピング、類似度、推論、プロジェクション、または取り込みの成功によって暗黙に生成されることは決してありません。**
+> **Canonical Truth（カノニカルな真実）は統治されるものであり、マッピング、類似度計算、推論、Projection、またはデータ取り込みが成功したことだけを理由として、暗黙に生成されることはありません。**
 
-## SCM Ontology とは
+## SCM Ontologyとは
 
-**SCM Ontology** は、サプライチェーン管理のためのフレームワーク非依存の Canonical Semantic Model（正規意味モデル）です。サプライチェーンを記述するカノニカルなエンティティ、リレーションシップ、イベント、状態、制約、意思決定、KPI、リスクを、ERP / WMS / TMS / APS / 計画ベンダーの語彙に依存せず定義します。これは、エンタープライズエビデンスがマッピングされる**統治された語彙**であり、異種ソースシステムが単一のソースに黙って「真」になることなく、一緒に推論できるようにします。
+**SCM Ontology**は、サプライチェーン・マネジメントのためのフレームワーク非依存のCanonical Semantic Modelです。サプライチェーンを記述するカノニカルなエンティティ、関係、イベント、状態、制約、意思決定、KPI、リスクを、特定のERP / WMS / TMS / APSや計画製品の語彙から独立して定義します。
 
-## SCM OS とは
+これは、企業内のエビデンスを対応付けるための**統治された語彙（governed vocabulary）**です。異なるソースシステムの情報を共通の意味空間で扱い、特定のソースシステムが暗黙に「正解」になることなく、相互に推論できるようにします。
 
-**SCM OS**（supply-chain operating system）は、カノニカルモデルの上に載る統治されたオペレーティングレイヤーです。Canonical Facts と Canonical Graph の状態を、説明可能なビジネス意思決定へ変換します:
+## SCM OSとは
+
+**SCM OS**（supply-chain operating system）は、Canonical Semantic Modelの上に構築される**統治されたオペレーティングレイヤー**です。Canonical FactとCanonical Graphの状態を、説明可能なビジネス意思決定へ変換します。
 
 ```text
-エンタープライズエビデンス → 統治されたカノニカル化 → Canonical Graph / State
-→ ビジネス質問 → 説明可能な推論 → シミュレーション / 最適化
-→ 承認 / 統治 → 実行 → アウトカム → Canonical Event
+企業エビデンス → 統治されたカノニカル化 → Canonical Graph / State
+→ ビジネス・クエスチョン → 説明可能な推論 → シミュレーション / 最適化
+→ 承認 / ガバナンス → 実行 → 結果 → Canonical Event
 → 次の意思決定
 ```
 
-SCM OS は状態・統治・承認・実行境界・監査を所有します。AIとエージェントは**推論または提案プロバイダとしてのみ**動作し、Canonical Truth を直接変更することはありません。
+SCM OSは、状態、ガバナンス、承認、実行境界、監査を担います。AIやエージェントは**推論または提案を提供するプロバイダとしてのみ**動作し、Canonical Truthを直接変更することはありません。
 
 ## 現在の状況
 
-**リファレンスアーキテクチャと統治されたリファレンスランタイム: 完了 — Primary Launch / Release Candidate の準備中**
+**リファレンス・アーキテクチャと統治されたリファレンス・ランタイム：完成 — Primary Launch / Release Candidateの準備段階**
 
-SCM Ontology の意味モデルと SCM OS Reference ランタイムは、以下を含む統治された認知的ループ全体をカバーします: 観測、意思決定コンテキスト構築、ルール・LLM推論プロバイダ、提案検証、承認・統治、実行（インメモリ・副作用フリー）、運用ワークフロー、監査・リプレイ、永続グラフバックエンド（リレーショナルと Neo4j）、閉ループ実行、参照データアダプタ、制約付き自律制御。
+SCM Ontologyの意味モデルとSCM OS Referenceランタイムは、統治された認知ループ全体をカバーしています。具体的には、観測、意思決定コンテキストの構築、ルール／LLMによる推論プロバイダ、提案の検証、承認／ガバナンス、実行（インメモリかつ副作用なし）、業務ワークフロー、監査／リプレイ、永続グラフ・バックエンド（リレーショナルおよびNeo4j）、クローズドループ実行、リファレンス・データ・アダプタ、制約付き自律制御などです。
 
-これは**参照品質**のリリースであり、すべての運用コネクタ・グラフデータベース・スケジューラ・インジェストエンジンが実装されたという主張ではありません。直近の目標は **Primary Launch / Release Candidate**（**SCM Ontology v0.1** / **SCM OS Reference v0.1**）です。
+これは**リファレンス実装としての品質を示すリリース**であり、あらゆる本番用コネクタ、グラフデータベース、スケジューラ、データ取り込みエンジンが実装済みであることを意味しません。次の目標は **Primary Launch / Release Candidate**（**SCM Ontology v0.1** / **SCM OS Reference v0.1**）です。
 
-Golden Path と受入を実行します:
+Primary LaunchのGolden Pathと受入検証は、次のコマンドで実行できます。
 
 ```bash
 PYTHONPATH=src python -m scm_ontology.primary_launch --self-check
 PYTHONPATH=src python -m scm_ontology.primary_launch_acceptance --self-check
 ```
 
-歴史的な `Sxxx` / `Mxx` / `Px-x` 識別子は、マイルストーン文書にトレーサビリティ用に残されています。[ドキュメントマップ](#ドキュメントマップ) と [`docs/launch/`](docs/launch/README.md) が Primary Launch 表面を定義します。
+過去の開発で使用した `Sxxx`、`Mxx`、`Px-x` の識別子は、トレーサビリティのためマイルストーン文書に残しています。現在のPrimary Launchの対象範囲については、[ドキュメント・マップ](#ドキュメントマップ) と [`docs/launch/`](docs/launch/README.md) を参照してください。
 
 ## Quick Start（クイックスタート）
 
-新しい環境で Primary Launch の Golden Path と受入を実行します:
+新しい環境でPrimary LaunchのGolden Pathと受入検証を実行します。
 
 ```bash
 python -m venv .venv
@@ -66,9 +68,9 @@ python -m scm_ontology.primary_launch_acceptance --self-check
 pytest -q
 ```
 
-Golden Path は、統治されたリファレンスランタイムを1つの決定的・内容アドレス付きの結果に合成します。**外部への副作用はなく**、Canonical Truth の変異もありません。完全なストーリーは [`docs/launch/golden-path.md`](docs/launch/golden-path.md)、L5 受入チェックリストは [`docs/launch/acceptance.md`](docs/launch/acceptance.md) を参照して下さい。
+Golden Pathは、統治されたリファレンス・ランタイムを、決定的かつ内容アドレス付きの1つの結果へ組み立てます。**外部への副作用は発生せず、Canonical Truthも変更しません。** 詳細なシナリオは [`docs/launch/golden-path.md`](docs/launch/golden-path.md)、L5受入チェックリストは [`docs/launch/acceptance.md`](docs/launch/acceptance.md) を参照してください。
 
-リポジトリ内の開発者は、理解に約5分、実行に約10分、拡張に約30分で到達できます。
+リポジトリ内で開発する利用者であれば、概念の理解に約5分、実行に約10分、拡張に約30分で到達できることを目指しています。
 
 ## アーキテクチャ概要
 
@@ -91,7 +93,7 @@ flowchart LR
     N -. governed application .-> F
 ```
 
-### 意味論的境界（semantic boundary）
+### 意味論的境界（Semantic Boundary）
 
 ```mermaid
 flowchart TB
@@ -129,9 +131,9 @@ flowchart TB
     ID --> FACT --> VER --> GRAPH
 ```
 
-**重要:** マッピングは変異ではありません。マッピング結果は、明示的な統治された適用ステップがカノニカル状態を作成または変更するまでの間、エビデンス付きの提案／結果です。
+**重要：Mapping（マッピング）はMutation（状態変更）ではありません。** マッピング結果は、明示的な統治された適用ステップによってCanonical Stateが作成・変更されるまでは、エビデンスを伴う提案／結果として扱われます。
 
-## 機械可読のカノニカルレジストリ
+## 機械可読なカノニカル・レジストリ
 
 ```mermaid
 flowchart LR
@@ -144,11 +146,11 @@ flowchart LR
     FIX --> GRAPH[Canonical Graph runtime]
 ```
 
-レジストリは**意味論（セマンティクス）の語彙の成果物**であり、ストレージスキーマではありません。安定したコンセプト識別子、概念レイヤー、世界レイヤー、説明、リレーションシップ述語、エンドポイント、カテゴリを捕捉します。同梱された成果物は `src/scm_ontology/canonical_model.py` に対して検証され、意味論のドリフトが目に見えない内容の不一致ではなく、テスト失敗になります。
+レジストリは**意味論上の語彙を定義する成果物であり、ストレージ・スキーマではありません。** 安定した概念識別子、概念レイヤー、世界レイヤー、説明、関係述語、エンドポイント、カテゴリなどを保持します。リポジトリに格納されたレジストリは `src/scm_ontology/canonical_model.py` と照合・検証されるため、意味論のドリフトは見えにくいドキュメント不整合ではなく、テスト失敗として検出されます。
 
-[`registry/canonical-registry.v0.2.json`](registry/canonical-registry.v0.2.json) と [`docs/roadmap-post-m8.md`](docs/roadmap-post-m8.md) を参照して下さい。
+[`registry/canonical-registry.v0.2.json`](registry/canonical-registry.v0.2.json) と [`docs/roadmap-post-m8.md`](docs/roadmap-post-m8.md) を参照してください。
 
-## Canonical Truth ライフサイクル
+## Canonical Truthのライフサイクル
 
 ```mermaid
 stateDiagram-v2
@@ -165,9 +167,9 @@ stateDiagram-v2
     invalidated --> [*]
 ```
 
-すべてのファクトバージョンは、再構築に必要なプロヴェナンス（出自・履歴）、ソース識別、スコープ、時間（時制）基点、ライフサイクル履歴、統治判断を保持します。
+すべてのFact Versionは、再構築に必要となるプロヴェナンス（出所・証跡）、ソース識別情報、スコープ、時間的基準、ライフサイクル履歴、ガバナンス上の判断を保持します。
 
-## 読み取り / 派生 / 変異の境界
+## 読み取り・派生・変更の境界
 
 ```mermaid
 flowchart LR
@@ -192,66 +194,66 @@ flowchart LR
     style CANON stroke-width:3px
 ```
 
-デフォルトは**読み取り専用**です。Canonical Truth を変更できる唯一の経路は、明示的・統治された適用ステップのみです。
+基本姿勢は**読み取り専用（read-only）**です。Canonical Truthを変更できる唯一の経路は、明示的かつ統治された適用ステップです。
 
 ## 開発履歴
 
-詳細なマイルストーンとスライス契約（歴史的な `M8` / `Sxxx` 開発シーケンス）は、[`docs/milestones/`](docs/milestones/) と `docs/` 契約索引の下で保持されています。これらはエンジニアリング履歴であり、Primary Launch の表面ではありません。現在の製品の表面は [`docs/launch/`](docs/launch/README.md) によって定義されます。
+詳細なマイルストーンとスライス契約（過去の `M8` / `Sxxx` 開発シーケンス）は、[`docs/milestones/`](docs/milestones/) および `docs/` の契約インデックスに保存されています。これらはエンジニアリング上の開発履歴であり、Primary Launchの主要な表面ではありません。現在のプロダクトとしての表面は [`docs/launch/`](docs/launch/README.md) で定義されています。
 
-## 非妥協の不変条件（Non-negotiable invariants）
+## 非妥協の不変条件（Non-negotiable Invariants）
 
-1. **暗黙のカノニカル変異はしない** — マッピング、推論、クエリー、プロジェクション、リアライズ、無効化、リプレイ、リカバリは Canonical Truth を黙って変更しません。
-2. **Canonical Truth ≠ 派生した真実** — 推論、集計、類似度、確信、プロジェクション結果は、Canonical Facts と区別できるまま保持されます。
-3. **プロヴェナンスは保持される** — ソース識別子とエビデンスは、統治された結果に結び付けられたままです。
-4. **履歴は保持される** — ファクトバージョン、ライフサイクル遷移、競合、解決、プロジェクション、無効化が再構築可能です。
-5. **不確実性は保持される** — 未解決・競合・期限切れ・部分・失敗・サポートされていない・不明な結果は、観測可能なままです。
-6. **リプレイは第一級の機能** — 統治された意思決定と実行が、履歴を黙って書き換えることなく、リプレイ可能です。
-7. **スコープは明示的** — エンタープライズ、テナント、組織、製品などの境界は、決して暗黙に拡大されません。
-8. **ベンダー意味論は Canonical Ontology の外に留まる** — 明示的に統治・バージョン化されない限り。
+1. **Canonical Truthを暗黙に変更しない** — Mapping、Reasoning、Query、Projection、Materialization、Invalidation、Replay、Recoveryは、Canonical Truthを黙って変更しません。
+2. **Canonical Truthと派生結果を混同しない** — 推論、集計、類似度、確信度、Projectionの結果は、Canonical Factとは区別されたまま保持されます。
+3. **Provenanceを失わない** — ソース識別情報とエビデンスは、統治された結果に紐付いたまま保持されます。
+4. **履歴を失わない** — Fact Version、ライフサイクル遷移、競合、解決、Projection、Invalidationを再構築できます。
+5. **不確実性を失わない** — 未解決、競合、陳腐化、一部欠損、失敗、未サポート、不明といった結果を観測可能な状態に保ちます。
+6. **Replayを第一級の機能とする** — 統治された意思決定と実行は、履歴を暗黙に書き換えることなく再現できます。
+7. **Scopeを明示する** — Enterprise、Tenant、Organization、Productなどの境界を暗黙に拡張しません。
+8. **ベンダー固有の意味論をCanonical Ontologyの外に置く** — 明示的にガバナンス対象とし、バージョン管理しない限り、ベンダー固有の意味論をCanonical Ontologyへ持ち込みません。
 
-## このリポジトリが何か、そして何でないか
+## このリポジトリが提供するもの／提供しないもの
 
-### これは
+### 提供するもの
 
-- カノニカルなSCM意味論モデルです。
-- 統治される語彙とリレーションモデルです。
-- エンタープライズカノニカル化のための契約層です。
-- カノニカルグラフとグラフ推論の基礎です。
-- プロジェクションとSCM OSアプリケーションの基礎です。
-- 回帰テストで保護された実行可能な仕様です。
+- カノニカルなSCM意味モデル
+- 統治された語彙と関係モデル
+- 企業データをカノニカル化するための契約レイヤー
+- Canonical Graphとグラフ推論の基盤
+- ProjectionとSCM OSアプリケーションの基盤
+- 回帰テストによって保護された実行可能な仕様（executable specification）
 
-### これはまだ（Primary Launch 境界）
+### 現時点では提供しないもの（Primary Launchの境界）
 
-**SCM Ontology v0.1** / **SCM OS Reference v0.1** はリファレンス実装です。統治されたリファレンスアーキテクチャを実演しますが、次のことを**主張はしません**:
+**SCM Ontology v0.1** / **SCM OS Reference v0.1** はリファレンス実装です。統治されたリファレンス・アーキテクチャを実証するものであり、以下を提供済みであるとは主張しません。
 
-- 一般的な SAP / ERP / WMS / TMS / APS コネクタスイート;
-- プロダクショングレードのグラフ DB 製品や本番 HA / SLA。
-- エンタープライズ IAM / セキュリティ認証を行ったマルチテナント SaaS。
-- 自律型オントロジー学習やグラフ書き込みエージェント。
-- 制限のない自律実行または暗黙の外部副作用。
-- マッピング、推論、プロジェクション、または取り込み成功だけでファクトが Canonical Truth になること。
-- オプティマイザ / APS の代替品、またはプロダクションスケールのインジェスト / スケジューラ。
+- SAP / ERP / WMS / TMS / APSの汎用コネクタ・スイート
+- 本番規模のグラフデータベース製品、または本番HA / SLA
+- マルチテナントSaaS、エンタープライズIAM、セキュリティ認証
+- 自律的なOntology学習エージェント、またはグラフへ直接書き込むエージェント
+- 無制限の自律実行、または暗黙の外部副作用
+- Mapping、Inference、Projection、Ingestionが成功しただけで、データがCanonical Truthになる仕組み
+- Optimizer / APSの代替製品、または本番規模のIngestion / Scheduler
 
-これらの明示的な境界は、リファレンスの主張を信頼できるものにする長所です。実際のエンタープライズ統合、マルチテナント展開、エンタープライズ IAM、観測性、性能・スケール、より豊かな SCM アプリは、ポストランチテーマです（[`BACKLOG.yaml`](BACKLOG.yaml) を参照）。
+これらの境界を明確にすることは弱点ではなく、リファレンス実装としての主張の信頼性を高めるための重要な設計です。実際の企業システム連携、マルチテナント展開、エンタープライズIAM、運用監視、性能・スケール対応、より高度なSCMアプリケーションは、Primary Launch後のテーマです（[`BACKLOG.yaml`](BACKLOG.yaml) を参照）。
 
-## ドキュメントマップ
+## ドキュメント・マップ
 
-| 領域 | エントリポイント |
+| 領域 | エントリーポイント |
 |---|---|
 | プロジェクト概要 | `README.md` |
-| ドキュメント索引 | `docs/README.md` |
-| 現在のアーキテクチャ | `docs/architecture/current-architecture.md` |
+| ドキュメント・インデックス | `docs/README.md` |
+| 現行アーキテクチャ | `docs/architecture/current-architecture.md` |
 | 機械可読レジストリ | `registry/canonical-registry.v0.2.json` |
-| レジストリローダー | `src/scm_ontology/machine_registry.py` |
+| レジストリ・ローダー | `src/scm_ontology/machine_registry.py` |
 | マイルストーンと受入 | `docs/milestones/` |
-| M8 クロージャコントラクト | `docs/milestones/S310-m8-acceptance-closure.md` |
-| 意味論的コントラクト | `docs/semantics/` and related contract documents |
-| バックログ / 将来実装 | `BACKLOG.yaml` |
+| M8クローズ契約 | `docs/milestones/S310-m8-acceptance-closure.md` |
+| Semantic Contracts | `docs/semantics/` および関連契約文書 |
+| バックログ／将来実装 | `BACKLOG.yaml` |
 | エージェント開発ルール | `AGENTS.md` |
-| Primary Launch 索引 | `docs/launch/README.md` |
+| Primary Launchインデックス | `docs/launch/README.md` |
 | Golden Path | `docs/launch/golden-path.md` |
 
-## 開発哲学
+## 開発思想
 
 ```mermaid
 flowchart LR
@@ -264,23 +266,20 @@ flowchart LR
     G --> I
 ```
 
-グリーンな CI は必要ですが十分ではありません。**テストは意味論的境界を保護するものであり、グリーンを得るためにテストを弱化することはできません。**
+CIがGreenであることは必要条件ですが、十分条件ではありません。**テストはGreenにするために弱めるのではなく、意味論上の境界を守るために存在します。**
 
 ## ロードマップ
 
-開発は、無制限の `Sxxx` / `Mxx` / `Phase-x-x` 識別子シーケンスではなく **リリース指向**で管理されます。現行の目標は:
+開発は、無制限に増加する内部管理番号 `Sxxx` / `Mxx` / `Phase-x-x` ではなく、**リリースを軸として管理します。** 現在の目標は次のとおりです。
 
-- **SCM Ontology v0.1** / **SCM OS Reference v0.1** — Primary Launch / Release Candidate。統治されたリファレンスアーキテクチャは完了です（[開発履歴](#開発履歴) を参照）。ローンチスライスは Golden Path と L5 受入です。
+- **SCM Ontology v0.1** / **SCM OS Reference v0.1** — Primary Launch / Release Candidate。統治されたリファレンス・アーキテクチャは完成しており（[開発履歴](#開発履歴)を参照）、ローンチ対象はGolden PathとL5受入です。
 
-ポストローンチのリリースは `v0.1.0`、`v0.2.0`、`v0.3.0` として進められます。新しい機能作業は新しいロードマップに基づいて再ベースライン化されます。[`docs/primary-launch-handoff.md`](docs/primary-launch-handoff.md) で正式なハンドオフと非主張を参照して下さい。
+Primary Launch後は `v0.1.0`、`v0.2.0`、`v0.3.0` のようにリリース単位で進め、新しい機能開発をその時点で新しいロードマップに再定義します。正式な引き継ぎ方針と非主張事項については [`docs/primary-launch-handoff.md`](docs/primary-launch-handoff.md) を参照してください。
 
-## コントリビューション
+## Contributing
 
-- 最初に [`AGENTS.md`](AGENTS.md) を読んで下さい。非妥協の不変条件（Canonical Truth 境界・プロヴェナンス・統治・リプレイ）をエンコードしています。
-- ポストランチアイデアのために新しい Phase を開始したり、新規 `Sxxx` 番号を発行したりしないで下さい。まずそれが **Primary Launch ブロッカー**なのか、**Important** なリリース前の改善なのか、**ポストランチのバックログ**なのかを判断して下さい（[`BACKLOG.yaml`](BACKLOG.yaml) に記録）。
-- 新しい契約を導入するよりも既存の統治された契約を合成することを優先して下さい。
-- スキーマまたは契約の変更には、検証とテストが必要です。CI をグリーンにするためにテストや受入条件を弱化しないで下さい。
-- ブランチフローに従って下さい: `main` → 焦点を絞った機能ブランチ → CI → PR → レビュー → 統治されたマージ。
-
----
-*この日本語版は、英語版 [`README.md`](./README.md) の翻訳です。用語の不整合がある場合、英語版を正とします。*
+- 最初に [`AGENTS.md`](AGENTS.md) を読んでください。Canonical Truth境界、Provenance、Governance、Replayなどの非妥協の不変条件を定義しています。
+- Post-launchのアイデアについて、新しいPhaseを開始したり、新しい `Sxxx` 番号を発行したりしないでください。まず、**Primary Launch Blocker**、**Importantなローンチ前改善**、**Post-launch Backlog** のどれに該当するかを判断し、必要に応じて [`BACKLOG.yaml`](BACKLOG.yaml) に記録してください。
+- 新しい契約を導入する前に、既存の統治された契約を組み合わせて解決できないかを検討してください。
+- すべてのSchema / Contract変更には検証とテストを追加してください。CIをGreenにするためにテストや受入条件を弱めてはいけません。
+- ブランチ運用は `main` → 集中したFeature Branch → CI → PR → Review → Governed Merge の流れに従ってください。
