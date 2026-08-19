@@ -2,6 +2,34 @@
 
 ## Current phase
 
+**Phase 9 — Closed-Loop SCM OS Execution: IN PROGRESS (P9-A implemented).**
+
+Phase 8 (Persistent Graph, P8-A..P8-F COMPLETE — full record below) hands off to
+**Phase 9 — Closed-Loop SCM OS Execution** (see `docs/roadmap-post-m8.md`).
+The goal is to move from side-effect-free dry runs to a governed real-execution
+architecture that closes the state-feedback loop:
+
+```text
+Observation -> Canonical Graph -> Reasoning -> Decision -> Authorization
+  -> ExecutionCommand -> External Execution -> Execution Outcome
+  -> Canonical Event -> Canonical Graph -> Next Decision
+```
+
+**P9-A (Execution Outcome Contract,
+`src/scm_ontology/execution_outcome_contract.py`)** establishes the explicit
+success/failure/partial outcome model with evidence and provenance: a command
+may produce one or more per-target `ResultElement` records (each carrying its
+own status, evidence, and external reference) aggregated into a phase verdict
+(`success` / `partial` / `failure` / `rejected`), content-addressed and
+replay-reproducible. See `docs/P9A-execution-outcome-contract.md`. P9-B
+(external execution adapter), P9-C (approval-to-execution runtime), P9-D
+(outcome-to-event canonicalization), P9-E (closed-loop E2E), P9-F (failure /
+retry / idempotency), and P9-G (phase acceptance) follow.
+
+---
+
+## Phase 8 — SCM OS Persistent Graph (COMPLETE)
+
 **Phase 8 — SCM OS Persistent Graph: COMPLETE (P8-A..P8-F).**
 
 P8-A (`src/scm_ontology/persistent_graph_contract.py`) defines the explicit,
@@ -64,10 +92,9 @@ SCM OS integration through S366.
 
 ## Next phase
 
-**Phase 8 — SCM OS Persistent Graph: COMPLETE** (P8-A..P8-F merged). The next
-phase per `docs/roadmap-post-m8.md` is **Phase 9 — Closed-Loop SCM OS
-Execution**. To continue in a new session, start from
-`docs/SCM_OS_HANDOFF_PROMPT_PHASE9.md` (Phase 9 new-session handoff prompt).
+**Phase 9 — Closed-Loop SCM OS Execution: IN PROGRESS** (P9-A implemented).
+Continue with P9-B (external execution adapter), then P9-C .. P9-G per
+`docs/roadmap-post-m8.md` and `docs/SCM_OS_HANDOFF_PROMPT_PHASE9.md`.
 
 ## Guardrails (still in force)
 
