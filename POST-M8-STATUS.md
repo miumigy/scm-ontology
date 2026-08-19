@@ -2,7 +2,7 @@
 
 ## Current phase
 
-**Phase 8 — SCM OS Persistent Graph: IN PROGRESS (P8-A..P8-C complete).**
+**Phase 8 — SCM OS Persistent Graph: IN PROGRESS (P8-A..P8-D complete).**
 
 P8-A (`src/scm_ontology/persistent_graph_contract.py`) defines the explicit,
 backend-neutral persistence semantics — nodes, relationships, temporal state,
@@ -20,7 +20,11 @@ provides the foundation P8-E builds on. See `docs/P8B-relational-backend.md`.
 interchangeable `PersistentGraphBackend` interface as graph-shaped storage
 (driver-free, injected Cypher executor/query), preserving the same P8-A semantics
 and producing equivalent canonical/query results to P8-B — proving the P8-F
-interchangeability premise. See `docs/P8C-neo4j-backend.md`.
+interchangeability premise. See `docs/P8C-neo4j-backend.md`. **P8-D (Snapshot /
+Version / Replay, `src/scm_ontology/persistent_snapshot.py`)** wraps any
+`PersistentGraphBackend` with an immutable, content-addressed version index and
+deterministic replay of any recorded version (including reconstructing the
+underlying `CanonicalGraph`). See `docs/P8D-snapshot-version-replay.md`.
 
 For completeness, Phase 7 (previous) is recorded below.
 
@@ -60,10 +64,10 @@ SCM OS integration through S366.
 
 ## Next phase
 
-**Phase 8 — SCM OS Persistent Graph** continues with **P8-D (snapshot /
-version / replay)**, then **P8-E (scale/index boundary)**, and **P8-F (Phase 8
-acceptance)**: interchangeable persistence backends (in-memory, relational,
-Neo4j) produce equivalent canonical/query semantics for the reference workload.
+**Phase 8 — SCM OS Persistent Graph** continues with **P8-E (scale/index
+boundary)**, and **P8-F (Phase 8 acceptance)**: interchangeable persistence
+backends (in-memory, relational, Neo4j) produce equivalent canonical/query
+semantics for the reference workload.
 
 ## Guardrails (still in force)
 
