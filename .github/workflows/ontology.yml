@@ -17,3 +17,8 @@ jobs:
       - run: PYTHONPATH=src python -m scm_ontology.primary_launch --self-check
       - run: PYTHONPATH=src python -m scm_ontology.primary_launch_acceptance --self-check
       - run: PYTHONPATH=src pytest -q
+      # Verify the package installs and the Golden Path runs without PYTHONPATH.
+      # Primary-launch acceptance (L5) is repo-aware (checks launch docs), so it
+      # is exercised from source above, not from the installed package.
+      - run: pip install .
+      - run: python -m scm_ontology.primary_launch --self-check

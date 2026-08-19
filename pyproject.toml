@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "scm-ontology"
+version = "0.1.0"
+description = "A framework-independent Canonical Semantic Model for Supply Chain Management and a governed SCM OS reference runtime."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+keywords = ["supply-chain", "ontology", "canonical-model", "semantic-model", "scm"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "PyYAML>=6.0,<7",
+    "jsonschema>=4.20,<5",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8,<9",
+]
+neo4j = [
+    "neo4j>=5,<6",
+]
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
