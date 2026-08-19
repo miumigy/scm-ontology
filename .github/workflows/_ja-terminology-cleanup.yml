@@ -1,0 +1,62 @@
+name: Cleanup Japanese terminology
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Cleanup terminology
+        shell: python
+        run: |
+          from pathlib import Path
+          p = Path('README.ja.md')
+          s = p.read_text(encoding='utf-8')
+          replacements = {
+              '基準意味モデル（基準意味モデル（Canonical Semantic Model））': '基準意味モデル（Canonical Semantic Model）',
+              '基準情報（基準情報（Canonical Truth））': '基準情報（Canonical Truth）',
+              '基準意味モデル（Canonical Semantic Model）です。': '基準意味モデルです（Canonical Semantic Model）。',
+              '基準意味モデル（Canonical Semantic Model）です': '基準意味モデルです（Canonical Semantic Model）',
+              '基準意味モデル（Canonical Semantic Model）の上': '基準意味モデルの上',
+              '基準意味モデル（Canonical Semantic Model）上': '基準意味モデル上',
+              '基準情報（Canonical Truth）も変更しません': '基準情報も変更しません',
+              '基準情報（Canonical Truth）を直接変更': '基準情報を直接変更',
+              '基準情報（Canonical Truth）と派生結果': '基準情報と派生結果',
+              '基準情報（Canonical Truth）を黙って変更しません': '基準情報を黙って変更しません',
+              '基準情報（Canonical Truth）を変更できる': '基準情報を変更できる',
+              '基準情報（Canonical Truth））': '基準情報（Canonical Truth）',
+              '基準事実（Canonical Fact）とは': '基準事実とは',
+              '基準グラフ（Canonical Graph） / State': '基準グラフ / 状態',
+              '基準グラフ（Canonical Graph） runtime': '基準グラフ・ランタイム',
+              'Reference 基準化': '基準化',
+              '基準識別子（Canonical Identity）': '基準識別子',
+              '基準事実（Canonical Fact）': '基準事実',
+              '基準グラフ（Canonical Graph）': '基準グラフ',
+              '基準状態（Canonical State）': '基準状態',
+              '基準イベント（Canonical Event）': '基準イベント',
+              'CANON[(基準情報（Canonical Truth）)]': 'CANON[(基準情報)]',
+              'Canonical Semantic Layer': '基準意味レイヤー',
+              'Canonical Model': '基準モデル',
+          }
+          for old, new in replacements.items():
+              s = s.replace(old, new)
+          # Restore one explicit definition of the English term in the prose.
+          s = s.replace('基準情報は統治されるものであり', '基準情報（Canonical Truth）は統治されるものであり')
+          p.write_text(s, encoding='utf-8')
+      - name: Commit cleanup and remove temporary workflow
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add README.ja.md
+          git rm .github/workflows/_ja-terminology-cleanup.yml
+          git diff --cached --quiet && exit 0
+          git commit -m 'docs: refine Japanese canonical terminology'
+          git push
