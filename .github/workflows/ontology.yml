@@ -17,3 +17,7 @@ jobs:
       - run: PYTHONPATH=src python -m scm_ontology.primary_launch --self-check
       - run: PYTHONPATH=src python -m scm_ontology.primary_launch_acceptance --self-check
       - run: PYTHONPATH=src pytest -q
+      # Verify the package installs and runs without PYTHONPATH (release surface).
+      - run: pip install .
+      - run: python -m scm_ontology.primary_launch --self-check
+      - run: python -m scm_ontology.primary_launch_acceptance --self-check

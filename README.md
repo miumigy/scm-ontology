@@ -14,6 +14,33 @@ The central design principle is:
 
 > **Canonical Truth is governed; it is never created implicitly by mapping, similarity, inference, projection, or successful ingestion.**
 
+## What is SCM Ontology?
+
+**SCM Ontology** is a framework-independent Canonical Semantic Model for Supply Chain
+Management. It defines the canonical entities, relationships, events, states,
+constraints, decisions, KPIs, and risks that describe a supply chain, independent of
+any ERP / WMS / TMS / APS / planning vendor vocabulary. It is the governed vocabulary
+that enterprise evidence is mapped onto, so that heterogeneous source systems can be
+reasoned about together without letting any one source silently become truth.
+
+## What is SCM OS?
+
+**SCM OS** (supply-chain operating system) is the governed operating layer that sits on
+top of the canonical model. It turns Canonical Facts and Canonical Graph state into
+explainable business decisions:
+
+```text
+Enterprise Evidence -> Governed Canonicalization -> Canonical Graph / State
+-> Business Question -> Explainable Reasoning -> Simulation / Optimization
+-> Authorization / Governance -> Execution -> Outcome -> Canonical Event
+-> Next Decision
+```
+
+SCM OS owns state, governance, authorization, execution boundaries, and audit. AI and
+agents act as **reasoning or proposal providers only**; they never directly mutate
+Canonical Truth.
+
+
 ## Current status
 
 **Reference architecture & governed reference runtime: COMPLETE through Phase 10.**
@@ -40,6 +67,31 @@ PYTHONPATH=src python -m scm_ontology.primary_launch_acceptance --self-check
 Historical `Sxxx`, `Mxx`, and `Px-x` identifiers remain in the milestone
 documents for traceability. See the [Documentation map](#documentation-map) and
 [`docs/launch/`](docs/launch/README.md) for the primary-launch surface.
+
+## Quick Start
+
+Run the primary-launch Golden Path and acceptance in a fresh environment:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements-dev.txt
+
+export PYTHONPATH=src
+python -m scm_ontology.validator
+python -m scm_ontology.primary_launch --self-check
+python -m scm_ontology.primary_launch_acceptance --self-check
+pytest -q
+```
+
+The Golden Path composes the governed reference runtime into one deterministic,
+content-addressed result with **no external side effects** and no mutation of
+Canonical Truth. See [`docs/launch/golden-path.md`](docs/launch/golden-path.md) for the
+full story and [`docs/launch/acceptance.md`](docs/launch/acceptance.md) for the L5
+acceptance checklist.
+
+A typical in-repo developer can reach understanding in ~5 minutes, execution in
+~10 minutes, and extension in ~30 minutes.
 
 ## Architecture at a glance
 
@@ -234,14 +286,24 @@ Operational Governance
 - a foundation for projections and SCM OS applications;
 - an executable specification protected by regression tests.
 
-### It is not yet
+### It is not yet (Primary Launch boundaries)
 
-- a universal ERP/WMS/TMS connector;
-- a production-scale graph database product;
-- an autonomous ontology-learning system;
-- an autonomous graph-writing agent;
-- an optimizer or APS replacement;
-- a claim that inferred results are automatically true.
+**SCM Ontology v0.1** / **SCM OS Reference v0.1** is a reference implementation.
+It demonstrates the governed reference architecture; it does **not** claim:
+
+- a universal SAP / ERP / WMS / TMS / APS connector suite;
+- a production-scale graph database product or a production HA / SLA;
+- a multi-tenant SaaS with enterprise IAM or security certification;
+- an autonomous ontology-learning or graph-writing agent;
+- unrestricted autonomous execution or implicit external side effects;
+- that mapping, inference, projection, or ingestion success alone makes a fact
+  Canonical Truth;
+- an optimizer / APS replacement or production-scale ingestion / scheduler.
+
+These explicit boundaries are a strength: they make the reference claims
+credible. Real enterprise integration, multi-tenant deployment, enterprise
+IAM, observability, performance/scale, and richer SCM applications are
+post-launch themes (see [`BACKLOG.yaml`](BACKLOG.yaml)).
 
 ## Documentation map
 
@@ -275,16 +337,30 @@ flowchart LR
 
 A green CI is necessary but not sufficient: **tests must protect semantic boundaries rather than weaken them to obtain a green build.**
 
-## Road ahead
+## Roadmap
 
-M8 intentionally ends the contract-definition phase. The next phase turns these stable boundaries into reference implementations and measurable SCM value:
+Development is managed **release-oriented**, not by an unbounded sequence of
+internal `Sxxx` / `Mxx` / `Phase-x-x` identifiers. The current target is:
 
-1. **Machine-readable canonical ontology and registries — active.**
-2. Reference canonicalization pipeline against realistic enterprise fixtures.
-3. Graph persistence and query implementation.
-4. Real multi-source identity resolution under governance.
-5. SCM business-question applications.
-6. Integration with planning, simulation, and SCM OS capabilities.
-7. Production observability, performance, and operational controls.
+- **SCM Ontology v0.1** / **SCM OS Reference v0.1** — the Primary Launch /
+  Release Candidate. The reference architecture is complete through Phase 10;
+  the launch slice is the Golden Path plus the L5 acceptance.
 
-Future implementation must preserve the M8 contracts rather than redefining them for convenience.
+Post-launch releases can then proceed as `v0.1.0`, `v0.2.0`, `v0.3.0`, with new
+capability work re-baselined against a fresh roadmap. See
+[`docs/primary-launch-handoff.md`](docs/primary-launch-handoff.md) for the
+authoritative handoff and non-claims.
+
+## Contributing
+
+- Read [`AGENTS.md`](AGENTS.md) first: it encodes the non-negotiable invariants
+  (Canonical Truth boundary, provenance, governance, replay).
+- Do not start a new Phase or mint new `Sxxx` numbers for a post-launch idea.
+  Decide first whether it is a **Primary Launch blocker**, an **Important**
+  pre-launch improvement, or **post-launch backlog** (record it in
+  [`BACKLOG.yaml`](BACKLOG.yaml)).
+- Prefer composing existing governed contracts over introducing new ones.
+- Every schema/contract change needs validation and tests; do not weaken tests
+  or acceptance conditions to make CI green.
+- Follow the branch flow: `main` -> focused feature branch -> CI -> PR ->
+  review -> governed merge.
