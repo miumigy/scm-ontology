@@ -2,7 +2,7 @@
 
 ## Current phase
 
-**Phase 9 — Closed-Loop SCM OS Execution: IN PROGRESS (P9-A..P9-D implemented).**
+**Phase 9 — Closed-Loop SCM OS Execution: IN PROGRESS (P9-A..P9-E implemented).**
 
 Phase 8 (Persistent Graph, P8-A..P8-F COMPLETE — full record below) hands off to
 **Phase 9 — Closed-Loop SCM OS Execution** (see `docs/roadmap-post-m8.md`).
@@ -37,8 +37,13 @@ Canonicalization, `src/scm_ontology/outcome_to_event_canonicalization.py`)** pro
 governed outcome into a read-only `CanonicalEvent` (execution_outcome_recorded)
 only when the command lifecycle reached the executed state, embedding the
 governance chain and outcome evidence/provenance (see
-`docs/P9D-outcome-to-event-canonicalization.md`). P9-E (closed-loop E2E), P9-F
-(failure / retry / idempotency), and P9-G (phase acceptance) follow.
+`docs/P9D-outcome-to-event-canonicalization.md`). **P9-E (Closed-Loop E2E,
+`src/scm_ontology/closed_loop_e2e.py`)** composes the governed loop end to end —
+state → decision → authorization → execution → outcome → canonical event →
+updated state — where the operative `ClosedLoopState` is an explicit derived
+snapshot that is updated only through the governed execution/event boundary (see
+`docs/P9E-closed-loop-e2e.md`). P9-F (failure / retry / idempotency) and P9-G
+(phase acceptance) follow.
 
 ---
 
@@ -106,9 +111,8 @@ SCM OS integration through S366.
 
 ## Next phase
 
-**Phase 9 — Closed-Loop SCM OS Execution: IN PROGRESS** (P9-A..P9-D
-implemented). Continue with P9-E (closed-loop E2E), then P9-F ..
-P9-G per
+**Phase 9 — Closed-Loop SCM OS Execution: IN PROGRESS** (P9-A..P9-E
+implemented). Continue with P9-F (failure / retry / idempotency), then P9-G per
 `docs/roadmap-post-m8.md` and `docs/SCM_OS_HANDOFF_PROMPT_PHASE9.md`.
 
 ## Guardrails (still in force)
