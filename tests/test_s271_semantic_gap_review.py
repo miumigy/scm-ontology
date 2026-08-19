@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-DOC = Path("docs/milestones/S271-m7-semantic-gap-review-contract.md")
+DOC = Path("docs/history/phase7/S271-m7-semantic-gap-review-contract.md")
 
 
 def test_s271_defines_gap_classifications() -> None:

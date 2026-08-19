@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-DOC = Path("docs/milestones/S260-m7-semantic-gap-contract.md")
+DOC = Path("docs/history/phase7/S260-m7-semantic-gap-contract.md")
 
 
 def test_s260_defines_distinct_gap_classes() -> None:

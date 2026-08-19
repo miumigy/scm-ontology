@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-CONTRACT = Path("docs/milestones/S255-m7-canonicalization-boundary-contract.md")
+CONTRACT = Path("docs/history/phase7/S255-m7-canonicalization-boundary-contract.md")
 
 
 def test_s255_defines_directional_adapter_boundary() -> None:

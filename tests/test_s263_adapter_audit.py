@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-DOC = Path("docs/milestones/S263-m7-adapter-audit-contract.md")
+DOC = Path("docs/history/phase7/S263-m7-adapter-audit-contract.md")
 
 
 def test_s263_preserves_audit_lineage() -> None:

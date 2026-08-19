@@ -1,6 +1,6 @@
 from pathlib import Path
 
-DOC = Path("docs/milestones/S301-canonical-fact-application-transition-contract.md")
+DOC = Path("docs/history/phase8/S301-canonical-fact-application-transition-contract.md")
 
 
 def test_s301_requires_governed_application_preconditions() -> None:

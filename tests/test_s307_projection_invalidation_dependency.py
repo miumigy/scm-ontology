@@ -1,6 +1,6 @@
 from pathlib import Path
 
-DOC = Path("docs/milestones/S307-projection-invalidation-dependency-contract.md")
+DOC = Path("docs/history/phase8/S307-projection-invalidation-dependency-contract.md")
 
 
 def test_s307_requires_dependency_identity_and_invalidation() -> None:

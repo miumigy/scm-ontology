@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-DOC = Path("docs/milestones/S274-m7-adapter-fixture-reference.md")
+DOC = Path("docs/history/phase7/S274-m7-adapter-fixture-reference.md")
 
 
 def test_s274_defines_vendor_neutral_fixture_scope() -> None:

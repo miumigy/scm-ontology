@@ -1,6 +1,6 @@
 from pathlib import Path
 
-DOC = Path("docs/milestones/S288-m8-identity-resolution-boundary-contract.md")
+DOC = Path("docs/history/phase8/S288-m8-identity-resolution-boundary-contract.md")
 
 
 def test_s288_protects_canonical_identity() -> None:

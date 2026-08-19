@@ -2,7 +2,7 @@ from pathlib import Path
 
 
 def test_m6_is_active_in_milestone_roadmap() -> None:
-    text = Path("docs/milestones/README.md").read_text(encoding="utf-8")
+    text = Path("docs/history/milestones-status.md").read_text(encoding="utf-8")
     assert "M6" in text
     assert "SCM Graph Integration" in text
     assert "Active" in text

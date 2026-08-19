@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-DOC = Path("docs/milestones/S265-m7-replay-diff-contract.md")
+DOC = Path("docs/history/phase7/S265-m7-replay-diff-contract.md")
 
 
 def test_s265_defines_required_difference_classes() -> None:

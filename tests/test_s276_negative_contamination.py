@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-DOC = Path("docs/milestones/S276-m7-negative-contamination-tests.md")
+DOC = Path("docs/history/phase7/S276-m7-negative-contamination-tests.md")
 
 
 def test_s276_requires_negative_cases() -> None:

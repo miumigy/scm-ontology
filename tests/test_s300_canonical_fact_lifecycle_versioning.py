@@ -1,6 +1,6 @@
 from pathlib import Path
 
-DOC = Path("docs/milestones/S300-canonical-fact-lifecycle-versioning-contract.md")
+DOC = Path("docs/history/phase8/S300-canonical-fact-lifecycle-versioning-contract.md")
 
 
 def test_s300_defines_explicit_fact_lifecycle() -> None:

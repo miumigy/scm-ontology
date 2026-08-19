@@ -266,7 +266,7 @@ flowchart LR
 
 これまでの開発では、`M8`や`Sxxx`などの詳細な開発単位を使って、意味定義、実行境界、受入条件を積み上げてきました。
 
-SCM OSリファレンス構築のPhase 6〜10は [`docs/history/`](docs/history/) に、マイルストーンと各仕様（歴史的な`M8` / `Sxxx`系列）は [`docs/milestones/`](docs/milestones/) に、開発履歴として保持しています。これらは**開発履歴であり一次公開の製品面ではありません**。一次公開後の製品開発では、無制限に新しい `Sxxx`、`Mxx`、`Phase` を増やしません。現在の製品面は [`docs/launch/`](docs/launch/README.md) で定義します。
+SCM OSリファレンス構築のPhase 6〜10は [`docs/history/`](docs/history/) に、マイルストーンと各仕様（歴史的な`M8` / `Sxxx`系列）は [`docs/history/`](docs/history/) に、開発履歴として保持しています。これらは**開発履歴であり一次公開の製品面ではありません**。一次公開後の製品開発では、無制限に新しい `Sxxx`、`Mxx`、`Phase` を増やしません。現在の製品面は [`docs/launch/`](docs/launch/README.md) で定義します。
 
 ## 基準となる事実を守るための、変えてはいけない原則
 
@@ -315,8 +315,8 @@ SCM OSリファレンス構築のPhase 6〜10は [`docs/history/`](docs/history/
 | 現在のアーキテクチャ | `docs/architecture/current-architecture.md` |
 | 機械可読な基準語彙 | `registry/canonical-registry.v0.2.json` |
 | 基準語彙ローダー | `src/scm_ontology/machine_registry.py` |
-| マイルストーン・受入条件 | `docs/milestones/` |
-| M8完了契約 | `docs/milestones/S310-m8-acceptance-closure.md` |
+| マイルストーン・受入条件 | `docs/history/` |
+| M8完了契約 | `docs/history/phase8/S310-m8-acceptance-closure.md` |
 | 意味に関する仕様 | `docs/semantics/` および関連文書 |
 | バックログ / 今後の実装 | `BACKLOG.yaml` |
 | エージェント開発ルール | `AGENTS.md` |

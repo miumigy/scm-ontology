@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-DOC = Path("docs/milestones/S261-m7-mapping-decision-contract.md")
+DOC = Path("docs/history/phase7/S261-m7-mapping-decision-contract.md")
 
 
 def test_s261_defines_explicit_decision_states() -> None:

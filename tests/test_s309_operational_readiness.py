@@ -1,6 +1,6 @@
 from pathlib import Path
 
-DOC = Path("docs/milestones/S309-operational-readiness-contract.md")
+DOC = Path("docs/history/phase8/S309-operational-readiness-contract.md")
 
 
 def test_s309_requires_traceability_and_explicit_outcomes() -> None:

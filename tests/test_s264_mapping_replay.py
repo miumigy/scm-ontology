@@ -1,6 +1,6 @@
 from pathlib import Path
 
-DOC = Path("docs/milestones/S264-m7-mapping-replay-contract.md")
+DOC = Path("docs/history/phase7/S264-m7-mapping-replay-contract.md")
 
 
 def test_s264_defines_replay_identity() -> None:

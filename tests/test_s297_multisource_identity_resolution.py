@@ -1,6 +1,6 @@
 from pathlib import Path
 
-DOC = Path("docs/milestones/S297-multisource-identity-resolution-contract.md")
+DOC = Path("docs/history/phase8/S297-multisource-identity-resolution-contract.md")
 
 
 def test_s297_preserves_identity_boundary() -> None:

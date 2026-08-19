@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-DOC = Path("docs/milestones/S280-m8-identity-evidence-match-decision.md")
+DOC = Path("docs/history/phase8/S280-m8-identity-evidence-match-decision.md")
 
 
 def test_s280_defines_identity_decision_boundary() -> None:

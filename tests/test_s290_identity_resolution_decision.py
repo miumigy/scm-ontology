@@ -1,6 +1,6 @@
 from pathlib import Path
 
-DOC = Path("docs/milestones/S290-identity-resolution-decision-contract.md")
+DOC = Path("docs/history/phase8/S290-identity-resolution-decision-contract.md")
 
 
 def test_s290_requires_governed_decision_context() -> None:

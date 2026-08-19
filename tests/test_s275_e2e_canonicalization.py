@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-DOC = Path("docs/milestones/S275-m7-e2e-canonicalization-pipeline.md")
+DOC = Path("docs/history/phase7/S275-m7-e2e-canonicalization-pipeline.md")
 
 
 def test_s275_defines_end_to_end_stages() -> None:

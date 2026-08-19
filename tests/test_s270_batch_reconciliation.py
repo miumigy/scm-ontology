@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-DOC = Path("docs/milestones/S270-m7-canonicalization-batch-reconciliation-contract.md")
+DOC = Path("docs/history/phase7/S270-m7-canonicalization-batch-reconciliation-contract.md")
 
 
 def test_s270_defines_reconciliation_identity() -> None:

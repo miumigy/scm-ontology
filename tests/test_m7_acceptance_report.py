@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-DOC = Path("docs/milestones/M7-acceptance-report.md")
+DOC = Path("docs/history/phase7/M7-acceptance-report.md")
 
 
 def test_m7_acceptance_report_declares_completion() -> None:

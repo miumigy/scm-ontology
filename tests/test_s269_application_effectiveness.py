@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-DOC = Path("docs/milestones/S269-m7-application-effectiveness-contract.md")
+DOC = Path("docs/history/phase7/S269-m7-application-effectiveness-contract.md")
 
 
 def test_s269_defines_assessment_identity() -> None:

@@ -1,6 +1,6 @@
 from pathlib import Path
 
-DOC = Path("docs/milestones/S289-identity-resolution-evidence-contract.md")
+DOC = Path("docs/history/phase8/S289-identity-resolution-evidence-contract.md")
 
 
 def test_s289_requires_identity_evidence_context() -> None:

@@ -1,6 +1,6 @@
 from pathlib import Path
 
-DOC = Path("docs/milestones/S310-m8-acceptance-closure.md")
+DOC = Path("docs/history/phase8/S310-m8-acceptance-closure.md")
 
 
 def test_s310_defines_end_to_end_governed_chain() -> None:

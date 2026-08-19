@@ -1,6 +1,6 @@
 from pathlib import Path
 
-DOC = Path("docs/milestones/S296-canonical-fact-lifecycle-versioning-contract.md")
+DOC = Path("docs/history/phase8/S296-canonical-fact-lifecycle-versioning-contract.md")
 
 
 def test_s296_defines_immutable_versioned_fact_model() -> None:

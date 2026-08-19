@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-DOC = Path("docs/milestones/S266-m7-replay-governance-contract.md")
+DOC = Path("docs/history/phase7/S266-m7-replay-governance-contract.md")
 
 
 def test_s266_defines_governance_signal_traceability() -> None:

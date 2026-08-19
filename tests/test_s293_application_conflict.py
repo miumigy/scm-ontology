@@ -1,6 +1,6 @@
 from pathlib import Path
 
-DOC = Path("docs/milestones/S293-application-conflict-contract.md")
+DOC = Path("docs/history/phase8/S293-application-conflict-contract.md")
 
 
 def test_s293_requires_observable_conflict_context() -> None:

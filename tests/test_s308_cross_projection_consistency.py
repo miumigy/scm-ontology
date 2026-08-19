@@ -1,6 +1,6 @@
 from pathlib import Path
 
-DOC = Path("docs/milestones/S308-cross-projection-consistency-contract.md")
+DOC = Path("docs/history/phase8/S308-cross-projection-consistency-contract.md")
 
 
 def test_s308_requires_consistency_identity() -> None:

@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-DOC = Path("docs/milestones/S279-m8-canonical-identity-resolution.md")
+DOC = Path("docs/history/phase8/S279-m8-canonical-identity-resolution.md")
 
 
 def test_s279_defines_identity_states() -> None:

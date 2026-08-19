@@ -1,6 +1,6 @@
 from pathlib import Path
 
-DOC = Path("docs/milestones/S299-canonical-graph-write-governance-contract.md")
+DOC = Path("docs/history/phase8/S299-canonical-graph-write-governance-contract.md")
 
 
 def test_s299_requires_explicit_write_intent_and_authorization() -> None:
