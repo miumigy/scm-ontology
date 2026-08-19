@@ -23,7 +23,7 @@ S348–S356 established the deterministic governed decision/runtime foundation. 
 
 **Phase 6 (SCM OS Control Plane) — COMPLETE.** P6-A (Cockpit v0), P6-B (Decision Inbox), P6-C (Simulation/Optimization Workspace), P6-D (Execution Workflow Workspace), P6-E (Control Plane E2E), and P6-F (Phase 6 acceptance covering all surfaces) are implemented and merged.
 
-**Phase 7 (SCM OS Real Data Plane) — COMPLETE.** P7-A .. P7-F are implemented and merged. **Phase 8 — Persistent SCM Graph** is now in progress: **P8-A (Persistent Graph Contract)** defines the explicit backend-neutral persistence semantics, **P8-B (Relational Reference Backend)** and **P8-C (Neo4j Reference Backend)** implement them interchangeably (relational and graph-shaped), **P8-D (Snapshot / Version / Replay)** adds deterministic, replayable versioning, and **P8-E (Scale / Index Boundary)** makes the query/index expectations explicit and backend-neutral. See the Phase 8 checklist below; see also `POST-M8-STATUS.md` for the handoff summary.
+**Phase 7 (SCM OS Real Data Plane) — COMPLETE.** P7-A .. P7-F are implemented and merged. **Phase 8 (Persistent SCM Graph) — COMPLETE.** P8-A (Persistent Graph Contract), P8-B (Relational Reference Backend), P8-C (Neo4j Reference Backend), P8-D (Snapshot / Version / Replay), P8-E (Scale / Index Boundary), and P8-F (Phase 8 acceptance) are all merged. Phase 8 closes with `accepted = True`: interchangeable persistence backends produce equivalent canonical/query semantics for the reference workload. See the Phase 8 checklist below; see also `POST-M8-STATUS.md` for the handoff summary.
 
 ---
 
@@ -124,7 +124,7 @@ Turn the Canonical Graph runtime into a persistence-independent production refer
 - [x] **P8-C — Neo4j Reference Backend**: durable graph-backed implementation through the existing transport-neutral boundary (`src/scm_ontology/neo4j_graph_backend.py`, `docs/P8C-neo4j-backend.md`, `tests/test_neo4j_graph_backend.py`);
 - [x] **P8-D — Snapshot / Version / Replay**: deterministic graph snapshots and reproducible historical queries (`src/scm_ontology/persistent_snapshot.py`, `docs/P8D-snapshot-version-replay.md`, `tests/test_persistent_snapshot.py`);
 - [x] **P8-E — Scale / Index Boundary**: identify query/index expectations without leaking backend-specific concepts into the ontology (`src/scm_ontology/persistent_query_surface.py`, `docs/P8E-scale-index-boundary.md`, `tests/test_persistent_query_surface.py`);
-- [ ] **P8-F — Phase 8 acceptance**: interchangeable persistence backends produce equivalent canonical/query semantics for the reference workload.
+- [x] **P8-F — Phase 8 acceptance**: interchangeable persistence backends produce equivalent canonical/query semantics for the reference workload (`src/scm_ontology/phase8_acceptance.py`, `docs/P8F-phase8-acceptance.md`, `tests/test_phase8_acceptance.py`).
 
 ### Design rule
 
