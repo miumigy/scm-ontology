@@ -1,6 +1,6 @@
 from pathlib import Path
 
-DOC = Path("docs/milestones/S291-identity-resolution-application-contract.md")
+DOC = Path("docs/history/phase8/S291-identity-resolution-application-contract.md")
 
 
 def test_s291_requires_governed_application_inputs() -> None:

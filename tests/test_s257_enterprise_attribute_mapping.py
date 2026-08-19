@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-DOC = Path("docs/milestones/S257-m7-enterprise-attribute-mapping.md")
+DOC = Path("docs/history/phase7/S257-m7-enterprise-attribute-mapping.md")
 
 
 def test_s257_separates_field_from_canonical_attribute() -> None:

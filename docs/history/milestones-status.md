@@ -18,7 +18,7 @@
 
 M8 is the current completed milestone. It establishes the governed lifecycle from enterprise evidence to Canonical Truth and through historical query, projection, materialization, invalidation, cross-projection consistency, and operational governance.
 
-See [`M8-acceptance-report.md`](./M8-acceptance-report.md) for the acceptance summary and [`S310-m8-acceptance-closure.md`](./S310-m8-acceptance-closure.md) for the normative closure contract.
+See [`M8-acceptance-report.md`](./phase8/M8-acceptance-report.md) for the acceptance summary and [`S310-m8-acceptance-closure.md`](./phase8/S310-m8-acceptance-closure.md) for the normative closure contract.
 
 ## M8 slice map
 

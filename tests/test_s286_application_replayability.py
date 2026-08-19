@@ -1,6 +1,6 @@
 from pathlib import Path
 
-DOC = Path("docs/milestones/S286-m8-application-replayability-contract.md")
+DOC = Path("docs/history/phase8/S286-m8-application-replayability-contract.md")
 
 
 def test_s286_defines_replay_boundary() -> None:

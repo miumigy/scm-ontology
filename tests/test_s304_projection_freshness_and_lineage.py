@@ -1,6 +1,6 @@
 from pathlib import Path
 
-DOC = Path("docs/milestones/S304-projection-freshness-and-lineage-contract.md")
+DOC = Path("docs/history/phase8/S304-projection-freshness-and-lineage-contract.md")
 
 
 def test_s304_requires_projection_lineage() -> None:

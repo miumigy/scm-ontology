@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-DOC = Path("docs/milestones/S259-m7-provenance-integration.md")
+DOC = Path("docs/history/phase7/S259-m7-provenance-integration.md")
 
 
 def test_s259_defines_provenance_boundary() -> None:

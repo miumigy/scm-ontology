@@ -1,6 +1,6 @@
 from pathlib import Path
 
-DOC = Path("docs/milestones/S284-m8-governed-canonical-application-boundary.md")
+DOC = Path("docs/history/phase8/S284-m8-governed-canonical-application-boundary.md")
 
 
 def test_s284_requires_explicit_application_boundary() -> None:

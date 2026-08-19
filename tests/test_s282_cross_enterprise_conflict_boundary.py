@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-DOC = Path("docs/milestones/S282-m8-cross-enterprise-conflict-boundary.md")
+DOC = Path("docs/history/phase8/S282-m8-cross-enterprise-conflict-boundary.md")
 
 
 def test_s282_defines_conflict_boundary() -> None:

@@ -14,7 +14,7 @@ This directory is the documentation index for SCM Ontology after **M8 COMPLETE**
 
 1. [`../README.md`](../README.md) — project overview and architecture diagrams
    - 日本語版: [`../README.ja.md`](../README.ja.md)
-2. [`milestones/S310-m8-acceptance-closure.md`](milestones/S310-m8-acceptance-closure.md) — M8 acceptance boundary
+2. [`history/phase8/S310-m8-acceptance-closure.md`](history/phase8/S310-m8-acceptance-closure.md) — M8 acceptance boundary
 3. [`architecture/current-architecture.md`](architecture/current-architecture.md) — current architecture and layer responsibilities
 4. [`roadmap-post-m8.md`](roadmap-post-m8.md) — active post-M8 implementation roadmap
 5. [`../registry/canonical-registry.v0.2.json`](../registry/canonical-registry.v0.2.json) — machine-readable canonical vocabulary
@@ -63,7 +63,7 @@ This directory is the documentation index for SCM Ontology after **M8 COMPLETE**
 48. [`S365-optimized-app-planning.md`](S365-optimized-app-planning.md) — optimized procurement/production/distribution plan applications (Phase 5)
 49. [`S366-operational-workflow.md`](S366-operational-workflow.md) — operational workflow application (Phase 5)
 50. [`history/`](history/) — sequential Phase 6–10 SCM OS development records
-51. [`milestones/`](milestones/) — milestone definitions and acceptance reports
+51. [`history/`](history/) — milestone definitions and acceptance reports — milestone definitions and acceptance reports
 52. [`architecture/`](architecture/) — architecture freezes and governance contracts
 53. [`archive/`](archive/) — historical documentation no longer part of the active documentation surface
 

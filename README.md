@@ -223,7 +223,7 @@ The default posture is **read-only**. The only path that may mutate Canonical Tr
 
 The Phase 6–10 SCM OS reference build is preserved as engineering history under
 [`docs/history/`](docs/history/), and the milestone and slice contracts (the
-historical `M8`/`Sxxx` sequence) remain under [`docs/milestones/`](docs/milestones/).
+historical `M8`/`Sxxx` sequence) remain under [`docs/history/`](docs/history/).
 They are development history, not the primary-launch surface; the current product
 surface is defined by [`docs/launch/`](docs/launch/README.md).
 
@@ -277,8 +277,8 @@ post-launch themes (see [`BACKLOG.yaml`](BACKLOG.yaml)).
 | Current architecture | `docs/architecture/current-architecture.md` |
 | Machine-readable registry | `registry/canonical-registry.v0.2.json` |
 | Registry loader | `src/scm_ontology/machine_registry.py` |
-| Milestones & acceptance | `docs/milestones/` |
-| M8 closure contract | `docs/milestones/S310-m8-acceptance-closure.md` |
+| Milestones & acceptance | `docs/history/` |
+| M8 closure contract | `docs/history/phase8/S310-m8-acceptance-closure.md` |
 | Semantic contracts | `docs/semantics/` and related contract documents |
 | Backlog / future implementation | `BACKLOG.yaml` |
 | Agent development rules | `AGENTS.md` |

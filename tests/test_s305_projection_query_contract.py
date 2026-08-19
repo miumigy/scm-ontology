@@ -1,6 +1,6 @@
 from pathlib import Path
 
-DOC = Path("docs/milestones/S305-projection-query-contract.md")
+DOC = Path("docs/history/phase8/S305-projection-query-contract.md")
 
 
 def test_s305_requires_explicit_query_identity_and_semantics() -> None:

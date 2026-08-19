@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-DOC = Path("docs/milestones/S272-m7-adapter-drift-contract.md")
+DOC = Path("docs/history/phase7/S272-m7-adapter-drift-contract.md")
 
 
 def test_s272_defines_drift_dimensions() -> None:

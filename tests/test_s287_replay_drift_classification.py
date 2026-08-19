@@ -1,6 +1,6 @@
 from pathlib import Path
 
-DOC = Path("docs/milestones/S287-m8-replay-drift-classification-contract.md")
+DOC = Path("docs/history/phase8/S287-m8-replay-drift-classification-contract.md")
 
 
 def test_s287_defines_drift_classes() -> None:

@@ -1,6 +1,6 @@
 from pathlib import Path
 
-DOC = Path("docs/milestones/S294-conflict-resolution-governance-contract.md")
+DOC = Path("docs/history/phase8/S294-conflict-resolution-governance-contract.md")
 
 
 def test_s294_requires_resolution_governance_context() -> None:

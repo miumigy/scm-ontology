@@ -1,6 +1,6 @@
 from pathlib import Path
 
-DOC = Path("docs/milestones/S298-cross-enterprise-identity-resolution-contract.md")
+DOC = Path("docs/history/phase8/S298-cross-enterprise-identity-resolution-contract.md")
 
 
 def test_s298_preserves_enterprise_identity_boundary() -> None:

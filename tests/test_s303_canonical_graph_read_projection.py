@@ -1,6 +1,6 @@
 from pathlib import Path
 
-DOC = Path("docs/milestones/S303-canonical-graph-read-projection-boundary.md")
+DOC = Path("docs/history/phase8/S303-canonical-graph-read-projection-boundary.md")
 
 
 def test_s303_requires_canonical_read_context() -> None:

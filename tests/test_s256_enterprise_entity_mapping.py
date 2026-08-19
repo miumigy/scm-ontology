@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-DOC = Path("docs/milestones/S256-m7-enterprise-entity-mapping.md")
+DOC = Path("docs/history/phase7/S256-m7-enterprise-entity-mapping.md")
 
 
 def test_s256_preserves_directional_entity_boundary() -> None:

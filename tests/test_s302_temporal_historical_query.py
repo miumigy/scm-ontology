@@ -1,6 +1,6 @@
 from pathlib import Path
 
-DOC = Path("docs/milestones/S302-temporal-historical-query-contract.md")
+DOC = Path("docs/history/phase8/S302-temporal-historical-query-contract.md")
 
 
 def test_s302_requires_explicit_temporal_basis() -> None:

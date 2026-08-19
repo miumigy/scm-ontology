@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-DOC = Path("docs/milestones/S278-m8-graph-integration-boundary.md")
+DOC = Path("docs/history/phase8/S278-m8-graph-integration-boundary.md")
 
 
 def test_s278_requires_m7_input_boundary() -> None:

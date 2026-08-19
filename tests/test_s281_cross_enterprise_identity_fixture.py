@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-DOC = Path("docs/milestones/S281-m8-cross-enterprise-identity-fixture.md")
+DOC = Path("docs/history/phase8/S281-m8-cross-enterprise-identity-fixture.md")
 
 
 def test_s281_fixture_preserves_identity_boundary() -> None:

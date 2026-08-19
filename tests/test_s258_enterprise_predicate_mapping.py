@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-DOC = Path("docs/milestones/S258-m7-enterprise-predicate-mapping.md")
+DOC = Path("docs/history/phase7/S258-m7-enterprise-predicate-mapping.md")
 
 
 def test_s258_preserves_directional_predicate_boundary() -> None:

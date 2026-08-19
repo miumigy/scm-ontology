@@ -1,6 +1,6 @@
 from pathlib import Path
 
-DOC = Path("docs/milestones/S292-identity-application-idempotency-contract.md")
+DOC = Path("docs/history/phase8/S292-identity-application-idempotency-contract.md")
 
 
 def test_s292_defines_stable_application_identity() -> None:

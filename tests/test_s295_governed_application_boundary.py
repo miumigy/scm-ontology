@@ -1,6 +1,6 @@
 from pathlib import Path
 
-DOC = Path("docs/milestones/S295-governed-application-boundary.md")
+DOC = Path("docs/history/phase8/S295-governed-application-boundary.md")
 
 
 def test_s295_requires_application_preconditions() -> None:

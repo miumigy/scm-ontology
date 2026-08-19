@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-DOC = Path("docs/milestones/S273-m7-adapter-conformance-contract.md")
+DOC = Path("docs/history/phase7/S273-m7-adapter-conformance-contract.md")
 
 
 def test_s273_requires_core_invariants() -> None:

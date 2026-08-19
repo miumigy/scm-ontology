@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-DOC = Path("docs/milestones/S262-m7-canonicalization-result-contract.md")
+DOC = Path("docs/history/phase7/S262-m7-canonicalization-result-contract.md")
 
 
 def test_s262_defines_result_record() -> None:

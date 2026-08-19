@@ -1,6 +1,6 @@
 from pathlib import Path
 
-DOC = Path("docs/milestones/S285-m8-canonical-application-record.md")
+DOC = Path("docs/history/phase8/S285-m8-canonical-application-record.md")
 
 
 def test_s285_requires_application_record_identity_and_scope() -> None:

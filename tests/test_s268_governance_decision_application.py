@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-DOC = Path("docs/milestones/S268-m7-governance-decision-application-contract.md")
+DOC = Path("docs/history/phase7/S268-m7-governance-decision-application-contract.md")
 
 
 def test_s268_requires_approved_scoped_decision() -> None:

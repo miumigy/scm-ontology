@@ -1,6 +1,6 @@
 from pathlib import Path
 
-DOC = Path("docs/milestones/S306-governed-projection-materialization-contract.md")
+DOC = Path("docs/history/phase8/S306-governed-projection-materialization-contract.md")
 
 
 def test_s306_requires_materialization_identity_and_lineage() -> None:
