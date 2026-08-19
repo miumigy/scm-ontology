@@ -45,7 +45,7 @@ Canonical Truth.
 
 ## Current status
 
-**Reference architecture & governed reference runtime: COMPLETE — preparing Primary Launch / Release Candidate.**
+**Reference architecture & governed reference runtime: COMPLETE — v0.1.0 Primary Launch Released.**
 
 The SCM Ontology semantic model and the SCM OS Reference runtime now cover the
 full governed cognitive loop — observation, decision context assembly, rule and
@@ -56,8 +56,8 @@ adapters, and bounded autonomous control.
 
 This is a **reference-quality** release, not a claim that every production
 connector, graph database, scheduler, or ingestion engine has been implemented.
-The next objective is the **Primary Launch / Release Candidate**
-(**SCM Ontology v0.1** / **SCM OS Reference v0.1**).
+The **Primary Launch** is released as **SCM Ontology v0.1.0** /
+**SCM OS Reference v0.1.0**.
 
 Run the primary-launch Golden Path and acceptance:
 
@@ -171,7 +171,7 @@ flowchart LR
 
 The registry is a **semantic vocabulary artifact**, not a storage schema. It captures stable concept identifiers, conceptual layers, world layers, descriptions, relationship predicates, endpoints, and categories. The checked-in artifact is validated against `src/scm_ontology/canonical_model.py`, so semantic drift becomes a test failure rather than an invisible documentation mismatch.
 
-See [`registry/canonical-registry.v0.2.json`](registry/canonical-registry.v0.2.json) and [`docs/roadmap-post-m8.md`](docs/roadmap-post-m8.md).
+See [`registry/canonical-registry.v0.2.json`](registry/canonical-registry.v0.2.json) and [`docs/history/post-m8-roadmap.md`](docs/history/post-m8-roadmap.md).
 
 ## Canonical Truth lifecycle
 
@@ -279,7 +279,9 @@ post-launch themes (see [`BACKLOG.yaml`](BACKLOG.yaml)).
 | Registry loader | `src/scm_ontology/machine_registry.py` |
 | Milestones & acceptance | `docs/history/` |
 | M8 closure contract | `docs/history/phase8/S310-m8-acceptance-closure.md` |
-| Semantic contracts | `docs/semantics/` and related contract documents |
+| SCM semantics | `docs/semantics/` |
+| SCM OS operations | `docs/operations/` |
+| Reference material | `docs/reference/` |
 | Backlog / future implementation | `BACKLOG.yaml` |
 | Agent development rules | `AGENTS.md` |
 | Primary launch index | `docs/launch/README.md` |
@@ -327,8 +329,8 @@ A green CI is necessary but not sufficient: **tests must protect semantic bounda
 Development is managed **release-oriented**, not by an unbounded sequence of
 internal `Sxxx` / `Mxx` / `Phase-x-x` identifiers. The current target is:
 
-- **SCM Ontology v0.1** / **SCM OS Reference v0.1** — the Primary Launch /
-  Release Candidate. The governed reference architecture is complete (see
+- **SCM Ontology v0.1.0** / **SCM OS Reference v0.1.0** — the **Primary
+  Launch Released**. The governed reference architecture is complete (see
   [Development history](#development-history)); the launch slice is the Golden
   Path plus the L5 acceptance.
 
