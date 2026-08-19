@@ -2,7 +2,7 @@
 
 ## Current phase
 
-**Phase 9 — Closed-Loop SCM OS Execution: IN PROGRESS (P9-A implemented).**
+**Phase 9 — Closed-Loop SCM OS Execution: IN PROGRESS (P9-A, P9-B implemented).**
 
 Phase 8 (Persistent Graph, P8-A..P8-F COMPLETE — full record below) hands off to
 **Phase 9 — Closed-Loop SCM OS Execution** (see `docs/roadmap-post-m8.md`).
@@ -21,9 +21,14 @@ success/failure/partial outcome model with evidence and provenance: a command
 may produce one or more per-target `ResultElement` records (each carrying its
 own status, evidence, and external reference) aggregated into a phase verdict
 (`success` / `partial` / `failure` / `rejected`), content-addressed and
-replay-reproducible. See `docs/P9A-execution-outcome-contract.md`. P9-B
-(external execution adapter), P9-C (approval-to-execution runtime), P9-D
-(outcome-to-event canonicalization), P9-E (closed-loop E2E), P9-F (failure /
+replay-reproducible. See `docs/P9A-execution-outcome-contract.md`. **P9-B
+(External Execution Adapter, `src/scm_ontology/external_execution_adapter.py`)**
+introduces the bounded boundary through which a governed `ExecutionCommand` may
+cause side effects in an external system: an `ExternalExecutionAdapter` protocol
+with a deterministic `ReferenceExternalExecutionAdapter` test double and an
+`InMemoryExternalSystem` fake target system (see
+`docs/P9B-external-execution-adapter.md`). P9-C (approval-to-execution runtime),
+P9-D (outcome-to-event canonicalization), P9-E (closed-loop E2E), P9-F (failure /
 retry / idempotency), and P9-G (phase acceptance) follow.
 
 ---
@@ -92,8 +97,9 @@ SCM OS integration through S366.
 
 ## Next phase
 
-**Phase 9 — Closed-Loop SCM OS Execution: IN PROGRESS** (P9-A implemented).
-Continue with P9-B (external execution adapter), then P9-C .. P9-G per
+**Phase 9 — Closed-Loop SCM OS Execution: IN PROGRESS** (P9-A and P9-B
+implemented). Continue with P9-C (approval-to-execution runtime), then P9-D ..
+P9-G per
 `docs/roadmap-post-m8.md` and `docs/SCM_OS_HANDOFF_PROMPT_PHASE9.md`.
 
 ## Guardrails (still in force)
