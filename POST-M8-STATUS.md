@@ -2,7 +2,7 @@
 
 ## Current phase
 
-**Phase 8 — SCM OS Persistent Graph: IN PROGRESS (P8-A..P8-E complete).**
+**Phase 8 — SCM OS Persistent Graph: COMPLETE (P8-A..P8-F).**
 
 P8-A (`src/scm_ontology/persistent_graph_contract.py`) defines the explicit,
 backend-neutral persistence semantics — nodes, relationships, temporal state,
@@ -64,9 +64,9 @@ SCM OS integration through S366.
 
 ## Next phase
 
-**Phase 8 — SCM OS Persistent Graph** continues with **P8-F (Phase 8
-acceptance)**: interchangeable persistence backends (in-memory, relational,
-Neo4j) produce equivalent canonical/query semantics for the reference workload.
+**Phase 8 — SCM OS Persistent Graph: COMPLETE** (P8-A..P8-F merged). The next
+phase per `docs/roadmap-post-m8.md` is **Phase 9 — Closed-Loop SCM OS
+Execution**.
 
 ## Guardrails (still in force)
 
