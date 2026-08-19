@@ -3,7 +3,7 @@ from pathlib import Path
 import yaml
 
 
-FIXTURE = Path(__file__).parents[1] / "examples" / "s125" / "provenance-graph-fixture.yaml"
+FIXTURE = Path(__file__).parents[1] / "examples" / "provenance-graph" / "provenance-graph-fixture.yaml"
 
 
 def test_provenance_fixture_has_explicit_predicates() -> None:

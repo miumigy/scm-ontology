@@ -3,7 +3,7 @@ from pathlib import Path
 import yaml
 
 
-FIXTURE = Path(__file__).parents[1] / "examples" / "s121" / "planning-sop-psi-mapping.yaml"
+FIXTURE = Path(__file__).parents[1] / "examples" / "planning-mapping" / "planning-sop-psi-mapping.yaml"
 
 
 def test_planning_fixture_is_readable() -> None:

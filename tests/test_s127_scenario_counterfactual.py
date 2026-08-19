@@ -3,7 +3,7 @@ from pathlib import Path
 import yaml
 
 
-FIXTURE = Path(__file__).parents[1] / "examples" / "s127" / "scenario-counterfactual.yaml"
+FIXTURE = Path(__file__).parents[1] / "examples" / "scenario-counterfactual" / "scenario-counterfactual.yaml"
 
 
 def test_scenario_has_explicit_reference_world() -> None:

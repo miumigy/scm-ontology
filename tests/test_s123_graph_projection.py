@@ -3,7 +3,7 @@ from pathlib import Path
 import yaml
 
 
-FIXTURE = Path(__file__).parents[1] / "examples" / "s123" / "canonical-scm-graph.yaml"
+FIXTURE = Path(__file__).parents[1] / "examples" / "canonical-graph" / "canonical-scm-graph.yaml"
 
 
 def test_graph_fixture_preserves_semantic_predicates() -> None:
