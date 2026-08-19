@@ -23,7 +23,7 @@ S348–S356 established the deterministic governed decision/runtime foundation. 
 
 **Phase 6 (SCM OS Control Plane) — COMPLETE.** P6-A (Cockpit v0), P6-B (Decision Inbox), P6-C (Simulation/Optimization Workspace), P6-D (Execution Workflow Workspace), P6-E (Control Plane E2E), and P6-F (Phase 6 acceptance covering all surfaces) are implemented and merged.
 
-**Phase 7 (SCM OS Real Data Plane) — COMPLETE.** P7-A .. P7-F are implemented and merged. **Phase 8 (Persistent SCM Graph) — COMPLETE.** P8-A (Persistent Graph Contract), P8-B (Relational Reference Backend), P8-C (Neo4j Reference Backend), P8-D (Snapshot / Version / Replay), P8-E (Scale / Index Boundary), and P8-F (Phase 8 acceptance) are all merged. Phase 8 closes with `accepted = True`: interchangeable persistence backends produce equivalent canonical/query semantics for the reference workload. See the Phase 8 checklist below; see also `POST-M8-STATUS.md` for the handoff summary. **Phase 9 (Closed-Loop SCM OS Execution) — IN PROGRESS.** P9-A (Execution Outcome Contract) through P9-F (Failure / Retry / Idempotency) are implemented; P9-G (acceptance) remains.
+**Phase 7 (SCM OS Real Data Plane) — COMPLETE.** P7-A .. P7-F are implemented and merged. **Phase 8 (Persistent SCM Graph) — COMPLETE.** P8-A (Persistent Graph Contract), P8-B (Relational Reference Backend), P8-C (Neo4j Reference Backend), P8-D (Snapshot / Version / Replay), P8-E (Scale / Index Boundary), and P8-F (Phase 8 acceptance) are all merged. Phase 8 closes with `accepted = True`: interchangeable persistence backends produce equivalent canonical/query semantics for the reference workload. See the Phase 8 checklist below; see also `POST-M8-STATUS.md` for the handoff summary. **Phase 9 (Closed-Loop SCM OS Execution) — COMPLETE.** P9-A (Execution Outcome Contract) through P9-G (Phase 9 acceptance) are implemented and merged. Phase 9 closes with `accepted = True`: a reference SCM workflow operates as a governed closed loop against an injected external system. See the Phase 9 checklist below.
 
 ---
 
@@ -170,7 +170,7 @@ Next Decision
 - [x] **P9-D — Outcome-to-Event Canonicalization**: execution outcomes become canonical events without bypassing governance (`src/scm_ontology/outcome_to_event_canonicalization.py`, `docs/P9D-outcome-to-event-canonicalization.md`, `tests/test_outcome_to_event_canonicalization.py`);
 - [x] **P9-E — Closed-Loop E2E**: state → decision → authorization → execution → outcome → canonical event → updated state (`src/scm_ontology/closed_loop_e2e.py`, `docs/P9E-closed-loop-e2e.md`, `tests/test_closed_loop_e2e.py`);
 - [x] **P9-F — Failure / Retry / Idempotency**: bounded retry, duplicate-command protection, partial execution handling, and recovery semantics (`src/scm_ontology/failure_retry_idempotency.py`, `docs/P9F-failure-retry-idempotency.md`, `tests/test_failure_retry_idempotency.py`);
-- [ ] **P9-G — Phase 9 acceptance**: a reference SCM workflow can operate as a governed closed loop against an injected external system.
+- [x] **P9-G — Phase 9 acceptance**: a reference SCM workflow can operate as a governed closed loop against an injected external system (`src/scm_ontology/phase9_acceptance.py`, `docs/P9G-phase9-acceptance.md`, `tests/test_phase9_acceptance.py`).
 
 ### Design rule
 
