@@ -2,7 +2,7 @@
 
 ## Current phase
 
-**Phase 9 — Closed-Loop SCM OS Execution: IN PROGRESS (P9-A..P9-F implemented; P9-G acceptance pending).**
+**Phase 9 — Closed-Loop SCM OS Execution: COMPLETE (P9-A..P9-G).**
 
 Phase 8 (Persistent Graph, P8-A..P8-F COMPLETE — full record below) hands off to
 **Phase 9 — Closed-Loop SCM OS Execution** (see `docs/roadmap-post-m8.md`).
@@ -48,8 +48,11 @@ duplicate-command protection (a command id executes at most once), bounded retry
 of transient failures, partial-execution handling (a partial outcome is never
 redone), and recovery semantics that escalate to `failed_permanently` with a
 `RecoverySignal` when retries are exhausted (see
-`docs/P9F-failure-retry-idempotency.md`). P9-G (phase acceptance) completes the
-phase.
+`docs/P9F-failure-retry-idempotency.md`). **P9-G (Phase 9 acceptance,
+`src/scm_ontology/phase9_acceptance.py`)** composes a reference governed closed
+loop against the injected external system and confirms every P9-A..P9-F
+capability is operable (`accepted = True`; see
+`docs/P9G-phase9-acceptance.md`). **Phase 9 is COMPLETE.**
 
 ---
 
@@ -117,8 +120,8 @@ SCM OS integration through S366.
 
 ## Next phase
 
-**Phase 9 — Closed-Loop SCM OS Execution: IN PROGRESS** (P9-A..P9-F
-implemented). Complete with P9-G (phase acceptance) per
+**Phase 9 — Closed-Loop SCM OS Execution: COMPLETE** (P9-A..P9-G merged).
+The next phase per
 `docs/roadmap-post-m8.md` and `docs/SCM_OS_HANDOFF_PROMPT_PHASE9.md`.
 
 ## Guardrails (still in force)
