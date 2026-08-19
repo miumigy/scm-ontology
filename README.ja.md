@@ -2,7 +2,7 @@
 
 > **サプライチェーン管理のためのフレームワーク非依存のカノニカル意味モデル — エンタープライズデータ、カノニカルファクト、グラフ推論、プロジェクション、将来のSCM OS実装を接続するために設計されました。ソースシステムの意味論が黙って真実になることは許しません。**
 
-[![CI](https://github.com/miumigy/scm-ontology/actions/workflows/ci.yml/badge.svg)](https://github.com/miumigy/scm-ontology/actions)
+[![CI](https://github.com/miumigy/scm-ontology/actions/workflows/ontology.yml/badge.svg)](https://github.com/miumigy/scm-ontology/actions)
 
 **[English](./README.md) | 日本語**
 
