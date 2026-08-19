@@ -66,7 +66,8 @@ SCM OS integration through S366.
 
 **Phase 8 — SCM OS Persistent Graph: COMPLETE** (P8-A..P8-F merged). The next
 phase per `docs/roadmap-post-m8.md` is **Phase 9 — Closed-Loop SCM OS
-Execution**.
+Execution**. To continue in a new session, start from
+`docs/SCM_OS_HANDOFF_PROMPT_PHASE9.md` (Phase 9 new-session handoff prompt).
 
 ## Guardrails (still in force)
 
