@@ -77,6 +77,7 @@ This directory is the documentation index for SCM Ontology after **M8 COMPLETE**
 71. [`P9C-approval-to-execution-runtime.md`](P9C-approval-to-execution-runtime.md) — Approval-to-Execution Runtime (Phase 9 P9-C)
 72. [`P9D-outcome-to-event-canonicalization.md`](P9D-outcome-to-event-canonicalization.md) — Outcome-to-Event Canonicalization (Phase 9 P9-D)
 73. [`P9E-closed-loop-e2e.md`](P9E-closed-loop-e2e.md) — Closed-Loop E2E (Phase 9 P9-E)
+74. [`P9F-failure-retry-idempotency.md`](P9F-failure-retry-idempotency.md) — Failure / Retry / Idempotency (Phase 9 P9-F)
 69. [`milestones/`](milestones/) — milestone definitions and acceptance reports
 70. [`architecture/`](architecture/) — architecture freezes and governance contracts
 71. [`archive/`](archive/) — historical documentation no longer part of the active documentation surface
