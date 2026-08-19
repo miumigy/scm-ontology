@@ -23,7 +23,7 @@ S348–S356 established the deterministic governed decision/runtime foundation. 
 
 **Phase 6 (SCM OS Control Plane) — COMPLETE.** P6-A (Cockpit v0), P6-B (Decision Inbox), P6-C (Simulation/Optimization Workspace), P6-D (Execution Workflow Workspace), P6-E (Control Plane E2E), and P6-F (Phase 6 acceptance covering all surfaces) are implemented and merged.
 
-**Phase 7 (SCM OS Real Data Plane) — COMPLETE.** P7-A .. P7-F are implemented and merged. **Phase 8 (Persistent SCM Graph) — COMPLETE.** P8-A (Persistent Graph Contract), P8-B (Relational Reference Backend), P8-C (Neo4j Reference Backend), P8-D (Snapshot / Version / Replay), P8-E (Scale / Index Boundary), and P8-F (Phase 8 acceptance) are all merged. Phase 8 closes with `accepted = True`: interchangeable persistence backends produce equivalent canonical/query semantics for the reference workload. See the Phase 8 checklist below; see also `POST-M8-STATUS.md` for the handoff summary. **Phase 9 (Closed-Loop SCM OS Execution) — COMPLETE.** P9-A (Execution Outcome Contract) through P9-G (Phase 9 acceptance) are implemented and merged. Phase 9 closes with `accepted = True`: a reference SCM workflow operates as a governed closed loop against an injected external system. See the Phase 9 checklist below.
+**Phase 7 (SCM OS Real Data Plane) — COMPLETE.** P7-A .. P7-F are implemented and merged. **Phase 8 (Persistent SCM Graph) — COMPLETE.** P8-A (Persistent Graph Contract), P8-B (Relational Reference Backend), P8-C (Neo4j Reference Backend), P8-D (Snapshot / Version / Replay), P8-E (Scale / Index Boundary), and P8-F (Phase 8 acceptance) are all merged. Phase 8 closes with `accepted = True`: interchangeable persistence backends produce equivalent canonical/query semantics for the reference workload. See the Phase 8 checklist below; see also `POST-M8-STATUS.md` for the handoff summary. **Phase 9 (Closed-Loop SCM OS Execution) — COMPLETE.** P9-A (Execution Outcome Contract) through P9-G (Phase 9 acceptance) are implemented and merged. Phase 9 closes with `accepted = True`: a reference SCM workflow operates as a governed closed loop against an injected external system. See the Phase 9 checklist below. **Phase 10 (Autonomous SCM Control) — COMPLETE.** P10-A (Agent Observation Boundary) through P10-G (Phase 10 acceptance) are implemented and merged. Phase 10 closes with `accepted = True`: a bounded SCM use case autonomously observes -> reasons -> proposes -> simulates -> evaluates -> obtains authorization -> executes -> learns from the outcome while remaining governed. See the Phase 10 checklist below.
 
 ---
 
@@ -204,13 +204,13 @@ Observe Outcome
 
 ### Phase 10 milestones
 
-- [ ] **P10-A — Agent Observation Boundary**: agents receive scoped, evidence-aware observations rather than unrestricted graph mutation access;
-- [ ] **P10-B — Tool / Action Boundary**: agent tools produce proposals or ExecutionCommands, never direct canonical mutations;
-- [ ] **P10-C — Simulation-before-Execution**: material decisions can be evaluated against deterministic simulation/optimization before authorization;
-- [ ] **P10-D — Policy-aware Autonomy**: confidence, risk, monetary impact, scope, and approval policy determine autonomy level;
-- [ ] **P10-E — Human-in-the-loop Control**: explicit review, override, escalation, and delegation paths;
-- [ ] **P10-F — Agent Replay / Audit**: every agent observation, proposal, decision, authorization, command, and outcome is replayable;
-- [ ] **P10-G — Phase 10 acceptance**: a bounded SCM use case can autonomously observe → reason → simulate → obtain authorization → execute → learn from outcome while remaining governed.
+- [x] **P10-A — Agent Observation Boundary**: agents receive scoped, evidence-aware observations rather than unrestricted graph mutation access;
+- [x] **P10-B — Tool / Action Boundary**: agent tools produce proposals or ExecutionCommands, never direct canonical mutations;
+- [x] **P10-C — Simulation-before-Execution**: material decisions can be evaluated against deterministic simulation/optimization before authorization;
+- [x] **P10-D — Policy-aware Autonomy**: confidence, risk, monetary impact, scope, and approval policy determine autonomy level;
+- [x] **P10-E — Human-in-the-loop Control**: explicit review, override, escalation, and delegation paths;
+- [x] **P10-F — Agent Replay / Audit**: every agent observation, proposal, decision, authorization, command, and outcome is replayable;
+- [x] **P10-G — Phase 10 acceptance**: a bounded SCM use case can autonomously observe → reason → simulate → obtain authorization → execute → learn from outcome while remaining governed.
 
 ### Design rule
 

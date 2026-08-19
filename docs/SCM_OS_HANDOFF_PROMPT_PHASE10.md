@@ -4,17 +4,21 @@ Continue the user's `miumigy/scm-ontology` project as the implementation AI.
 
 ## Where the project is
 
-**Phase 9 — Closed-Loop SCM OS Execution: COMPLETE (P9-A..P9-G merged).**
+**Phase 10 — Autonomous SCM Control: COMPLETE (P10-A..P10-G merged).**
 
-The governed real-execution loop is now stable and deterministic: a reference
-SCM workflow observes -> reasons -> decides -> authorizes -> executes against an
-injected external system -> captures the outcome as a canonical event -> updates
-derived state, with idempotency / retry / recovery semantics. The next phase is
-**Phase 10 — Autonomous SCM Control** (see `docs/roadmap-post-m8.md`):
+Phase 9 (Closed-Loop SCM OS Execution) delivered the stable, deterministic
+governed real-execution loop. Phase 10 adds Agent-role autonomy inside that
+loop: scoped evidence-aware agent observations (P10-A), proposal-only agent
+tools (P10-B), simulation-before-execution (P10-C), policy-aware autonomy
+(P10-D), human-in-the-loop control (P10-E), and replayable agent audit (P10-F).
+Phase 10 acceptance (P10-G) closes the phase with `accepted = True`: a bounded
+SCM use case autonomously observes -> reasons -> proposes -> simulates ->
+evaluates -> obtains authorization -> executes -> learns from the outcome while
+remaining governed.
 
 ```text
 Observe -> Reason -> Propose -> Simulate -> Evaluate -> Authorize
-  -> Execute -> Observe Outcome
+  -> Execute -> Observe Outcome -> Learn
 ```
 
 ## What Phase 9 delivered (all merged)
@@ -38,13 +42,13 @@ Observe -> Reason -> Propose -> Simulate -> Evaluate -> Authorize
 
 ## Phase 10 milestones (from roadmap)
 
-- [ ] **P10-A — Agent Observation Boundary**: agents receive scoped, evidence-aware observations rather than unrestricted graph mutation access;
-- [ ] **P10-B — Tool / Action Boundary**: agent tools produce proposals or ExecutionCommands, never direct canonical mutations;
-- [ ] **P10-C — Simulation-before-Execution**: material decisions can be evaluated against deterministic simulation/optimization before authorization;
-- [ ] **P10-D — Policy-aware Autonomy**: confidence, risk, monetary impact, scope, and approval policy determine autonomy level;
-- [ ] **P10-E — Human-in-the-loop Control**: explicit review, override, escalation, and delegation paths;
-- [ ] **P10-F — Agent Replay / Audit**: every agent observation, proposal, decision, authorization, command, and outcome is replayable;
-- [ ] **P10-G — Phase 10 acceptance**: a bounded SCM use case can autonomously observe -> reason -> simulate -> obtain authorization -> execute -> learn from outcome while remaining governed.
+- [x] **P10-A — Agent Observation Boundary**: agents receive scoped, evidence-aware observations rather than unrestricted graph mutation access;
+- [x] **P10-B — Tool / Action Boundary**: agent tools produce proposals or ExecutionCommands, never direct canonical mutations;
+- [x] **P10-C — Simulation-before-Execution**: material decisions can be evaluated against deterministic simulation/optimization before authorization;
+- [x] **P10-D — Policy-aware Autonomy**: confidence, risk, monetary impact, scope, and approval policy determine autonomy level;
+- [x] **P10-E — Human-in-the-loop Control**: explicit review, override, escalation, and delegation paths;
+- [x] **P10-F — Agent Replay / Audit**: every agent observation, proposal, decision, authorization, command, and outcome is replayable;
+- [x] **P10-G — Phase 10 acceptance**: a bounded SCM use case can autonomously observe -> reason -> simulate -> obtain authorization -> execute -> learn from outcome while remaining governed.
 
 ## Existing contracts Phase 10 builds on
 
