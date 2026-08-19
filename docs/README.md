@@ -72,6 +72,7 @@ This directory is the documentation index for SCM Ontology after **M8 COMPLETE**
 66. [`P8E-scale-index-boundary.md`](P8E-scale-index-boundary.md) — Scale / Index Boundary (Phase 8 P8-E)
 67. [`P8F-phase8-acceptance.md`](P8F-phase8-acceptance.md) — Phase 8 Acceptance (P8-F)
 68. [`SCM_OS_HANDOFF_PROMPT_PHASE9.md`](SCM_OS_HANDOFF_PROMPT_PHASE9.md) — Phase 9 new-session handoff prompt
+69. [`P9A-execution-outcome-contract.md`](P9A-execution-outcome-contract.md) — Execution Outcome Contract (Phase 9 P9-A)
 69. [`milestones/`](milestones/) — milestone definitions and acceptance reports
 70. [`architecture/`](architecture/) — architecture freezes and governance contracts
 71. [`archive/`](archive/) — historical documentation no longer part of the active documentation surface
