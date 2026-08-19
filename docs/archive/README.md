@@ -14,7 +14,7 @@ Archived copies are historical reference material, not implementation authority.
 | `S7-causal-transition-contract.md` | Early causal-transition contract | Current governed causal semantics |
 | `scm-simulation-causal-v0.1.md` | S4 simulation causal contract | Post-M8 implementation roadmap |
 | `scm-simulation-contract-v0.1.md` | S1 simulation semantic contract | Post-M8 implementation roadmap |
-| `scm-simulation-redesign-v0.1.md` | Pre-M8 simulation redesign baseline | `docs/roadmap-post-m8.md` |
+| `scm-simulation-redesign-v0.1.md` | Pre-M8 simulation redesign baseline | `docs/history/post-m8-roadmap.md` |
 | `scm-simulation-state-transition-v0.1.md` | S5 state-transition contract | Post-M8 implementation roadmap |
 
 ## Policy

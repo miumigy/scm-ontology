@@ -1,8 +1,25 @@
 # Architecture Documentation
 
-## Current
+## Current architecture
 
-- [`current-architecture.md`](./current-architecture.md) — post-M8 architecture and layer boundaries
+- [`current-architecture.md`](./current-architecture.md) — current architecture and layer boundaries
+
+## Current boundary contracts
+
+- [`reasoning-input-boundary.md`](./reasoning-input-boundary.md) — what may enter the reasoning boundary
+- [`reasoning-output-boundary.md`](./reasoning-output-boundary.md) — what reasoning may return
+- [`proposal-validation-boundary.md`](./proposal-validation-boundary.md) — proposal validation contract
+- [`decision-authorization-boundary.md`](./decision-authorization-boundary.md) — decision authorization contract
+- [`execution-command-boundary.md`](./execution-command-boundary.md) — immutable governed execution command
+- [`decision-context.md`](./decision-context.md) — decision context boundary
+- [`decision-proposal.md`](./decision-proposal.md) — decision proposal contract
+- [`context-assembly-boundary.md`](./context-assembly-boundary.md) — decision context assembly boundary
+- [`context-readiness-boundary.md`](./context-readiness-boundary.md) — decision context readiness boundary
+- [`graph-projection-boundary.md`](./graph-projection-boundary.md) — governed graph projection boundary
+- [`graph-query-boundary.md`](./graph-query-boundary.md) — governed graph query boundary
+- [`graph-observation-boundary.md`](./graph-observation-boundary.md) — graph-to-reasoning observation boundary
+- [`reference-canonicalization-boundary.md`](./reference-canonicalization-boundary.md) — reference source-to-canonical boundary
+- [`reference-scm-os-flow.md`](./reference-scm-os-flow.md) — reference end-to-end SCM OS flow
 
 ## Historical freezes
 
@@ -15,8 +32,10 @@
 ```mermaid
 flowchart LR
     HIST[Historical Freezes] --> CURRENT[Current Architecture]
-    CURRENT --> CONTRACT[M8 Contracts]
-    CONTRACT --> IMPL[Post-M8 Implementation]
+    CURRENT --> BOUNDARY[Governed Boundaries]
+    BOUNDARY --> IMPL[Post-M8 / v0.1.0 Implementation]
 ```
 
-Historical documents explain how the architecture evolved. The current architecture and normative M8 contracts define what new implementations must satisfy.
+Historical documents explain how the architecture evolved. The current
+architecture and governed boundary contracts define what a conformant
+implementation must satisfy.

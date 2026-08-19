@@ -32,6 +32,6 @@ S1 Minimal deterministic kernel → S2 automotive scenario → S3 ontology adapt
 
 ## Current status
 
-M8 has superseded this design baseline with governed canonical graph, projection, consistency, operational-readiness, and acceptance contracts. For current guidance, use the repository README, `docs/architecture/current-architecture.md`, `docs/roadmap-post-m8.md`, and the M8 milestone acceptance documentation.
+M8 has superseded this design baseline with governed canonical graph, projection, consistency, operational-readiness, and acceptance contracts. For current guidance, use the repository README, `docs/architecture/current-architecture.md`, `docs/history/post-m8-roadmap.md`, and the M8 milestone acceptance documentation.
 
 The complete original text remains recoverable from Git history.

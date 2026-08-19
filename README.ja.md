@@ -317,7 +317,9 @@ SCM OSリファレンス構築のPhase 6〜10は [`docs/history/`](docs/history/
 | 基準語彙ローダー | `src/scm_ontology/machine_registry.py` |
 | マイルストーン・受入条件 | `docs/history/` |
 | M8完了契約 | `docs/history/phase8/S310-m8-acceptance-closure.md` |
-| 意味に関する仕様 | `docs/semantics/` および関連文書 |
+| 意味に関する仕様 | `docs/semantics/` |
+| SCM OS運用 | `docs/operations/` |
+| 参照資料 | `docs/reference/` |
 | バックログ / 今後の実装 | `BACKLOG.yaml` |
 | エージェント開発ルール | `AGENTS.md` |
 | 一次公開インデックス | `docs/launch/README.md` |
