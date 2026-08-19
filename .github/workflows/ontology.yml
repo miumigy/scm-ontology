@@ -14,4 +14,6 @@ jobs:
           python-version: '3.12'
       - run: pip install -r requirements-dev.txt
       - run: PYTHONPATH=src python -m scm_ontology.validator
+      - run: PYTHONPATH=src python -m scm_ontology.primary_launch --self-check
+      - run: PYTHONPATH=src python -m scm_ontology.primary_launch_acceptance --self-check
       - run: PYTHONPATH=src pytest -q
