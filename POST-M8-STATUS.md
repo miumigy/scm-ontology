@@ -2,7 +2,7 @@
 
 ## Current phase
 
-**Phase 9 — Closed-Loop SCM OS Execution: IN PROGRESS (P9-A..P9-E implemented).**
+**Phase 9 — Closed-Loop SCM OS Execution: IN PROGRESS (P9-A..P9-F implemented; P9-G acceptance pending).**
 
 Phase 8 (Persistent Graph, P8-A..P8-F COMPLETE — full record below) hands off to
 **Phase 9 — Closed-Loop SCM OS Execution** (see `docs/roadmap-post-m8.md`).
@@ -42,8 +42,14 @@ governance chain and outcome evidence/provenance (see
 state → decision → authorization → execution → outcome → canonical event →
 updated state — where the operative `ClosedLoopState` is an explicit derived
 snapshot that is updated only through the governed execution/event boundary (see
-`docs/P9E-closed-loop-e2e.md`). P9-F (failure / retry / idempotency) and P9-G
-(phase acceptance) follow.
+`docs/P9E-closed-loop-e2e.md`). **P9-F (Failure / Retry / Idempotency,
+`src/scm_ontology/failure_retry_idempotency.py`)** adds idempotency /
+duplicate-command protection (a command id executes at most once), bounded retry
+of transient failures, partial-execution handling (a partial outcome is never
+redone), and recovery semantics that escalate to `failed_permanently` with a
+`RecoverySignal` when retries are exhausted (see
+`docs/P9F-failure-retry-idempotency.md`). P9-G (phase acceptance) completes the
+phase.
 
 ---
 
@@ -111,8 +117,8 @@ SCM OS integration through S366.
 
 ## Next phase
 
-**Phase 9 — Closed-Loop SCM OS Execution: IN PROGRESS** (P9-A..P9-E
-implemented). Continue with P9-F (failure / retry / idempotency), then P9-G per
+**Phase 9 — Closed-Loop SCM OS Execution: IN PROGRESS** (P9-A..P9-F
+implemented). Complete with P9-G (phase acceptance) per
 `docs/roadmap-post-m8.md` and `docs/SCM_OS_HANDOFF_PROMPT_PHASE9.md`.
 
 ## Guardrails (still in force)
