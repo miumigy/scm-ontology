@@ -74,6 +74,7 @@ This directory is the documentation index for SCM Ontology after **M8 COMPLETE**
 68. [`SCM_OS_HANDOFF_PROMPT_PHASE9.md`](SCM_OS_HANDOFF_PROMPT_PHASE9.md) — Phase 9 new-session handoff prompt
 69. [`P9A-execution-outcome-contract.md`](P9A-execution-outcome-contract.md) — Execution Outcome Contract (Phase 9 P9-A)
 70. [`P9B-external-execution-adapter.md`](P9B-external-execution-adapter.md) — External Execution Adapter (Phase 9 P9-B)
+71. [`P9C-approval-to-execution-runtime.md`](P9C-approval-to-execution-runtime.md) — Approval-to-Execution Runtime (Phase 9 P9-C)
 69. [`milestones/`](milestones/) — milestone definitions and acceptance reports
 70. [`architecture/`](architecture/) — architecture freezes and governance contracts
 71. [`archive/`](archive/) — historical documentation no longer part of the active documentation surface
