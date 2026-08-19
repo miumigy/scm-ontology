@@ -73,6 +73,9 @@ class PersistentGraphBackend(Protocol):
     def list_document_digests(self) -> tuple[str, ...]: ...
     def element_count(self, document_digest: str) -> int: ...
     def elements_of_kind(self, document_digest: str, kind: str) -> tuple[PersistedElement, ...]: ...
+    def element_by_id(self, document_digest: str, element_id: str) -> PersistedElement | None: ...
+    def elements_effective_at(self, document_digest: str, effective_at: str) -> tuple[PersistedElement, ...]: ...
+    def elements_with_provenance(self, document_digest: str, source_ref: str) -> tuple[PersistedElement, ...]: ...
 
 
 class ConnectionProvider(Protocol):
@@ -293,6 +296,57 @@ class RelationalGraphBackend:
                 )
             )
         return tuple(result)
+
+    def element_by_id(self, document_digest: str, element_id: str) -> PersistedElement | None:
+        cur = self._conn.execute(
+            "SELECT element_id, kind, payload_json, effective_at, valid_to, observed_at "
+            "FROM elements WHERE document_digest = ? AND element_id = ?",
+            (document_digest, element_id),
+        )
+        row = cur.fetchone()
+        if row is None:
+            return None
+        element_id, kind, payload_json, effective_at, valid_to, observed_at = row
+        return self._element_with_provenance(document_digest, element_id, kind, payload_json, effective_at, valid_to, observed_at)
+
+    def elements_effective_at(self, document_digest: str, effective_at: str) -> tuple[PersistedElement, ...]:
+        cur = self._conn.execute(
+            "SELECT element_id, kind, payload_json, effective_at, valid_to, observed_at "
+            "FROM elements WHERE document_digest = ? AND (effective_at = ? OR observed_at = ?) ORDER BY position",
+            (document_digest, effective_at, effective_at),
+        )
+        return tuple(self._element_with_provenance(document_digest, e, k, p, a, t, o)
+                     for e, k, p, a, t, o in cur)
+
+    def elements_with_provenance(self, document_digest: str, source_ref: str) -> tuple[PersistedElement, ...]:
+        cur = self._conn.execute(
+            "SELECT DISTINCT e.element_id, e.kind, e.payload_json, e.effective_at, e.valid_to, e.observed_at "
+            "FROM elements e JOIN element_provenance p ON p.document_digest = e.document_digest AND p.element_id = e.element_id "
+            "WHERE e.document_digest = ? AND p.source_ref = ? ORDER BY e.position",
+            (document_digest, source_ref),
+        )
+        return tuple(self._element_with_provenance(document_digest, e, k, p, a, t, o)
+                     for e, k, p, a, t, o in cur)
+
+    def _element_with_provenance(self, document_digest, element_id, kind, payload_json, effective_at, valid_to, observed_at) -> PersistedElement:
+        prov_cur = self._conn.execute(
+            "SELECT source_ref, observed_at, metadata_json "
+            "FROM element_provenance WHERE document_digest = ? AND element_id = ? ORDER BY source_ref",
+            (document_digest, element_id),
+        )
+        provenance = tuple(
+            _evidence_ref(source_ref, observed_at, metadata_json)
+            for source_ref, observed_at, metadata_json in prov_cur
+        )
+        return PersistedElement(
+            kind=kind,
+            element_id=element_id,
+            payload=json.loads(payload_json),
+            effective_at=effective_at,
+            valid_to=valid_to,
+            observed_at=observed_at,
+            provenance=provenance,
+        )
 
 
 def _el_mapping(el: PersistedElement) -> dict[str, Any]:

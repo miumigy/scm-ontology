@@ -212,6 +212,73 @@ class Neo4jGraphBackend:
             for element_id, kind, payload, effective_at, valid_to, observed_at in el_rows
         )
 
+    # ---- P8-E index-backed query surface ---------------------------------
+
+    def element_by_id(self, document_digest: str, element_id: str) -> PersistedElement | None:
+        rows = self._query(
+            "MATCH (e:CanonicalElement {document_digest: $digest, element_id: $element_id}) "
+            "RETURN e.element_id, e.kind, e.payload, e.effective_at, e.valid_to, e.observed_at",
+            {"digest": document_digest, "element_id": element_id},
+        )
+        if not rows:
+            return None
+        eid, kind, payload, effective_at, valid_to, observed_at = rows[0]
+        return self._element_with_provenance(document_digest, eid, kind, payload,
+                                             effective_at, valid_to, observed_at)
+
+    def elements_effective_at(self, document_digest: str, effective_at: str) -> tuple[PersistedElement, ...]:
+        rows = self._query(
+            "MATCH (e:CanonicalElement {document_digest: $digest}) "
+            "WHERE e.effective_at = $effective_at OR e.observed_at = $effective_at "
+            "RETURN e.element_id, e.kind, e.payload, e.effective_at, e.valid_to, e.observed_at "
+            "ORDER BY e.position",
+            {"digest": document_digest, "effective_at": effective_at},
+        )
+        return tuple(self._element_with_provenance(document_digest, e, k, p, a, t, o)
+                     for e, k, p, a, t, o in rows)
+
+    def elements_with_provenance(self, document_digest: str, source_ref: str) -> tuple[PersistedElement, ...]:
+        rows = self._query(
+            "MATCH (e:CanonicalElement {document_digest: $digest})-[:HAS_PROVENANCE]->(p:CanonicalProvenance {source_ref: $source_ref}) "
+            "RETURN DISTINCT e.element_id, e.kind, e.payload, e.effective_at, e.valid_to, e.observed_at "
+            "ORDER BY e.position",
+            {"digest": document_digest, "source_ref": source_ref},
+        )
+        return tuple(self._element_with_provenance(document_digest, e, k, p, a, t, o)
+                     for e, k, p, a, t, o in rows)
+
+    def _element_with_provenance(self, document_digest, element_id, kind, payload,
+                                 effective_at, valid_to, observed_at) -> PersistedElement:
+        prov_rows = self._query(
+            "MATCH (e:CanonicalElement {document_digest: $digest, element_id: $element_id})-[hp:HAS_PROVENANCE]->(p:CanonicalProvenance) "
+            "RETURN p.source_ref, hp.observed_at, hp.metadata ORDER BY p.source_ref",
+            {"digest": document_digest, "element_id": element_id},
+        )
+        provenance = tuple(
+            _ref_from_row(source_ref, observed_at, metadata)
+            for source_ref, observed_at, metadata in prov_rows
+        )
+        return PersistedElement(
+            kind=kind,
+            element_id=element_id,
+            payload=_loads(payload),
+            effective_at=effective_at,
+            valid_to=valid_to,
+            observed_at=observed_at,
+            provenance=provenance,
+        )
+
+
+def _ref_from_row(source_ref, observed_at, metadata):
+    from .evidence_provenance import EvidenceRef
+
+    return EvidenceRef(
+        source_ref=source_ref,
+        observed_at=observed_at,
+        metadata=_loads(metadata) if metadata else {},
+    )
+
+
 
 def _dumps(value: Mapping[str, Any]) -> str:
     import json
