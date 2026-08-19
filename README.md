@@ -4,6 +4,8 @@
 
 [![CI](https://github.com/miumigy/scm-ontology/actions/workflows/ci.yml/badge.svg)](https://github.com/miumigy/scm-ontology/actions)
 
+**English** | [日本語](./README.ja.md)
+
 ## Why this project exists
 
 Enterprise SCM data is rich but fragmented: ERP, WMS, TMS, APS, planning, logistics, procurement, manufacturing, and analytics systems each carry their own identifiers, semantics, temporal rules, and assumptions.

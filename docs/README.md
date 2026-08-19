@@ -13,6 +13,7 @@ This directory is the documentation index for SCM Ontology after **M8 COMPLETE**
 ## Start here
 
 1. [`../README.md`](../README.md) — project overview and architecture diagrams
+   - 日本語版: [`../README.ja.md`](../README.ja.md)
 2. [`milestones/S310-m8-acceptance-closure.md`](milestones/S310-m8-acceptance-closure.md) — M8 acceptance boundary
 3. [`architecture/current-architecture.md`](architecture/current-architecture.md) — current architecture and layer responsibilities
 4. [`roadmap-post-m8.md`](roadmap-post-m8.md) — active post-M8 implementation roadmap
