@@ -43,7 +43,7 @@ Canonical Truth.
 
 ## Current status
 
-**Reference architecture & governed reference runtime: COMPLETE through Phase 10.**
+**Reference architecture & governed reference runtime: COMPLETE — preparing Primary Launch / Release Candidate.**
 
 The SCM Ontology semantic model and the SCM OS Reference runtime now cover the
 full governed cognitive loop — observation, decision context assembly, rule and
@@ -217,52 +217,13 @@ flowchart LR
 
 The default posture is **read-only**. The only path that may mutate Canonical Truth is an explicit, governed application step.
 
-## M8 contract chain
+## Development history
 
-M8 is organized around the following end-to-end chain:
-
-```text
-Source Evidence
-      ↓
-Adapter / Mapping
-      ↓
-Canonical Identity
-      ↓
-Canonical Fact
-      ↓
-Fact Version
-      ↓
-Conflict / Resolution
-      ↓
-Historical Query
-      ↓
-Projection
-      ↓
-Materialization
-      ↓
-Invalidation
-      ↓
-Cross-Projection Consistency
-      ↓
-Operational Governance
-```
-
-### M8 completed slices
-
-| Slice | Contract | Status |
-|---|---|---|
-| S294 | Governed Conflict Resolution | ✅ |
-| S300 | Canonical Fact Lifecycle & Versioning | ✅ |
-| S301 | Canonical Fact Application & Version Transition | ✅ |
-| S302 | Temporal & Historical Query | ✅ |
-| S303 | Canonical Graph Read & Projection Boundary | ✅ |
-| S304 | Projection Freshness & Lineage | ✅ |
-| S305 | Governed Projection Query | ✅ |
-| S306 | Governed Projection Materialization | ✅ |
-| S307 | Projection Invalidation & Dependency Propagation | ✅ |
-| S308 | Cross-Projection Consistency & Rebuild Boundary | ✅ |
-| S309 | Operational Readiness & Governance | ✅ |
-| S310 | M8 Acceptance & Closure | ✅ |
+The detailed milestone and slice contracts (the historical `M8`/`Sxxx`
+development sequence) are preserved under [`docs/milestones/`](docs/milestones/)
+and the `docs/` contract index. They are engineering history and are not the
+primary-launch surface; the current product surface is defined by
+[`docs/launch/`](docs/launch/README.md).
 
 ## Non-negotiable invariants
 
@@ -343,8 +304,9 @@ Development is managed **release-oriented**, not by an unbounded sequence of
 internal `Sxxx` / `Mxx` / `Phase-x-x` identifiers. The current target is:
 
 - **SCM Ontology v0.1** / **SCM OS Reference v0.1** — the Primary Launch /
-  Release Candidate. The reference architecture is complete through Phase 10;
-  the launch slice is the Golden Path plus the L5 acceptance.
+  Release Candidate. The governed reference architecture is complete (see
+  [Development history](#development-history)); the launch slice is the Golden
+  Path plus the L5 acceptance.
 
 Post-launch releases can then proceed as `v0.1.0`, `v0.2.0`, `v0.3.0`, with new
 capability work re-baselined against a fresh roadmap. See
