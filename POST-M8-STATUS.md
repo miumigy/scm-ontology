@@ -2,7 +2,7 @@
 
 ## Current phase
 
-**Phase 9 — Closed-Loop SCM OS Execution: IN PROGRESS (P9-A, P9-B implemented).**
+**Phase 9 — Closed-Loop SCM OS Execution: IN PROGRESS (P9-A..P9-C implemented).**
 
 Phase 8 (Persistent Graph, P8-A..P8-F COMPLETE — full record below) hands off to
 **Phase 9 — Closed-Loop SCM OS Execution** (see `docs/roadmap-post-m8.md`).
@@ -27,9 +27,14 @@ introduces the bounded boundary through which a governed `ExecutionCommand` may
 cause side effects in an external system: an `ExternalExecutionAdapter` protocol
 with a deterministic `ReferenceExternalExecutionAdapter` test double and an
 `InMemoryExternalSystem` fake target system (see
-`docs/P9B-external-execution-adapter.md`). P9-C (approval-to-execution runtime),
-P9-D (outcome-to-event canonicalization), P9-E (closed-loop E2E), P9-F (failure /
-retry / idempotency), and P9-G (phase acceptance) follow.
+`docs/P9B-external-execution-adapter.md`). **P9-C (Approval-to-Execution
+Runtime, `src/scm_ontology/approval_to_execution_runtime.py`)** advances an
+approved command from dry-run to controlled external execution through the P9-B
+adapter gate, records every S355 lifecycle transition (dry_run -> executing ->
+executed), and captures the immutable P9-A outcome (see
+`docs/P9C-approval-to-execution-runtime.md`). P9-D (outcome-to-event
+canonicalization), P9-E (closed-loop E2E), P9-F (failure / retry /
+idempotency), and P9-G (phase acceptance) follow.
 
 ---
 
@@ -97,8 +102,8 @@ SCM OS integration through S366.
 
 ## Next phase
 
-**Phase 9 — Closed-Loop SCM OS Execution: IN PROGRESS** (P9-A and P9-B
-implemented). Continue with P9-C (approval-to-execution runtime), then P9-D ..
+**Phase 9 — Closed-Loop SCM OS Execution: IN PROGRESS** (P9-A, P9-B, P9-C
+implemented). Continue with P9-D (outcome-to-event canonicalization), then P9-E ..
 P9-G per
 `docs/roadmap-post-m8.md` and `docs/SCM_OS_HANDOFF_PROMPT_PHASE9.md`.
 

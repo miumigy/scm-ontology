@@ -23,7 +23,7 @@ S348–S356 established the deterministic governed decision/runtime foundation. 
 
 **Phase 6 (SCM OS Control Plane) — COMPLETE.** P6-A (Cockpit v0), P6-B (Decision Inbox), P6-C (Simulation/Optimization Workspace), P6-D (Execution Workflow Workspace), P6-E (Control Plane E2E), and P6-F (Phase 6 acceptance covering all surfaces) are implemented and merged.
 
-**Phase 7 (SCM OS Real Data Plane) — COMPLETE.** P7-A .. P7-F are implemented and merged. **Phase 8 (Persistent SCM Graph) — COMPLETE.** P8-A (Persistent Graph Contract), P8-B (Relational Reference Backend), P8-C (Neo4j Reference Backend), P8-D (Snapshot / Version / Replay), P8-E (Scale / Index Boundary), and P8-F (Phase 8 acceptance) are all merged. Phase 8 closes with `accepted = True`: interchangeable persistence backends produce equivalent canonical/query semantics for the reference workload. See the Phase 8 checklist below; see also `POST-M8-STATUS.md` for the handoff summary. **Phase 9 (Closed-Loop SCM OS Execution) — IN PROGRESS.** P9-A (Execution Outcome Contract) and P9-B (External Execution Adapter) are implemented; P9-C .. P9-G follow.
+**Phase 7 (SCM OS Real Data Plane) — COMPLETE.** P7-A .. P7-F are implemented and merged. **Phase 8 (Persistent SCM Graph) — COMPLETE.** P8-A (Persistent Graph Contract), P8-B (Relational Reference Backend), P8-C (Neo4j Reference Backend), P8-D (Snapshot / Version / Replay), P8-E (Scale / Index Boundary), and P8-F (Phase 8 acceptance) are all merged. Phase 8 closes with `accepted = True`: interchangeable persistence backends produce equivalent canonical/query semantics for the reference workload. See the Phase 8 checklist below; see also `POST-M8-STATUS.md` for the handoff summary. **Phase 9 (Closed-Loop SCM OS Execution) — IN PROGRESS.** P9-A (Execution Outcome Contract), P9-B (External Execution Adapter), and P9-C (Approval-to-Execution Runtime) are implemented; P9-D .. P9-G follow.
 
 ---
 
@@ -166,7 +166,7 @@ Next Decision
 
 - [x] **P9-A — Execution Outcome Contract**: explicit success/failure/partial outcome model with evidence and provenance (`src/scm_ontology/execution_outcome_contract.py`, `docs/P9A-execution-outcome-contract.md`, `tests/test_execution_outcome_contract.py`);
 - [x] **P9-B — External Execution Adapter**: injected side-effect adapter boundary with deterministic test double (`src/scm_ontology/external_execution_adapter.py`, `docs/P9B-external-execution-adapter.md`, `tests/test_external_execution_adapter.py`);
-- [ ] **P9-C — Approval-to-Execution Runtime**: authorized commands can progress from dry-run to controlled execution;
+- [x] **P9-C — Approval-to-Execution Runtime**: authorized commands can progress from dry-run to controlled execution (`src/scm_ontology/approval_to_execution_runtime.py`, `docs/P9C-approval-to-execution-runtime.md`, `tests/test_approval_to_execution_runtime.py`);
 - [ ] **P9-D — Outcome-to-Event Canonicalization**: execution outcomes become canonical events without bypassing governance;
 - [ ] **P9-E — Closed-Loop E2E**: state → decision → authorization → execution → outcome → canonical event → updated state;
 - [ ] **P9-F — Failure / Retry / Idempotency**: bounded retry, duplicate-command protection, partial execution handling, and recovery semantics;
