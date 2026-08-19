@@ -19,8 +19,8 @@ from scm_ontology.persistent_query_surface import (
 )
 
 # Import the P8-C neo4j backend and its test double for cross-backend equivalence.
-from tests.test_neo4j_graph_backend import FakeNeo4j
-from scm_ontology.neo4j_graph_backend import Neo4jGraphBackend
+from scm_ontology.neo4j_graph_backend import InMemoryNeo4jTransport, Neo4jGraphBackend
+
 
 
 def _graph() -> CanonicalGraph:
@@ -114,7 +114,7 @@ def test_cross_backend_semantic_equivalence() -> None:
     doc = _document()
     rel = RelationalGraphBackend(sqlite3.connect(":memory:"))
     rel.write(doc)
-    fake = FakeNeo4j()
+    fake = InMemoryNeo4jTransport()
     neo = Neo4jGraphBackend(fake.execute, fake.query)
     neo.write(doc)
 

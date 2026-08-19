@@ -321,3 +321,91 @@ def _el_mapping(el: PersistedElement) -> dict[str, Any]:
             for ref in el.provenance
         ]
     return result
+
+
+class InMemoryNeo4jTransport:
+    """Deterministic in-memory 'Neo4j' reference transport.
+
+    This interprets the statements emitted by :class:`Neo4jGraphBackend` and
+    provides an ``execute`` / ``query`` pair, so tests and the P8-F acceptance
+    path can exercise the graph backend without a real database or a driver.
+    It is a reference transport, not a Cypher engine.
+    """
+
+    def __init__(self) -> None:
+        self.documents: dict[str, dict] = {}
+        self.elements: dict[str, dict[str, dict]] = {}
+        self.provenance: dict[str, dict[str, list[tuple]]] = {}
+
+    def execute(self, statement: str, params: Mapping[str, Any]) -> None:
+        if "CanonicalDocument" in statement:
+            self.documents[params["digest"]] = {
+                "scope": params["scope"],
+                "canonical_digest": params["canonical_digest"],
+            }
+        elif "CanonicalProvenance" in statement:
+            self.provenance.setdefault(params["digest"], {}).setdefault(params["element_id"], []).append(
+                (params["source_ref"], params.get("observed_at"), params.get("metadata"))
+            )
+        else:  # CanonicalElement
+            self.elements.setdefault(params["digest"], {})[params["element_id"]] = {
+                "position": params["position"],
+                "kind": params["kind"],
+                "payload": params["payload"],
+                "effective_at": params.get("effective_at"),
+                "valid_to": params.get("valid_to"),
+                "observed_at": params.get("observed_at"),
+            }
+
+    def query(self, statement: str, params: Mapping[str, Any]) -> tuple[tuple[Any, ...], ...]:
+        digest = params.get("digest")
+        kind = params.get("kind")
+        if "HAS_PROVENANCE" in statement and "hp.source_ref" in statement or "HAS_PROVENANCE" in statement and "p.source_ref" in statement:
+            if digest not in self.provenance:
+                return ()
+            element_id_param = params.get("element_id")
+            rows = []
+            for element_id in sorted(self.provenance[digest]):
+                if element_id_param is not None and element_id != element_id_param:
+                    continue
+                if kind is not None and self.elements.get(digest, {}).get(element_id, {}).get("kind") != kind:
+                    continue
+                for source_ref, observed_at, metadata in sorted(self.provenance[digest][element_id]):
+                    rows.append((element_id, source_ref, observed_at, metadata))
+            return tuple(rows)
+        if "RETURN e.element_id, e.kind" in statement:
+            els = self.elements.get(digest, {})
+            if "element_id" in params:
+                els = {k: v for k, v in els.items() if k == params["element_id"]}
+            if kind is not None:
+                els = {k: v for k, v in els.items() if v["kind"] == kind}
+            ordered = sorted(els.items(), key=lambda kv: kv[1]["position"])
+            return tuple(
+                (element_id, props["kind"], props["payload"], props["effective_at"],
+                 props["valid_to"], props["observed_at"])
+                for element_id, props in ordered
+            )
+        if "count(" in statement and "CanonicalElement" in statement:
+            els = self.elements.get(digest, {})
+            if kind is not None:
+                els = {k: v for k, v in els.items() if v["kind"] == kind}
+            return ((len(els),),)
+        if "RETURN d.scope" in statement:
+            if digest not in self.documents:
+                return ()
+            d = self.documents[digest]
+            return ((d["scope"], d["canonical_digest"]),)
+        if "RETURN d.document_digest" in statement and "ORDER BY" not in statement and "CanonicalElement" not in statement:
+            return ((digest,) if digest in self.documents else ())
+        if "RETURN d.document_digest" in statement and "ORDER BY" in statement and "CanonicalElement" not in statement:
+            return tuple((dg,) for dg in sorted(self.documents))
+        if "WHERE e.effective_at" in statement or "e.effective_at = $effective_at" in statement:
+            els = {k: v for k, v in self.elements.get(digest, {}).items()
+                   if v.get("effective_at") == params.get("effective_at") or v.get("observed_at") == params.get("effective_at")}
+            ordered = sorted(els.items(), key=lambda kv: kv[1]["position"])
+            return tuple(
+                (element_id, props["kind"], props["payload"], props["effective_at"],
+                 props["valid_to"], props["observed_at"])
+                for element_id, props in ordered
+            )
+        return ()
