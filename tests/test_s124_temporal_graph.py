@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-FIXTURE = Path(__file__).parents[1] / "examples" / "s124" / "temporal-graph.yaml"
+FIXTURE = Path(__file__).parents[1] / "examples" / "temporal-graph" / "temporal-graph.yaml"
 
 
 def test_temporal_fixture_preserves_distinct_time_dimensions() -> None:

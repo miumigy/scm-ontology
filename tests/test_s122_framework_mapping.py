@@ -3,7 +3,7 @@ from pathlib import Path
 import yaml
 
 
-FIXTURE = Path(__file__).parents[1] / "examples" / "s122" / "external-framework-mapping.yaml"
+FIXTURE = Path(__file__).parents[1] / "examples" / "external-framework-mapping" / "external-framework-mapping.yaml"
 
 
 def test_framework_fixture_has_mapping_types_and_provenance_fields() -> None:

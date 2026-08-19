@@ -119,12 +119,12 @@ Turn the Canonical Graph runtime into a persistence-independent production refer
 
 ### Phase 8 milestones
 
-- [x] **P8-A — Persistent Graph Contract**: explicit persistence semantics for nodes, relationships, temporal state, evidence, and provenance (`src/scm_ontology/persistent_graph_contract.py`, `docs/P8A-persistent-graph-contract.md`, `tests/test_persistent_graph_contract.py`);
-- [x] **P8-B — Relational Reference Backend**: durable SQL-backed implementation (`src/scm_ontology/relational_graph_backend.py`, `docs/P8B-relational-backend.md`, `tests/test_relational_graph_backend.py`);
-- [x] **P8-C — Neo4j Reference Backend**: durable graph-backed implementation through the existing transport-neutral boundary (`src/scm_ontology/neo4j_graph_backend.py`, `docs/P8C-neo4j-backend.md`, `tests/test_neo4j_graph_backend.py`);
-- [x] **P8-D — Snapshot / Version / Replay**: deterministic graph snapshots and reproducible historical queries (`src/scm_ontology/persistent_snapshot.py`, `docs/P8D-snapshot-version-replay.md`, `tests/test_persistent_snapshot.py`);
-- [x] **P8-E — Scale / Index Boundary**: identify query/index expectations without leaking backend-specific concepts into the ontology (`src/scm_ontology/persistent_query_surface.py`, `docs/P8E-scale-index-boundary.md`, `tests/test_persistent_query_surface.py`);
-- [x] **P8-F — Phase 8 acceptance**: interchangeable persistence backends produce equivalent canonical/query semantics for the reference workload (`src/scm_ontology/phase8_acceptance.py`, `docs/P8F-phase8-acceptance.md`, `tests/test_phase8_acceptance.py`).
+- [x] **P8-A — Persistent Graph Contract**: explicit persistence semantics for nodes, relationships, temporal state, evidence, and provenance (`src/scm_ontology/persistent_graph_contract.py`, `history/phase8/persistent-graph-contract.md`, `tests/test_persistent_graph_contract.py`);
+- [x] **P8-B — Relational Reference Backend**: durable SQL-backed implementation (`src/scm_ontology/relational_graph_backend.py`, `history/phase8/relational-backend.md`, `tests/test_relational_graph_backend.py`);
+- [x] **P8-C — Neo4j Reference Backend**: durable graph-backed implementation through the existing transport-neutral boundary (`src/scm_ontology/neo4j_graph_backend.py`, `history/phase8/neo4j-backend.md`, `tests/test_neo4j_graph_backend.py`);
+- [x] **P8-D — Snapshot / Version / Replay**: deterministic graph snapshots and reproducible historical queries (`src/scm_ontology/persistent_snapshot.py`, `history/phase8/snapshot-version-replay.md`, `tests/test_persistent_snapshot.py`);
+- [x] **P8-E — Scale / Index Boundary**: identify query/index expectations without leaking backend-specific concepts into the ontology (`src/scm_ontology/persistent_query_surface.py`, `history/phase8/scale-index-boundary.md`, `tests/test_persistent_query_surface.py`);
+- [x] **P8-F — Phase 8 acceptance**: interchangeable persistence backends produce equivalent canonical/query semantics for the reference workload (`src/scm_ontology/phase8_acceptance.py`, `history/phase8/acceptance.md`, `tests/test_phase8_acceptance.py`).
 
 ### Design rule
 
@@ -164,13 +164,13 @@ Next Decision
 
 ### Phase 9 milestones
 
-- [x] **P9-A — Execution Outcome Contract**: explicit success/failure/partial outcome model with evidence and provenance (`src/scm_ontology/execution_outcome_contract.py`, `docs/P9A-execution-outcome-contract.md`, `tests/test_execution_outcome_contract.py`);
-- [x] **P9-B — External Execution Adapter**: injected side-effect adapter boundary with deterministic test double (`src/scm_ontology/external_execution_adapter.py`, `docs/P9B-external-execution-adapter.md`, `tests/test_external_execution_adapter.py`);
-- [x] **P9-C — Approval-to-Execution Runtime**: authorized commands can progress from dry-run to controlled execution (`src/scm_ontology/approval_to_execution_runtime.py`, `docs/P9C-approval-to-execution-runtime.md`, `tests/test_approval_to_execution_runtime.py`);
-- [x] **P9-D — Outcome-to-Event Canonicalization**: execution outcomes become canonical events without bypassing governance (`src/scm_ontology/outcome_to_event_canonicalization.py`, `docs/P9D-outcome-to-event-canonicalization.md`, `tests/test_outcome_to_event_canonicalization.py`);
-- [x] **P9-E — Closed-Loop E2E**: state → decision → authorization → execution → outcome → canonical event → updated state (`src/scm_ontology/closed_loop_e2e.py`, `docs/P9E-closed-loop-e2e.md`, `tests/test_closed_loop_e2e.py`);
-- [x] **P9-F — Failure / Retry / Idempotency**: bounded retry, duplicate-command protection, partial execution handling, and recovery semantics (`src/scm_ontology/failure_retry_idempotency.py`, `docs/P9F-failure-retry-idempotency.md`, `tests/test_failure_retry_idempotency.py`);
-- [x] **P9-G — Phase 9 acceptance**: a reference SCM workflow can operate as a governed closed loop against an injected external system (`src/scm_ontology/phase9_acceptance.py`, `docs/P9G-phase9-acceptance.md`, `tests/test_phase9_acceptance.py`).
+- [x] **P9-A — Execution Outcome Contract**: explicit success/failure/partial outcome model with evidence and provenance (`src/scm_ontology/execution_outcome_contract.py`, `history/phase9/execution-outcome-contract.md`, `tests/test_execution_outcome_contract.py`);
+- [x] **P9-B — External Execution Adapter**: injected side-effect adapter boundary with deterministic test double (`src/scm_ontology/external_execution_adapter.py`, `history/phase9/external-execution-adapter.md`, `tests/test_external_execution_adapter.py`);
+- [x] **P9-C — Approval-to-Execution Runtime**: authorized commands can progress from dry-run to controlled execution (`src/scm_ontology/approval_to_execution_runtime.py`, `history/phase9/approval-to-execution-runtime.md`, `tests/test_approval_to_execution_runtime.py`);
+- [x] **P9-D — Outcome-to-Event Canonicalization**: execution outcomes become canonical events without bypassing governance (`src/scm_ontology/outcome_to_event_canonicalization.py`, `history/phase9/outcome-to-event-canonicalization.md`, `tests/test_outcome_to_event_canonicalization.py`);
+- [x] **P9-E — Closed-Loop E2E**: state → decision → authorization → execution → outcome → canonical event → updated state (`src/scm_ontology/closed_loop_e2e.py`, `history/phase9/closed-loop-e2e.md`, `tests/test_closed_loop_e2e.py`);
+- [x] **P9-F — Failure / Retry / Idempotency**: bounded retry, duplicate-command protection, partial execution handling, and recovery semantics (`src/scm_ontology/failure_retry_idempotency.py`, `history/phase9/failure-retry-idempotency.md`, `tests/test_failure_retry_idempotency.py`);
+- [x] **P9-G — Phase 9 acceptance**: a reference SCM workflow can operate as a governed closed loop against an injected external system (`src/scm_ontology/phase9_acceptance.py`, `history/phase9/acceptance.md`, `tests/test_phase9_acceptance.py`).
 
 ### Design rule
 

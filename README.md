@@ -221,11 +221,11 @@ The default posture is **read-only**. The only path that may mutate Canonical Tr
 
 ## Development history
 
-The detailed milestone and slice contracts (the historical `M8`/`Sxxx`
-development sequence) are preserved under [`docs/milestones/`](docs/milestones/)
-and the `docs/` contract index. They are engineering history and are not the
-primary-launch surface; the current product surface is defined by
-[`docs/launch/`](docs/launch/README.md).
+The Phase 6–10 SCM OS reference build is preserved as engineering history under
+[`docs/history/`](docs/history/), and the milestone and slice contracts (the
+historical `M8`/`Sxxx` sequence) remain under [`docs/milestones/`](docs/milestones/).
+They are development history, not the primary-launch surface; the current product
+surface is defined by [`docs/launch/`](docs/launch/README.md).
 
 ## Non-negotiable invariants
 
@@ -284,6 +284,28 @@ post-launch themes (see [`BACKLOG.yaml`](BACKLOG.yaml)).
 | Agent development rules | `AGENTS.md` |
 | Primary launch index | `docs/launch/README.md` |
 | Golden Path | `docs/launch/golden-path.md` |
+| Development history | `docs/history/` (Phase 6–10 SCM OS reference build records) |
+
+## Repository layout
+
+The top-level directories have distinct, stable responsibilities. Keeping a
+concept in one place is part of the product contract.
+
+| Directory | Responsibility |
+|---|---|
+| `ontology/` | The SCM semantic model (entities, relationships, events, states, constraints, policies, decisions, KPIs, vocabulary). |
+| `registry/` | Machine-readable canonical vocabulary and registration data (e.g. `canonical-registry.v0.2.json`). |
+| `schemas/` | Structural validation rules (JSON Schema) for canonical and interchange documents. |
+| `fixtures/` | Test and regression-validation data (e.g. supply-dependency, inventory-capacity, multi-hop-supply-risk graphs). |
+| `examples/` | Runnable reference examples that help a user understand and run the model. |
+| `src/` | The Python implementation (package `scm_ontology`). |
+| `tests/` | Regression tests that protect the semantic and governance boundaries. |
+| `docs/` | Human-readable documentation (architecture, semantics, launch, history). |
+| `mappings/` | Crosswalk artifacts (e.g. APICS/SCOR) kept separate from the canonical model. |
+
+This layout mirrors the cognitive flow: `ontology/` defines meaning, `registry/`
+makes it machine-readable, `schemas/` validates structure, `fixtures/` feed
+regression and validation, and `examples/` show a user how to run it.
 
 ## Development philosophy
 

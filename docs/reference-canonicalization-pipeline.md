@@ -9,7 +9,7 @@ The fixture adapter is available through `scm_ontology.reference_fixture`:
 ```python
 from scm_ontology.reference_fixture import run_fixture
 
-result = run_fixture("examples/reference-canonicalization-pipeline.yaml")
+result = run_fixture("examples/reference-canonicalization/reference-canonicalization-pipeline.yaml")
 ```
 
 The adapter returns immutable source records together with `CanonicalizationResult` values.
@@ -63,4 +63,4 @@ Any future write must pass through the governed application transition defined b
 
 ## Validation
 
-The fixture in `examples/reference-canonicalization-pipeline.yaml` and regression tests in `tests/test_reference_canonicalization_pipeline.py` plus `tests/test_reference_fixture.py` establish the implementation contract.
+The fixture in `examples/reference-canonicalization/reference-canonicalization-pipeline.yaml` and regression tests in `tests/test_reference_canonicalization_pipeline.py` plus `tests/test_reference_fixture.py` establish the implementation contract.

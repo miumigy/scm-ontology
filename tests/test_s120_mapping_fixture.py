@@ -3,7 +3,7 @@ from pathlib import Path
 import yaml
 
 
-FIXTURE = Path(__file__).parents[1] / "examples" / "s120" / "erp-wms-tms-mapping.yaml"
+FIXTURE = Path(__file__).parents[1] / "examples" / "enterprise-mapping" / "erp-wms-tms-mapping.yaml"
 
 
 def test_representative_source_domains_are_present() -> None:

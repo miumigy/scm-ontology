@@ -4,7 +4,7 @@ from scm_ontology.reference_canonicalization import CanonicalizationOutcome
 from scm_ontology.reference_fixture import run_fixture
 
 
-FIXTURE = Path(__file__).parents[1] / "examples" / "reference-canonicalization-pipeline.yaml"
+FIXTURE = Path(__file__).parents[1] / "examples" / "reference-canonicalization" / "reference-canonicalization-pipeline.yaml"
 
 
 def test_fixture_loader_preserves_source_records_and_mapping_outcomes() -> None:

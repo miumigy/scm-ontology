@@ -3,7 +3,7 @@ from pathlib import Path
 import yaml
 
 
-FIXTURE = Path(__file__).parents[1] / "examples" / "s128" / "metric-kpi-graph.yaml"
+FIXTURE = Path(__file__).parents[1] / "examples" / "metric-kpi-graph" / "metric-kpi-graph.yaml"
 
 
 def test_metric_kpi_graph_preserves_semantic_chain() -> None:

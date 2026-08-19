@@ -62,34 +62,10 @@ This directory is the documentation index for SCM Ontology after **M8 COMPLETE**
 47. [`S364-optimized-planning.md`](S364-optimized-planning.md) — optimized replenishment plan application (Phase 5)
 48. [`S365-optimized-app-planning.md`](S365-optimized-app-planning.md) — optimized procurement/production/distribution plan applications (Phase 5)
 49. [`S366-operational-workflow.md`](S366-operational-workflow.md) — operational workflow application (Phase 5)
-50. [`P6A-scm-os-cockpit.md`](P6A-scm-os-cockpit.md) — SCM OS Cockpit v0 (Phase 6 P6-A)
-51. [`P6B-decision-inbox.md`](P6B-decision-inbox.md) — Decision Inbox (Phase 6 P6-B)
-52. [`P6C-sim-optim-workspace.md`](P6C-sim-optim-workspace.md) — Simulation/Optimization Workspace (Phase 6 P6-C)
-53. [`P6D-exec-workflow-workspace.md`](P6D-exec-workflow-workspace.md) — Execution Workflow Workspace (Phase 6 P6-D)
-54. [`P6E-control-plane-e2e.md`](P6E-control-plane-e2e.md) — Control Plane E2E (Phase 6 P6-E)
-55. [`P6F-phase6-acceptance.md`](P6F-phase6-acceptance.md) — Phase 6 Acceptance (P6-F)
-56. [`P7A-reference-data-adapter.md`](P7A-reference-data-adapter.md) — Reference Data Adapter (Phase 7 P7-A)
-57. [`P7B-mapping-canonicalization.md`](P7B-mapping-canonicalization.md) — Mapping/Canonicalization Runtime (Phase 7 P7-B)
-58. [`P7C-identity-resolution-runtime.md`](P7C-identity-resolution-runtime.md) — Identity Resolution Runtime (Phase 7 P7-C)
-59. [`P7D-data-quality-gate.md`](P7D-data-quality-gate.md) — Data Quality / Freshness Gate (Phase 7 P7-D)
-60. [`P7E-multi-source-reference-dataset.md`](P7E-multi-source-reference-dataset.md) — Multi-source Reference Dataset (Phase 7 P7-E)
-61. [`P7F-phase7-acceptance.md`](P7F-phase7-acceptance.md) — Phase 7 Acceptance (P7-F)
-62. [`P8A-persistent-graph-contract.md`](P8A-persistent-graph-contract.md) — Persistent Graph Contract (Phase 8 P8-A)
-63. [`P8B-relational-backend.md`](P8B-relational-backend.md) — Relational Reference Backend (Phase 8 P8-B)
-64. [`P8C-neo4j-backend.md`](P8C-neo4j-backend.md) — Neo4j Reference Backend (Phase 8 P8-C)
-65. [`P8D-snapshot-version-replay.md`](P8D-snapshot-version-replay.md) — Snapshot / Version / Replay (Phase 8 P8-D)
-66. [`P8E-scale-index-boundary.md`](P8E-scale-index-boundary.md) — Scale / Index Boundary (Phase 8 P8-E)
-67. [`P8F-phase8-acceptance.md`](P8F-phase8-acceptance.md) — Phase 8 Acceptance (P8-F)
-69. [`P9A-execution-outcome-contract.md`](P9A-execution-outcome-contract.md) — Execution Outcome Contract (Phase 9 P9-A)
-70. [`P9B-external-execution-adapter.md`](P9B-external-execution-adapter.md) — External Execution Adapter (Phase 9 P9-B)
-71. [`P9C-approval-to-execution-runtime.md`](P9C-approval-to-execution-runtime.md) — Approval-to-Execution Runtime (Phase 9 P9-C)
-72. [`P9D-outcome-to-event-canonicalization.md`](P9D-outcome-to-event-canonicalization.md) — Outcome-to-Event Canonicalization (Phase 9 P9-D)
-73. [`P9E-closed-loop-e2e.md`](P9E-closed-loop-e2e.md) — Closed-Loop E2E (Phase 9 P9-E)
-74. [`P9F-failure-retry-idempotency.md`](P9F-failure-retry-idempotency.md) — Failure / Retry / Idempotency (Phase 9 P9-F)
-75. [`P9G-phase9-acceptance.md`](P9G-phase9-acceptance.md) — Phase 9 Acceptance (P9-G)
-69. [`milestones/`](milestones/) — milestone definitions and acceptance reports
-70. [`architecture/`](architecture/) — architecture freezes and governance contracts
-71. [`archive/`](archive/) — historical documentation no longer part of the active documentation surface
+50. [`history/`](history/) — sequential Phase 6–10 SCM OS development records
+51. [`milestones/`](milestones/) — milestone definitions and acceptance reports
+52. [`architecture/`](architecture/) — architecture freezes and governance contracts
+53. [`archive/`](archive/) — historical documentation no longer part of the active documentation surface
 
 ## Conceptual architecture
 
@@ -201,15 +177,16 @@ The separation is deliberate: a system may derive a useful answer without changi
 S321 provides the first explicit evidence requirement at traversal time. S323 carries the same separation into projection state: evidence identifiers are supplied through an external governed mapping and only evidence explicitly consulted by projection code is retained in projection lineage. S324 makes projection lifecycle state observable by comparing the materialized lineage against current graph and projection dependencies. S325 makes the query boundary fail closed unless the requested projection is current and contract-compatible. S326 resolves an inventory position, S327 resolves a demand/supply gap, S328 resolves supplier schedule delay, S329 propagates explicit upstream risk over declared multi-hop dependencies, S330 compares explicit capacity and requirement facts as Phase 4 business-question slices, S331 propagates explicit disruption observations over declared directed dependencies, and S332 reconciles explicit plan, actual, and commitment facts over an exact item/period/unit scope. S333 bundles already-canonical observations into an immutable decision context, and S334..S346 compose the governed cognitive loop (context -> reasoning input -> reasoning output -> proposal validation -> authorization -> immutable execution command). S348 binds that loop into a deterministic, side-effect-free Python API (SCM Decision Runtime v0), reusing the S333..S346 contracts without defining new canonical semantics. S351 implements the S368 provider boundary with a deterministic rule engine, and S352 connects an injected, transport-neutral LLM client to the same boundary without coupling the ontology to a vendor SDK. Both families run through the S348 governed loop. S353 processes an immutable ExecutionCommand through a bounded, injected ExecutionAdapter as a deterministic, side-effect-free dry run, returning an immutable DryRunExecutionResult.
  S354 records a governed decision as a content-addressed audit entry and replays the deterministic governed chain to prove reproducibility. S355 tracks the command lifecycle as an immutable, governed state machine. S356 provides the fail-closed authorization policy, human-approval, and senior-override gates. S354–S356 form Phase R4 (Governance). S358 is the first Phase R5 application: it resolves on-hand inventory to a replenishment decision and, when a reorder is needed, drives it through the governed loop to an authorized execution command and dry run. S360 resolves a demand/supply shortage into a procurement decision and, when a purchase is required, drives it through the governed loop. S361 resolves a production requirement against capacity into a scheduling decision and, when feasible, drives it through the governed loop. S362 resolves a shipment requirement against transportation capacity into a distribution decision and, when feasible, drives it through the governed loop. S358–S362 form the first Phase R5 application set across the physical material flow: replenish -> procure -> produce -> distribute. S363 composes those four applications into a bounded, multi-period, multi-decision simulation, running each step through the same governed loop in a deterministic, side-effect-free run. S364 extends the single-period replenishment decision into an optimized multi-period replenishment plan: it deterministically computes lot-for-lot replenishment quantities that minimize holding cost while avoiding stockouts, records the result as a `Plan`, and runs each period through the governed loop. S365 applies the same multi-period planning/optimization pattern to procurement, production, and distribution, spanning the full physical material flow: replenish -> procure -> produce -> distribute. S366 closes the loop after a decision: it consumes governed decision output, records a content-addressed audit entry (S354), advances each command lifecycle to the dry-run state (S355), and produces an immutable workflow report.
 
-## Phase 10 documentation set
+## Development history
 
-- P10-A — Agent Observation Boundary
-- P10-B — Tool / Action Boundary
-- P10-C — Simulation-before-Execution
-- P10-D — Policy-aware Autonomy
-- P10-E — Human-in-the-loop Control
-- P10-F — Agent Replay / Audit
-- P10-G — Phase 10 Acceptance
+Phase 6–10 of the SCM OS reference build are preserved as development history under
+[`history/`](history/), one directory per phase:
+
+- [`history/phase6/`](history/phase6/) — Control Plane (SCM OS Cockpit, Decision Inbox, workspaces, control-plane E2E, acceptance)
+- [`history/phase7/`](history/phase7/) — Data Plane (reference data adapter, mapping/canonicalization, identity resolution, data-quality gate, multi-source dataset, acceptance)
+- [`history/phase8/`](history/phase8/) — Persistent Graph (persistence contract, relational backend, Neo4j backend, snapshot/version/replay, scale/index boundary, acceptance)
+- [`history/phase9/`](history/phase9/) — Closed-Loop Execution (outcome contract, external adapter, approval-to-execution, outcome-to-event, closed-loop E2E, failure/retry/idempotency, acceptance)
+- [`history/phase10/`](history/phase10/) — Autonomous SCM Control (agent observation, tool/action, simulation-before-execution, policy-aware autonomy, human-in-the-loop, agent replay/audit, acceptance)
 
 
 ## M8 documentation set
