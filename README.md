@@ -2,7 +2,7 @@
 
 > **A framework-independent Canonical Semantic Model for Supply Chain Management — designed to connect enterprise data, canonical facts, graph reasoning, projections, and future SCM OS implementations without letting source-system semantics silently become truth.**
 
-[![CI](https://github.com/miumigy/scm-ontology/actions/workflows/ci.yml/badge.svg)](https://github.com/miumigy/scm-ontology/actions)
+[![CI](https://github.com/miumigy/scm-ontology/actions/workflows/ontology.yml/badge.svg)](https://github.com/miumigy/scm-ontology/actions)
 
 **English** | [日本語](./README.ja.md)
 
