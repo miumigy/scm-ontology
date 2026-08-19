@@ -1,6 +1,6 @@
 # SCM Ontology
 
-> **サプライチェーン・マネジメント（SCM）のためのフレームワーク非依存のCanonical Semantic Model（カノニカル意味モデル）です。企業データ、Canonical Fact、グラフ推論、Projection、そして将来のSCM OS実装を接続しつつ、ソースシステム固有の意味論が暗黙に「真実」になることを防ぎます。**
+> **サプライチェーン・マネジメント（SCM）のためのフレームワーク非依存の基準意味モデル（基準意味モデル（Canonical Semantic Model））です。企業データ、基準事実（Canonical Fact）、グラフ推論、Projection、そして将来のSCM OS実装を接続しつつ、ソースシステム固有の意味論が暗黙に「真実」になることを防ぎます。**
 
 [![CI](https://github.com/miumigy/scm-ontology/actions/workflows/ontology.yml/badge.svg)](https://github.com/miumigy/scm-ontology/actions)
 
@@ -14,26 +14,26 @@ SCM Ontologyは、これらの異なる表現と、その下流にあるグラ�
 
 中心となる設計原則は次のとおりです。
 
-> **Canonical Truth（カノニカルな真実）は統治されるものであり、マッピング、類似度計算、推論、Projection、またはデータ取り込みが成功したことだけを理由として、暗黙に生成されることはありません。**
+> **基準情報（基準情報（Canonical Truth））は統治されるものであり、マッピング、類似度計算、推論、Projection、またはデータ取り込みが成功したことだけを理由として、暗黙に生成されることはありません。**
 
 ## SCM Ontologyとは
 
-**SCM Ontology**は、サプライチェーン・マネジメントのためのフレームワーク非依存のCanonical Semantic Modelです。サプライチェーンを記述するカノニカルなエンティティ、関係、イベント、状態、制約、意思決定、KPI、リスクを、特定のERP / WMS / TMS / APSや計画製品の語彙から独立して定義します。
+**SCM Ontology**は、サプライチェーン・マネジメントのためのフレームワーク非依存の基準意味モデル（Canonical Semantic Model）です。サプライチェーンを記述する基準エンティティ、関係、イベント、状態、制約、意思決定、KPI、リスクを、特定のERP / WMS / TMS / APSや計画製品の語彙から独立して定義します。
 
 これは、企業内のエビデンスを対応付けるための**統治された語彙（governed vocabulary）**です。異なるソースシステムの情報を共通の意味空間で扱い、特定のソースシステムが暗黙に「正解」になることなく、相互に推論できるようにします。
 
 ## SCM OSとは
 
-**SCM OS**（supply-chain operating system）は、Canonical Semantic Modelの上に構築される**統治されたオペレーティングレイヤー**です。Canonical FactとCanonical Graphの状態を、説明可能なビジネス意思決定へ変換します。
+**SCM OS**（supply-chain operating system）は、基準意味モデルの上に構築される**統治されたオペレーティングレイヤー**です。基準事実（Canonical Fact）と基準グラフ（Canonical Graph）の状態を、説明可能なビジネス意思決定へ変換します。
 
 ```text
-企業エビデンス → 統治されたカノニカル化 → Canonical Graph / State
+企業エビデンス → 統治された基準化 → 基準グラフ（Canonical Graph） / State
 → ビジネス・クエスチョン → 説明可能な推論 → シミュレーション / 最適化
-→ 承認 / ガバナンス → 実行 → 結果 → Canonical Event
+→ 承認 / ガバナンス → 実行 → 結果 → 基準イベント（Canonical Event）
 → 次の意思決定
 ```
 
-SCM OSは、状態、ガバナンス、承認、実行境界、監査を担います。AIやエージェントは**推論または提案を提供するプロバイダとしてのみ**動作し、Canonical Truthを直接変更することはありません。
+SCM OSは、状態、ガバナンス、承認、実行境界、監査を担います。AIやエージェントは**推論または提案を提供するプロバイダとしてのみ**動作し、基準情報を直接変更することはありません。
 
 ## 現在の状況
 
@@ -68,7 +68,7 @@ python -m scm_ontology.primary_launch_acceptance --self-check
 pytest -q
 ```
 
-Golden Pathは、統治されたリファレンス・ランタイムを、決定的かつ内容アドレス付きの1つの結果へ組み立てます。**外部への副作用は発生せず、Canonical Truthも変更しません。** 詳細なシナリオは [`docs/launch/golden-path.md`](docs/launch/golden-path.md)、L5受入チェックリストは [`docs/launch/acceptance.md`](docs/launch/acceptance.md) を参照してください。
+Golden Pathは、統治されたリファレンス・ランタイムを、決定的かつ内容アドレス付きの1つの結果へ組み立てます。**外部への副作用は発生せず、基準情報も変更しません。** 詳細なシナリオは [`docs/launch/golden-path.md`](docs/launch/golden-path.md)、L5受入チェックリストは [`docs/launch/acceptance.md`](docs/launch/acceptance.md) を参照してください。
 
 リポジトリ内で開発する利用者であれば、概念の理解に約5分、実行に約10分、拡張に約30分で到達できることを目指しています。
 
@@ -78,12 +78,12 @@ Golden Pathは、統治されたリファレンス・ランタイムを、決定
 flowchart LR
     A[Enterprise Sources\nERP / WMS / TMS / APS / Planning] --> B[Source Evidence & Provenance]
     B --> C[Adapter / Mapping Boundary]
-    C --> D[Canonical Identity]
-    D --> E[Canonical Fact]
+    C --> D[基準識別子（Canonical Identity）]
+    D --> E[基準事実（Canonical Fact）]
     E --> F[Fact Version & Lifecycle]
     F --> G[Conflict / Resolution]
     F --> H[Historical Query]
-    F --> I[Canonical Graph]
+    F --> I[基準グラフ（Canonical Graph）]
     I --> J[Projection]
     J --> K[Materialization]
     K --> L[Invalidation / Dependency Impact]
@@ -113,10 +113,10 @@ flowchart TB
     end
 
     subgraph CANONICAL[Canonical Semantic Layer]
-        ID[Canonical Identity]
-        FACT[Canonical Fact]
+        ID[基準識別子（Canonical Identity）]
+        FACT[基準事実（Canonical Fact）]
         VER[Fact Version]
-        GRAPH[Canonical Graph]
+        GRAPH[基準グラフ（Canonical Graph）]
     end
 
     ERP --> MAP
@@ -131,9 +131,9 @@ flowchart TB
     ID --> FACT --> VER --> GRAPH
 ```
 
-**重要：Mapping（マッピング）はMutation（状態変更）ではありません。** マッピング結果は、明示的な統治された適用ステップによってCanonical Stateが作成・変更されるまでは、エビデンスを伴う提案／結果として扱われます。
+**重要：Mapping（マッピング）はMutation（状態変更）ではありません。** マッピング結果は、明示的な統治された適用ステップによって基準状態（Canonical State）が作成・変更されるまでは、エビデンスを伴う提案／結果として扱われます。
 
-## 機械可読なカノニカル・レジストリ
+## 機械可読な基準レジストリ
 
 ```mermaid
 flowchart LR
@@ -141,16 +141,16 @@ flowchart LR
     REG --> LOAD[MachineRegistry loader]
     LOAD --> VALIDATE[Validation & uniqueness]
     VALIDATE --> DRIFT[Python ↔ JSON drift check]
-    DRIFT --> MAP[Reference canonicalization]
+    DRIFT --> MAP[Reference 基準化]
     MAP --> FIX[Realistic multi-source fixtures]
-    FIX --> GRAPH[Canonical Graph runtime]
+    FIX --> GRAPH[基準グラフ（Canonical Graph） runtime]
 ```
 
 レジストリは**意味論上の語彙を定義する成果物であり、ストレージ・スキーマではありません。** 安定した概念識別子、概念レイヤー、世界レイヤー、説明、関係述語、エンドポイント、カテゴリなどを保持します。リポジトリに格納されたレジストリは `src/scm_ontology/canonical_model.py` と照合・検証されるため、意味論のドリフトは見えにくいドキュメント不整合ではなく、テスト失敗として検出されます。
 
 [`registry/canonical-registry.v0.2.json`](registry/canonical-registry.v0.2.json) と [`docs/roadmap-post-m8.md`](docs/roadmap-post-m8.md) を参照してください。
 
-## Canonical Truthのライフサイクル
+## 基準情報（Canonical Truth）のライフサイクル
 
 ```mermaid
 stateDiagram-v2
@@ -178,7 +178,7 @@ flowchart LR
     PROJ[Projection / Materialization]
     INV[Invalidation / Consistency]
     WRITE[Governed Application]
-    CANON[(Canonical Truth)]
+    CANON[(基準情報（Canonical Truth）)]
 
     CANON --> READ
     CANON --> REASON
@@ -194,7 +194,7 @@ flowchart LR
     style CANON stroke-width:3px
 ```
 
-基本姿勢は**読み取り専用（read-only）**です。Canonical Truthを変更できる唯一の経路は、明示的かつ統治された適用ステップです。
+基本姿勢は**読み取り専用（read-only）**です。基準情報（Canonical Truth）を変更できる唯一の経路は、明示的かつ統治された適用ステップです。
 
 ## 開発履歴
 
@@ -202,8 +202,8 @@ flowchart LR
 
 ## 非妥協の不変条件（Non-negotiable Invariants）
 
-1. **Canonical Truthを暗黙に変更しない** — Mapping、Reasoning、Query、Projection、Materialization、Invalidation、Replay、Recoveryは、Canonical Truthを黙って変更しません。
-2. **Canonical Truthと派生結果を混同しない** — 推論、集計、類似度、確信度、Projectionの結果は、Canonical Factとは区別されたまま保持されます。
+1. **基準情報を暗黙に変更しない** — Mapping、Reasoning、Query、Projection、Materialization、Invalidation、Replay、Recoveryは、基準情報（Canonical Truth）を黙って変更しません。
+2. **基準情報と派生結果を混同しない** — 推論、集計、類似度、確信度、Projectionの結果は、基準事実（Canonical Fact）とは区別されたまま保持されます。
 3. **Provenanceを失わない** — ソース識別情報とエビデンスは、統治された結果に紐付いたまま保持されます。
 4. **履歴を失わない** — Fact Version、ライフサイクル遷移、競合、解決、Projection、Invalidationを再構築できます。
 5. **不確実性を失わない** — 未解決、競合、陳腐化、一部欠損、失敗、未サポート、不明といった結果を観測可能な状態に保ちます。
@@ -217,8 +217,8 @@ flowchart LR
 
 - カノニカルなSCM意味モデル
 - 統治された語彙と関係モデル
-- 企業データをカノニカル化するための契約レイヤー
-- Canonical Graphとグラフ推論の基盤
+- 企業データを基準化するための契約レイヤー
+- 基準グラフ（Canonical Graph）とグラフ推論の基盤
 - ProjectionとSCM OSアプリケーションの基盤
 - 回帰テストによって保護された実行可能な仕様（executable specification）
 
@@ -231,7 +231,7 @@ flowchart LR
 - マルチテナントSaaS、エンタープライズIAM、セキュリティ認証
 - 自律的なOntology学習エージェント、またはグラフへ直接書き込むエージェント
 - 無制限の自律実行、または暗黙の外部副作用
-- Mapping、Inference、Projection、Ingestionが成功しただけで、データがCanonical Truthになる仕組み
+- Mapping、Inference、Projection、Ingestionが成功しただけで、データが基準情報（Canonical Truth）になる仕組み
 - Optimizer / APSの代替製品、または本番規模のIngestion / Scheduler
 
 これらの境界を明確にすることは弱点ではなく、リファレンス実装としての主張の信頼性を高めるための重要な設計です。実際の企業システム連携、マルチテナント展開、エンタープライズIAM、運用監視、性能・スケール対応、より高度なSCMアプリケーションは、Primary Launch後のテーマです（[`BACKLOG.yaml`](BACKLOG.yaml) を参照）。
@@ -278,7 +278,7 @@ Primary Launch後は `v0.1.0`、`v0.2.0`、`v0.3.0` のようにリリース単�
 
 ## Contributing
 
-- 最初に [`AGENTS.md`](AGENTS.md) を読んでください。Canonical Truth境界、Provenance、Governance、Replayなどの非妥協の不変条件を定義しています。
+- 最初に [`AGENTS.md`](AGENTS.md) を読んでください。基準情報（Canonical Truth）境界、Provenance、Governance、Replayなどの非妥協の不変条件を定義しています。
 - Post-launchのアイデアについて、新しいPhaseを開始したり、新しい `Sxxx` 番号を発行したりしないでください。まず、**Primary Launch Blocker**、**Importantなローンチ前改善**、**Post-launch Backlog** のどれに該当するかを判断し、必要に応じて [`BACKLOG.yaml`](BACKLOG.yaml) に記録してください。
 - 新しい契約を導入する前に、既存の統治された契約を組み合わせて解決できないかを検討してください。
 - すべてのSchema / Contract変更には検証とテストを追加してください。CIをGreenにするためにテストや受入条件を弱めてはいけません。
