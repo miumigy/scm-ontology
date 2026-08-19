@@ -2,6 +2,14 @@
 
 This directory is the documentation index for SCM Ontology after **M8 COMPLETE**.
 
+## Primary Launch (SCM Ontology / SCM OS Reference v0.1)
+
+- [`launch/README.md`](launch/README.md) — primary-launch documentation index
+- [`launch/primary-launch.md`](launch/primary-launch.md) — release surface & production boundary
+- [`launch/golden-path.md`](launch/golden-path.md) — the executable Golden Path
+- [`launch/acceptance.md`](launch/acceptance.md) — the L5 acceptance checklist
+- [`../docs/primary-launch-handoff.md`](../docs/primary-launch-handoff.md) — authoritative handoff
+
 ## Start here
 
 1. [`../README.md`](../README.md) — project overview and architecture diagrams
