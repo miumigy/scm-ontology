@@ -160,7 +160,7 @@ flowchart TB
 
 ```mermaid
 flowchart LR
-    MODEL[Canonical Model\nPython semantic registry] --> REG[Machine-readable Registry\nregistry/canonical-registry.v0.2.json]
+    MODEL[Canonical Model\nPython semantic registry] --> REG[Machine-readable Registry\nregistry/canonical-registry.json]
     REG --> LOAD[MachineRegistry loader]
     LOAD --> VALIDATE[Validation & uniqueness]
     VALIDATE --> DRIFT[Python ↔ JSON drift check]
@@ -171,7 +171,7 @@ flowchart LR
 
 The registry is a **semantic vocabulary artifact**, not a storage schema. It captures stable concept identifiers, conceptual layers, world layers, descriptions, relationship predicates, endpoints, and categories. The checked-in artifact is validated against `src/scm_ontology/canonical_model.py`, so semantic drift becomes a test failure rather than an invisible documentation mismatch.
 
-See [`registry/canonical-registry.v0.2.json`](registry/canonical-registry.v0.2.json) and [`docs/history/post-m8-roadmap.md`](docs/history/post-m8-roadmap.md).
+See [`registry/canonical-registry.json`](registry/canonical-registry.json) and [`docs/history/post-m8-roadmap.md`](docs/history/post-m8-roadmap.md).
 
 ## Canonical Truth lifecycle
 
@@ -275,10 +275,9 @@ post-launch themes (see [`BACKLOG.yaml`](BACKLOG.yaml)).
 | Project overview | `README.md` |
 | Documentation index | `docs/README.md` |
 | Current architecture | `docs/architecture/current-architecture.md` |
-| Machine-readable registry | `registry/canonical-registry.v0.2.json` |
+| Machine-readable registry | `registry/canonical-registry.json` |
 | Registry loader | `src/scm_ontology/machine_registry.py` |
 | Development history | `docs/history/` (phase archives and legacy development records) |
-| M8 closure contract (historical) | `docs/history/phase8/S310-m8-acceptance-closure.md` |
 | SCM semantics | `docs/semantics/` |
 | SCM OS operations | `docs/operations/` |
 | Reference material | `docs/reference/` |
@@ -295,7 +294,7 @@ concept in one place is part of the product contract.
 | Directory | Responsibility |
 |---|---|
 | `ontology/` | The SCM semantic model (entities, relationships, events, states, constraints, policies, decisions, KPIs, vocabulary). |
-| `registry/` | Machine-readable canonical vocabulary and registration data (e.g. `canonical-registry.v0.2.json`). |
+| `registry/` | Machine-readable canonical vocabulary and registration data (e.g. `canonical-registry.json`). |
 | `schemas/` | Structural validation rules (JSON Schema) for canonical and interchange documents. |
 | `fixtures/` | Test and regression-validation data (e.g. supply-dependency, inventory-capacity, multi-hop-supply-risk graphs). |
 | `examples/` | Runnable reference examples that help a user understand and run the model. |
