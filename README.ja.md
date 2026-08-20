@@ -6,7 +6,7 @@
 
 **[English](./README.md) | 日本語**
 
-![SCM Ontology コンセプト](./assets/scm-ontology-concept-ja.webp)
+![SCM Ontology コンセプト](./assets/scm-ontology-concept-en.png)
 
 ## なぜこのプロジェクトがあるのか
 
