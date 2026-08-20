@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-DOC = Path("docs/architecture/M4-architecture-freeze.md")
+DOC = Path("docs/history/legacy/architecture-freeze-m4.md")
 
 
 def test_m4_architecture_freeze_contains_truth_boundary() -> None:

@@ -21,6 +21,12 @@ Golden Path. For the normative semantic specification, see
 - [`post-m8/`](post-m8/) — earlier post-M8 architecture planning notes that
   were superseded by the Phase 8 persistent-graph implementation
 
+## Legacy archive
+
+- [`legacy/`](legacy/) — superseded early-design documents (S1–S7 simulation/
+  causal, S116 schema note, M6 fixture note, M4 freeze, v0.2 RC) retained for
+  provenance only
+
 ## Phase index
 
 Each phase is one directory with content-named files.

@@ -70,6 +70,7 @@ the governed decision loop.
 
 - [`reference/canonicalization.md`](reference/canonicalization.md) — reference source-to-canonicalization boundary
 - [`reference/canonicalization-pipeline.md`](reference/canonicalization-pipeline.md) — reference canonicalization pipeline contract
+- [`reference/trace-bundle-versioning.md`](reference/trace-bundle-versioning.md) — trace-bundle interchange schema versioning policy
 
 ## Development history
 
@@ -77,6 +78,7 @@ Development history lives under [`history/`](history/) and is **not** the curren
 product surface:
 
 - [`history/README.md`](history/README.md) — orientation for the development archive
+- [`history/legacy/`](history/legacy/) — superseded early-design documents (simulation/causal, M4 freeze, v0.2 RC)
 - [`history/post-m8-roadmap.md`](history/post-m8-roadmap.md) — the Phase 6–10 post-M8 development roadmap
 - interested readers who want the "why" of the design should start here, then move
   to [`semantics/`](semantics/).

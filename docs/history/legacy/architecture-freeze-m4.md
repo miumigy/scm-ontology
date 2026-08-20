@@ -1,5 +1,10 @@
 # M4 Architecture Freeze
 
+
+> **Historical document.** This records the M4 architecture freeze from the
+> development history. For the current architecture, see
+> [`docs/architecture/current-architecture.md`](../../architecture/current-architecture.md).
+
 ## Purpose
 
 M4 freezes the semantic and runtime boundaries established through S229 before advanced reasoning features are added.

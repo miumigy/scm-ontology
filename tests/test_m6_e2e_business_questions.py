@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-DOC = Path("docs/archive/m6-e2e-business-questions.md")
+DOC = Path("docs/history/legacy/m6-e2e-business-questions.md")
 
 
 def test_m6_e2e_contract_covers_graph_to_answer() -> None:

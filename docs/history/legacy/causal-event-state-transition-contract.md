@@ -2,6 +2,11 @@
 
 ## Purpose
 
+> Historical reference: S7. This early causal/state-transition contract is
+> superseded by the governed causal and canonical fact transition contracts in
+> the current semantic model. Retained for provenance only.
+
+
 S7 connects the existing causal-event model with the S5/S6 canonical state-transition kernel without moving state mutation into causal propagation.
 
 ## Contract

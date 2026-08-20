@@ -5,6 +5,7 @@ concrete source-to-canonical data and pipelines.
 
 - [`canonicalization.md`](canonicalization.md) — reference source-to-canonicalization boundary
 - [`canonicalization-pipeline.md`](canonicalization-pipeline.md) — the reference canonicalization pipeline contract and fixture
+- [`trace-bundle-versioning.md`](trace-bundle-versioning.md) — trace-bundle interchange schema versioning policy
 
 These documents describe how heterogeneous enterprise evidence is shaped into
 explicit, governed canonical facts. They are current reference material, not

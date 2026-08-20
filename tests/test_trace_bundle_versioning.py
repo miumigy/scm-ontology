@@ -3,7 +3,7 @@ from pathlib import Path
 
 
 def test_trace_bundle_versioning_policy_is_documented():
-    policy = Path("docs/trace-bundle-versioning.md").read_text(encoding="utf-8")
+    policy = Path("docs/reference/trace-bundle-versioning.md").read_text(encoding="utf-8")
     assert "PATCH" in policy
     assert "MINOR" in policy
     assert "MAJOR" in policy

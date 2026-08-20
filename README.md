@@ -66,8 +66,8 @@ PYTHONPATH=src python -m scm_ontology.primary_launch --self-check
 PYTHONPATH=src python -m scm_ontology.primary_launch_acceptance --self-check
 ```
 
-Historical `Sxxx`, `Mxx`, and `Px-x` identifiers remain in the milestone
-documents for traceability. See the [Documentation map](#documentation-map) and
+Historical development records retain legacy `Sxxx`, `Mxx`, and `Px-x`
+identifiers where useful for traceability. See the [Documentation map](#documentation-map) and
 [`docs/launch/`](docs/launch/README.md) for the primary-launch surface.
 
 ## Quick Start
@@ -277,8 +277,8 @@ post-launch themes (see [`BACKLOG.yaml`](BACKLOG.yaml)).
 | Current architecture | `docs/architecture/current-architecture.md` |
 | Machine-readable registry | `registry/canonical-registry.v0.2.json` |
 | Registry loader | `src/scm_ontology/machine_registry.py` |
-| Milestones & acceptance | `docs/history/` |
-| M8 closure contract | `docs/history/phase8/S310-m8-acceptance-closure.md` |
+| Development history | `docs/history/` (phase archives and legacy development records) |
+| M8 closure contract (historical) | `docs/history/phase8/S310-m8-acceptance-closure.md` |
 | SCM semantics | `docs/semantics/` |
 | SCM OS operations | `docs/operations/` |
 | Reference material | `docs/reference/` |
@@ -286,7 +286,6 @@ post-launch themes (see [`BACKLOG.yaml`](BACKLOG.yaml)).
 | Agent development rules | `AGENTS.md` |
 | Primary launch index | `docs/launch/README.md` |
 | Golden Path | `docs/launch/golden-path.md` |
-| Development history | `docs/history/` (Phase 6–10 SCM OS reference build records) |
 
 ## Repository layout
 
