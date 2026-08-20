@@ -21,10 +21,10 @@
 - [`reference-canonicalization-boundary.md`](./reference-canonicalization-boundary.md) — reference source-to-canonical boundary
 - [`reference-scm-os-flow.md`](./reference-scm-os-flow.md) — reference end-to-end SCM OS flow
 
-## Historical freezes
+## Superseded freezes (archived)
 
-- [`M4-architecture-freeze.md`](./M4-architecture-freeze.md) — M4 semantic/runtime freeze
-- [`v0.2-release-candidate.md`](./v0.2-release-candidate.md) — v0.2 RC historical snapshot
+- M4 semantic/runtime freeze → [`../history/legacy/architecture-freeze-m4.md`](../history/legacy/architecture-freeze-m4.md)
+- v0.2 RC architecture snapshot → [`../history/legacy/v0.2-release-candidate.md`](../history/legacy/v0.2-release-candidate.md)
 - [`extension-governance.md`](./extension-governance.md) — governed extension lifecycle
 
 ## Reading order

@@ -1,5 +1,10 @@
 # M6-FX-001 — Supply Dependency Chain
 
+> Historical reference: M6-FX-001. Superseded by
+> [`docs/graph-fixtures/README.md`](../../graph-fixtures/README.md). Retained for
+> provenance only.
+
+
 ## Purpose
 
 Executable canonical graph fixture for UC-01 Supply Dependency and UC-02 Site Dependency.

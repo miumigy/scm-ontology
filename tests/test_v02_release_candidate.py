@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-DOC = Path("docs/architecture/v0.2-release-candidate.md")
+DOC = Path("docs/history/legacy/v0.2-release-candidate.md")
 
 
 def test_v02_rc_contains_frozen_stack() -> None:
