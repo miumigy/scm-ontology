@@ -6,6 +6,8 @@
 
 **English** | [日本語](./README.ja.md)
 
+![SCM Ontology concept](./assets/scm-ontology-concept-en.webp)
+
 ## Why this project exists
 
 Enterprise SCM data is rich but fragmented: ERP, WMS, TMS, APS, planning, logistics, procurement, manufacturing, and analytics systems each carry their own identifiers, semantics, temporal rules, and assumptions.

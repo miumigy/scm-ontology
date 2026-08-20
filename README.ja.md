@@ -6,6 +6,8 @@
 
 **[English](./README.md) | 日本語**
 
+![SCM Ontology コンセプト](./assets/scm-ontology-concept-ja.webp)
+
 ## なぜこのプロジェクトがあるのか
 
 企業のSCMデータは豊富ですが、ERP、WMS、TMS、APS、計画、物流、調達、製造、分析など、システムごとに識別子、意味、時間の扱い、前提条件が異なります。
