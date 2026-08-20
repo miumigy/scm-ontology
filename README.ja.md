@@ -201,7 +201,7 @@ flowchart TB
 
 ```mermaid
 flowchart LR
-    MODEL[基準意味モデル\nPythonの意味定義] --> REG[機械可読な基準語彙\nregistry/canonical-registry.v0.2.json]
+    MODEL[基準意味モデル\nPythonの意味定義] --> REG[機械可読な基準語彙\nregistry/canonical-registry.json]
     REG --> LOAD[MachineRegistry読み込み]
     LOAD --> VALIDATE[検証・一意性確認]
     VALIDATE --> DRIFT[Python ↔ JSONの差分検出]
@@ -214,7 +214,7 @@ flowchart LR
 
 チェックインされたJSONは `src/scm_ontology/canonical_model.py` と照合・検証され、意味のずれが目に見えないまま蓄積するのではなく、テストの失敗として検出されます。
 
-詳細：[`registry/canonical-registry.v0.2.json`](registry/canonical-registry.v0.2.json)
+詳細：[`registry/canonical-registry.json`](registry/canonical-registry.json)
 
 ## 基準となる事実のライフサイクル
 
@@ -313,10 +313,9 @@ SCM OSリファレンス構築のPhase 6〜10と、開発上の節目・各仕�
 | プロジェクト概要 | `README.md` / `README.ja.md` |
 | ドキュメント一覧 | `docs/README.md` |
 | 現在のアーキテクチャ | `docs/architecture/current-architecture.md` |
-| 機械可読な基準語彙 | `registry/canonical-registry.v0.2.json` |
+| 機械可読な基準語彙 | `registry/canonical-registry.json` |
 | 基準語彙ローダー | `src/scm_ontology/machine_registry.py` |
 | 開発履歴 | `docs/history/`（フェーズ記録とレガシー開発記録） |
-| M8完了契約（開発履歴） | `docs/history/phase8/S310-m8-acceptance-closure.md` |
 | 意味に関する仕様 | `docs/semantics/` |
 | SCM OS運用 | `docs/operations/` |
 | 参照資料 | `docs/reference/` |
@@ -333,7 +332,7 @@ SCM OSリファレンス構築のPhase 6〜10と、開発上の節目・各仕�
 | ディレクトリ | 役割 |
 |---|---|
 | `ontology/` | SCMの意味モデル（対象、関係、出来事、状態、制約、方針、意思決定、KPI、語彙）。 |
-| `registry/` | 機械可読な基準語彙と登録情報（例：`canonical-registry.v0.2.json`）。 |
+| `registry/` | 機械可読な基準語彙と登録情報（例：`canonical-registry.json`）。 |
 | `schemas/` | 構造検証ルール（基準・交換文書のJSON Schema）。 |
 | `fixtures/` | テスト・回帰検証用のデータ（例：供給依存・在庫能力・多段供給リスクのグラフ）。 |
 | `examples/` | 利用者がモデルを理解・実行するための参照例。 |
