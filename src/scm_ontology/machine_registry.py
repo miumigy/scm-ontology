@@ -85,7 +85,7 @@ class MachineRegistry:
 
 
 def _default_registry_path() -> Path:
-    return Path(__file__).resolve().parents[2] / "registry" / "canonical-registry.v0.2.json"
+    return Path(__file__).resolve().parents[2] / "registry" / "canonical-registry.json"
 
 
 def _default_schema_path() -> Path:
